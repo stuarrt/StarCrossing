@@ -6,7 +6,7 @@
 	<ProductVersion>10.0.20506</ProductVersion>
 	<SchemaVersion>2.0</SchemaVersion>
 	<RootNamespace></RootNamespace>
-	<ProjectGuid>{9A354B57-432B-9753-8821-DF534ED89FE4}</ProjectGuid>
+	<ProjectGuid>{15F78602-8226-F950-5614-9FB9E760BCF3}</ProjectGuid>
 	<OutputType>Library</OutputType>
 	<AppDesignerFolder>Properties</AppDesignerFolder>
 	<AssemblyName>Assembly-CSharp</AssemblyName>
@@ -46,6 +46,9 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\Dialogue.cs" />
+     <Compile Include="Assets\Scripts\Inventory.cs" />
+     <Compile Include="Assets\Scripts\InventoryItem.cs" />
+     <Compile Include="Assets\Scripts\MainCamera.cs" />
      <Compile Include="Assets\Scripts\NPCDialogue.cs" />
      <Compile Include="Assets\Scripts\PlayerController.cs" />
      <None Include="Assets\npcname.txt" />
