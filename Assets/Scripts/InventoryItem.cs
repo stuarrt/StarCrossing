@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Collider))]
+
 public class InventoryItem : MonoBehaviour {
 
 	//The type or identity of the object
@@ -26,12 +27,6 @@ public class InventoryItem : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 	
-	}
-
-	public void OnClicked(Vector2 mouse){
-		Inventory.Instance.CurrentInventory.Remove(inventoryType);
-		Inventory.Instance.CurrentInventory.Add (inventoryType, true);
-		Destroy(this);
 	}
 
 	public void OnMouseDown(){

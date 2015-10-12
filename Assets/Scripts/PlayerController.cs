@@ -23,6 +23,10 @@ public class PlayerController : MonoBehaviour {
 			if (Input.GetKey (KeyCode.Space)) {
 				transform.position = new Vector3 (transform.position.x, transform.position.y + 0.08f, transform.position.z);
 			}
+			if (Input.GetKey (KeyCode.I)) {
+				Debug.Log("Inventory Button Pressed");
+				Inventory.Instance.ToggleInventory();
+			}
 		}
 
 	}
