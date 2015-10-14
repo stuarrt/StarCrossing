@@ -19,15 +19,17 @@ public class NPCDialogue : Dialogue {
 	}
 
 	public override void OnGUI() {
+		//Inherits Dialogue OnGUI
 		base.OnGUI ();
 		//Dialogue based off whether the quest was completed or not
-		if (!QuestList.quests [0].completed) {
+		if (!QuestList.quests [0].completed || !QuestList.quests [0].display) {
 			conversation(lines);
 		}
+		//How much dialogue the player must go through to accept the quest
 		if (dialoguecount >= 1) {
 			addQuest(0);
 		}
-		//If the player has talked to
+		//If the player has accepted and completed the quest
 		if (QuestList.quests [0].completed && QuestList.quests [0].display) {
 			conversation(lines2);
 		}
