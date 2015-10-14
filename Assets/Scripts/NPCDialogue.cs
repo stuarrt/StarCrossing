@@ -11,7 +11,7 @@ public class NPCDialogue : Dialogue {
 	void Start() {
 		npcname = "NPCName";
 		textfile = File.ReadAllText ("Assets/npcname.txt");
-		responsefile = File.ReadAllText ("Assets/responses.txt");
+		responsefile = File.ReadAllText ("Assets/npcresponses.txt");
 		textfile2 = File.ReadAllText ("Assets/npcname2.txt");
 		lines = textfile.Split('\n');
 		lines2 = textfile2.Split('\n');
