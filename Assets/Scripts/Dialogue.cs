@@ -40,7 +40,10 @@ public abstract class Dialogue : MonoBehaviour {
 
 	//Determines the page number for dialogue
 	//Each page is represented by a line in the text file (.txt)
+	//Defaulted to 0
 	protected int page;
+
+	protected int dialoguecount;
 
 	public virtual void Update() {
 		//If the player is talking
@@ -70,60 +73,71 @@ public abstract class Dialogue : MonoBehaviour {
 	//Creates a drop-down menu for the player responses if it is toggled on
 	void dropMenu(float x, float y, int i, float sizeX) {
 		//Determines whether to open the drop-down part of the menu
+		//***NOTE: Should probably modify how each NPC selects responses
 		if (page == 1) {
-		if (GUI.Button (new Rect (x, y, sizeX, 30), selection [i])) {
-			if (!showmenu [i]) {
-				showmenu [i] = true;
-			} else {
-				showmenu [i] = false;
-			}
-		}
-		if (showmenu [i]) {
-				//Bottom Response
-				if (GUI.Button (new Rect (x, y - 30, sizeX, 30), responses[i+2])) {
-					selection [i] = responses[i+2];
+			if (GUI.Button (new Rect (x, y, sizeX, 30), selection [i])) {
+				if (!showmenu [i]) {
+					showmenu [i] = true;
+				} else {
 					showmenu [i] = false;
 				}
-				//Middle Response
-				if (GUI.Button(new Rect(x, y - 60, sizeX, 30), responses[i+1])) {
-					selection[i] = responses[i+1];
-					showmenu[i] = false;
-				}
-				//Top Response
-				if (GUI.Button(new Rect(x, y - 90, sizeX, 30), responses[i])) {
-					selection[i] = responses[i];
-					showmenu[i] = false;
+			}
+			if (showmenu [i]) {
+					//Bottom Response
+					if (GUI.Button (new Rect (x, y - 30, sizeX, 30), responses[i+2])) {
+						selection [i] = responses[i+2];
+						showmenu [i] = false;
+					}
+					//Middle Response
+					if (GUI.Button(new Rect(x, y - 60, sizeX, 30), responses[i+1])) {
+						selection[i] = responses[i+1];
+						showmenu[i] = false;
+					}
+					//Top Response
+					if (GUI.Button(new Rect(x, y - 90, sizeX, 30), responses[i])) {
+						selection[i] = responses[i];
+						showmenu[i] = false;
+					}
 				}
 			}
-		}
 	}
 
+	//Generic outline of the conversation (select which conversation to display)
 	public void conversation(string[] l) {
+		//If the player is talking, display dialogue GUI
 		if (talking) {
 			GUI.Box(new Rect(10, Screen.height / 2, Screen.width - 20, Screen.height / 2 - 10), "");
 			GUI.Box(new Rect(10, Screen.height / 2, Screen.width / 5, Screen.height / 2 - 10), "");
 			GUI.Box(new Rect(10 + (Screen.width / 5), Screen.height / 2, Screen.width - (20 + (Screen.width / 5)), Screen.height / 2 - 10), "");
 			if (gameObject.tag == npcname) {
 				dropMenu(Screen.width - 320, Screen.height - 60, 0, 150);
+				//Goes to the next page of dialogue
 				if (page < (l.Length - 1)) {
 					GUI.Label(new Rect(15 + (Screen.width / 5), Screen.height / 2, Screen.width - (20 + (Screen.width / 5)), Screen.height / 2 - 60), l[page], diaStyle);
 					if (GUI.Button (new Rect (Screen.width - 120, Screen.height - 60, 100, 50), "Next")) {
 						page += 1;
 					}
 				}
+				//If on the last page, close dialogue when clicking goodbye
 				if (page == (l.Length - 1)) {
 					GUI.Label(new Rect(15 + (Screen.width / 5), Screen.height / 2, Screen.width - (20 + (Screen.width / 5)), Screen.height / 2 - 60), l[page], diaStyle);
 					if (GUI.Button (new Rect (Screen.width - 120, Screen.height - 60, 100, 50), "Goodbye")) {
 						talking = false;
 						cantalk = true;
 						page = 0;
+						dialoguecount += 1;
 					}
 				}
 			}
 		}
 	}
 
+	public void addQuest(int i) {
+		QuestList.quests [i].display = true;
+	}
+
 	public virtual void OnGUI() {
+		//If the player is talking, display the conversation
 		if (cantalk) {
 			if (GUI.Button (new Rect (Screen.width - 70, Screen.height - 60, 50, 50), "Talk")) {
 				talking = true;
