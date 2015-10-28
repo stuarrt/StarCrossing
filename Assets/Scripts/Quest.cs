@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Quest {
 
-	//Quests are based off their name and whether they are completed or not
+	//Quests are based off their name and whether they should be displayed and if they have been completed
 	public string name;
 	public bool display;
 	public bool completed;

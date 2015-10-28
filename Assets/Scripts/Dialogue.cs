@@ -6,7 +6,7 @@ using System.Collections.Generic;
 public abstract class Dialogue : MonoBehaviour {
 
 	//This is used for testing, can be commmented out
-	//public GUIStyle testgui;
+	public GUIStyle testgui;
 
 	//This is used for the style of the dialogue
 	public GUIStyle diaStyle;
@@ -16,6 +16,12 @@ public abstract class Dialogue : MonoBehaviour {
 
 	//Determines if the Player is currently talking to an NPC
 	protected bool talking;
+
+	//Determines if the player is making a choice
+	protected bool choose;
+
+	//Determines if the player should say goodbye to the NPC
+	protected bool goodbye;
 
 	//Determines the name of the NPC the player is talking to
 	protected string npcname;
@@ -71,10 +77,13 @@ public abstract class Dialogue : MonoBehaviour {
 	}
 
 	//Creates a drop-down menu for the player responses if it is toggled on
-	void dropMenu(float x, float y, int i, float sizeX) {
+	public void dropMenu(int i, float sizeX, int p) {
+		float x = Screen.width - 320;
+		float y = Screen.height - 60;
 		//Determines whether to open the drop-down part of the menu
 		//***NOTE: Should probably modify how each NPC selects responses
-		if (page == 1) {
+		if (page == p) {
+			choose = true;
 			if (GUI.Button (new Rect (x, y, sizeX, 30), selection [i])) {
 				if (!showmenu [i]) {
 					showmenu [i] = true;
@@ -99,7 +108,7 @@ public abstract class Dialogue : MonoBehaviour {
 						showmenu[i] = false;
 					}
 				}
-			}
+		}
 	}
 
 	//Generic outline of the conversation (select which conversation to display)
@@ -110,22 +119,87 @@ public abstract class Dialogue : MonoBehaviour {
 			GUI.Box(new Rect(10, Screen.height / 2, Screen.width / 5, Screen.height / 2 - 10), "");
 			GUI.Box(new Rect(10 + (Screen.width / 5), Screen.height / 2, Screen.width - (20 + (Screen.width / 5)), Screen.height / 2 - 10), "");
 			if (gameObject.tag == npcname) {
-				dropMenu(Screen.width - 320, Screen.height - 60, 0, 150);
-				//Goes to the next page of dialogue
-				if (page < (l.Length - 1)) {
-					GUI.Label(new Rect(15 + (Screen.width / 5), Screen.height / 2, Screen.width - (20 + (Screen.width / 5)), Screen.height / 2 - 60), l[page], diaStyle);
-					if (GUI.Button (new Rect (Screen.width - 120, Screen.height - 60, 100, 50), "Next")) {
-						page += 1;
+					//Goes to the next page of dialogue
+					if (page < (l.Length - 1)) {
+						GUI.Label(new Rect(15 + (Screen.width / 5), Screen.height / 2, Screen.width - (20 + (Screen.width / 5)), Screen.height / 2 - 60), l[page], diaStyle);
+						if (GUI.Button (new Rect (Screen.width - 120, Screen.height - 60, 100, 50), "Next")) {
+							page += 1;
+						}
+					}
+					//If on the last page, close dialogue when clicking goodbye
+					if (page == (l.Length - 1)) {
+						GUI.Label(new Rect(15 + (Screen.width / 5), Screen.height / 2, Screen.width - (20 + (Screen.width / 5)), Screen.height / 2 - 60), l[page], diaStyle);
+						if (GUI.Button (new Rect (Screen.width - 120, Screen.height - 60, 100, 50), "Goodbye")) {
+							talking = false;
+							cantalk = true;
+							page = 0;
+							dialoguecount += 1;
+						}
+					}
+			}
+		}
+	}
+
+	public void makeChoice(string[] l, List<int> choices, string choice1, string choice2, string choice3) {
+		//If the player is talking, display dialogue GUI
+		if (talking) {
+			GUI.Box (new Rect (10, Screen.height / 2, Screen.width - 20, Screen.height / 2 - 10), "");
+			GUI.Box (new Rect (10, Screen.height / 2, Screen.width / 5, Screen.height / 2 - 10), "");
+			GUI.Box (new Rect (10 + (Screen.width / 5), Screen.height / 2, Screen.width - (20 + (Screen.width / 5)), Screen.height / 2 - 10), "");
+			if (gameObject.tag == npcname) {
+				if (!choices.Contains(page)) {
+					//Goes to the next page of dialogue
+					if (page < (l.Length - 1) && !goodbye) {
+						GUI.Label(new Rect(15 + (Screen.width / 5), Screen.height / 2, Screen.width - (20 + (Screen.width / 5)), Screen.height / 2 - 60), l[page], diaStyle);
+						if (GUI.Button (new Rect (Screen.width - 120, Screen.height - 60, 100, 50), "Next")) {
+							page += 1;
+						}
+					}
+					//If on the last page, close dialogue when clicking goodbye
+					if (page == (l.Length - 1) || goodbye) {
+						GUI.Label(new Rect(15 + (Screen.width / 5), Screen.height / 2, Screen.width - (20 + (Screen.width / 5)), Screen.height / 2 - 60), l[page], diaStyle);
+						if (GUI.Button (new Rect (Screen.width - 120, Screen.height - 60, 100, 50), "Goodbye")) {
+							talking = false;
+							cantalk = true;
+							page = 0;
+							dialoguecount += 1;
+							goodbye = false;
+						}
 					}
 				}
-				//If on the last page, close dialogue when clicking goodbye
-				if (page == (l.Length - 1)) {
-					GUI.Label(new Rect(15 + (Screen.width / 5), Screen.height / 2, Screen.width - (20 + (Screen.width / 5)), Screen.height / 2 - 60), l[page], diaStyle);
-					if (GUI.Button (new Rect (Screen.width - 120, Screen.height - 60, 100, 50), "Goodbye")) {
-						talking = false;
-						cantalk = true;
-						page = 0;
-						dialoguecount += 1;
+				if (choices.Contains (page)) {
+					//Goes to the next page of dialogue
+					if (page < (l.Length - 1) && !goodbye) {
+						GUI.Label (new Rect (15 + (Screen.width / 5), Screen.height / 2, Screen.width - (20 + (Screen.width / 5)), Screen.height / 2 - 60), l [page], diaStyle);
+						if (selection [0] != "Select Response") {
+							if (GUI.Button (new Rect (Screen.width - 120, Screen.height - 60, 100, 50), "Next")) {
+								if (selection [0] == choice1) {
+									page += 1;
+									goodbye = true;
+								}
+								if (selection [0] == choice2) {
+									page += 2;
+									goodbye = true;
+								}
+								if (selection [0] == choice3) {
+									page += 3;
+									goodbye = true;
+								}
+							}
+						}
+					}
+					//If on the last page, close dialogue when clicking goodbye
+					if (page == (l.Length - 1) || goodbye) {
+						GUI.Label (new Rect (15 + (Screen.width / 5), Screen.height / 2, Screen.width - (20 + (Screen.width / 5)), Screen.height / 2 - 60), l [page], diaStyle);
+						if (selection [0] != "Select Response") {
+							if (GUI.Button (new Rect (Screen.width - 120, Screen.height - 60, 100, 50), "Goodbye")) {
+								talking = false;
+								cantalk = true;
+								page = 0;
+								dialoguecount += 1;
+								goodbye = false;
+							}
+						}
 					}
 				}
 			}
@@ -144,6 +218,7 @@ public abstract class Dialogue : MonoBehaviour {
 				cantalk = false;
 			}
 		}
+		//GUI.Label (new Rect (Screen.width / 2, 25, 200, 50), "Current Selection: " + selection[0] + " Goodbye: " + goodbye, testgui);
 	}
 
 }

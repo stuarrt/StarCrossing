@@ -10,9 +10,9 @@ public class NPCDialogue : Dialogue {
 
 	void Start() {
 		npcname = "NPCName"; //Name of NPC (listed as a tag)
-		textfile = File.ReadAllText ("Assets/npcname.txt"); //main dialogue
-		responsefile = File.ReadAllText ("Assets/npcresponses.txt"); //player responses
-		textfile2 = File.ReadAllText ("Assets/npcname2.txt"); //other lines of dialogue
+		textfile = File.ReadAllText ("Assets/Dialogue/NPCName/npcname.txt"); //main dialogue
+		responsefile = File.ReadAllText ("Assets/Dialogue/NPCName/npcresponses.txt"); //player responses
+		textfile2 = File.ReadAllText ("Assets/Dialogue/NPCName/npcname2.txt"); //other lines of dialogue
 		lines = textfile.Split('\n'); //main parser
 		lines2 = textfile2.Split('\n'); //second parser
 		responses = responsefile.Split('\n'); //main responses
@@ -23,10 +23,11 @@ public class NPCDialogue : Dialogue {
 		base.OnGUI ();
 		//Dialogue based off whether the quest was completed or not
 		if (!QuestList.quests [0].completed || !QuestList.quests [0].display) {
-			conversation(lines);
+			makeChoice(lines, new List<int>(){1}, responses[0], responses[1], responses[2]);
+			dropMenu(0, 150, 1);
 		}
-		//How much dialogue the player must go through to accept the quest
-		if (dialoguecount >= 1) {
+		//How much dialogue the player must go through to accept the quest ##dialoguecount >= 1
+		if (selection[0] == responses[0] && goodbye) {
 			addQuest(0);
 		}
 		//If the player has accepted and completed the quest
