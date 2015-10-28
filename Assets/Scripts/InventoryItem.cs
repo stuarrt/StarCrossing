@@ -15,6 +15,11 @@ public class InventoryItem : MonoBehaviour {
 	public Transform MyTransform { get; private set; }
 	public Collider MyCollider { get; private set; }
 
+	public int noticeDistance;
+
+	//TODO Remove this and replace it with a real working system
+	public bool canClick = false;
+
 	// Use this for initialization
 	void Awake () {
 		AllItems.Add(this);
@@ -22,19 +27,35 @@ public class InventoryItem : MonoBehaviour {
 		MyTransform = transform;
 		MyCollider = GetComponent<Collider>();
 
+		if (noticeDistance == 0){
+			noticeDistance = 10;
+		}
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		//Check if player is close
+		if (Vector3.Distance(PlayerController.MyTransform.position, MyTransform.position) < noticeDistance){
+			//TODO Something
+			canClick = true;
+		}
+		else {
+			canClick = false;
+		}
 	
 	}
 
 	public void OnMouseDown(){
-		Inventory.Instance.CurrentInventory.Remove(inventoryType);
-		Inventory.Instance.CurrentInventory.Add (inventoryType, true);
+		if (canClick){
+			Inventory.Instance.CurrentInventory.Remove(inventoryType);
+			Inventory.Instance.CurrentInventory.Add (inventoryType, true);
 
-		Inventory.Instance.PrintInventory();
+			Inventory.Instance.PrintInventory();
 
-		Destroy(gameObject);
+			Destroy(gameObject);
+		}
+		else {
+			return;
+		}
 	}
 }

@@ -46,7 +46,9 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\InventoryIcon.cs" />
+     <Compile Include="Assets\NPC.cs" />
      <Compile Include="Assets\Scripts\Dialogue.cs" />
+     <Compile Include="Assets\Scripts\Doorway.cs" />
      <Compile Include="Assets\Scripts\Inventory.cs" />
      <Compile Include="Assets\Scripts\InventoryItem.cs" />
      <Compile Include="Assets\Scripts\MainCamera.cs" />
@@ -55,6 +57,8 @@
      <Compile Include="Assets\Scripts\Quest.cs" />
      <Compile Include="Assets\Scripts\QuestList.cs" />
      <None Include="Assets\npcresponses.txt" />
+     <None Include="Assets\TSF\Shaders\TSFOutline.shader" />
+     <None Include="Assets\TSF\Shaders\TSF.shader" />
      <None Include="Assets\npcname.txt" />
      <None Include="Assets\npcname2.txt" />
  <Reference Include="UnityEngine.UI">
