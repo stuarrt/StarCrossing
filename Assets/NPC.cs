@@ -32,11 +32,11 @@ public class NPC : MonoBehaviour {
 		player = PlayerController.MyTransform;
 
 		if (lookAtDistance == 0){
-			lookAtDistance = 3;
+			lookAtDistance = 1;
 		}
 
 		if (cycleSpeed == 0){
-			cycleSpeed = 25;
+			cycleSpeed = 125;
 		}
 
 		if (speed == 0){
@@ -44,7 +44,7 @@ public class NPC : MonoBehaviour {
 		}
 
 		isMoving = true;
-		cycleTrack = cycleSpeed;
+		cycleTrack = Random.Range (cycleSpeed - 22, cycleSpeed + 31);
 	}
 	
 	// Update is called once per frame
@@ -93,14 +93,14 @@ public class NPC : MonoBehaviour {
 
 	void ChooseDirection(int i){
 		currentDirection = (NPCDirection) i;
-		cycleTrack = cycleSpeed;
+		cycleTrack = Random.Range (cycleSpeed - 20, cycleSpeed + 27);
 	}
 
 	void StopMoving(NPCDirection newDirection = NPCDirection.Stop){
 		currentDirection = newDirection;
 
 		isMoving= false;
-		cycleTrack = cycleSpeed;
+		cycleTrack = Random.Range (cycleSpeed - 25, cycleSpeed + 30);
 	}
 
 }

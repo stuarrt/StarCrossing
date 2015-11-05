@@ -47,6 +47,7 @@
   <ItemGroup>
      <Compile Include="Assets\InventoryIcon.cs" />
      <Compile Include="Assets\NPC.cs" />
+     <Compile Include="Assets\Scripts\CheckTime.cs" />
      <Compile Include="Assets\Scripts\Dialogue.cs" />
      <Compile Include="Assets\Scripts\Doorway.cs" />
      <Compile Include="Assets\Scripts\Inventory.cs" />
@@ -56,16 +57,25 @@
      <Compile Include="Assets\Scripts\PlayerController.cs" />
      <Compile Include="Assets\Scripts\Quest.cs" />
      <Compile Include="Assets\Scripts\QuestList.cs" />
+     <None Include="Assets\Dialogue\NPCName\npcname.txt" />
+     <None Include="Assets\Dialogue\NPCName\npcname2.txt" />
      <None Include="Assets\npcresponses.txt" />
      <None Include="Assets\TSF\Shaders\TSFOutline.shader" />
      <None Include="Assets\TSF\Shaders\TSF.shader" />
+     <None Include="Assets\Dialogue\NPCName\npcresponses.txt" />
      <None Include="Assets\npcname.txt" />
      <None Include="Assets\npcname2.txt" />
+ <Reference Include="UnityEngine.Advertisements">
+ <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Advertisements/UnityEngine.Advertisements.dll</HintPath>
+ </Reference>
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.Networking">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.Analytics">
+ <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityAnalytics/UnityEngine.Analytics.dll</HintPath>
  </Reference>
  <Reference Include="Mono.Cecil">
  <HintPath>C:/Program Files/Unity/Editor/Data/Managed/Mono.Cecil.dll</HintPath>

@@ -51,6 +51,34 @@ public abstract class Dialogue : MonoBehaviour {
 
 	protected int dialoguecount;
 
+	//Max x,y text movement when dialog is shaking
+	//z value denotes speed of text shaking
+	public Vector3 shakeVal;
+
+	//Max x,y text movement when dialog is violently shaking
+	//z value denotes speed of text shaking
+	public Vector3 angryVal;
+
+	//Values that the text is shifted by
+	public float textX;
+	public float textY;
+
+	public enum DialogType
+	{
+		Normal, 
+		Shaking,
+		Angry,
+	}
+
+	public virtual void Awake(){
+		if (shakeVal == new Vector3(0, 0, 0)){
+			shakeVal = new Vector3(2,1, 15);
+		}
+		if (angryVal == new Vector3(0, 0, 0)){
+			angryVal = new Vector3(3, 2, 25);
+		}
+	}
+
 	public virtual void Update() {
 		//If the player is talking
 		//pause all movement
@@ -59,7 +87,7 @@ public abstract class Dialogue : MonoBehaviour {
 		}
 		if (!talking) {
 			Time.timeScale = 1;
-		}
+		} 
 	}
 
 	//Used for determining if the player is in range for talking to the NPC
@@ -111,8 +139,20 @@ public abstract class Dialogue : MonoBehaviour {
 		}
 	}
 
+	//TODO: Edit this function to determine whether the line being displayed needs to be shaken a certain way and act accordingly
+	public void moveText(string[] l){
+		//For now, it just shakes the text if there is text
+		if (l[page] != null){
+			textX = Mathf.PingPong(Time.realtimeSinceStartup * shakeVal.z, shakeVal.x);
+			textY = Mathf.PingPong(Time.realtimeSinceStartup * shakeVal.z, shakeVal.y);
+		}
+	}
+
 	//Generic outline of the conversation (select which conversation to display)
 	public void conversation(string[] l) {
+		//Determine the values to shift text by if any
+		moveText(l);
+
 		//If the player is talking, display dialogue GUI
 		if (talking) {
 			GUI.Box(new Rect(10, Screen.height / 2, Screen.width - 20, Screen.height / 2 - 10), "");
@@ -121,14 +161,14 @@ public abstract class Dialogue : MonoBehaviour {
 			if (gameObject.tag == npcname) {
 					//Goes to the next page of dialogue
 					if (page < (l.Length - 1)) {
-						GUI.Label(new Rect(15 + (Screen.width / 5), Screen.height / 2, Screen.width - (20 + (Screen.width / 5)), Screen.height / 2 - 60), l[page], diaStyle);
+						GUI.Label(new Rect(15 + (Screen.width / 5) + textX, (Screen.height / 2) + textY, Screen.width - (20 + (Screen.width / 5)), Screen.height / 2 - 60), l[page], diaStyle);
 						if (GUI.Button (new Rect (Screen.width - 120, Screen.height - 60, 100, 50), "Next")) {
 							page += 1;
 						}
 					}
 					//If on the last page, close dialogue when clicking goodbye
 					if (page == (l.Length - 1)) {
-						GUI.Label(new Rect(15 + (Screen.width / 5), Screen.height / 2, Screen.width - (20 + (Screen.width / 5)), Screen.height / 2 - 60), l[page], diaStyle);
+					GUI.Label(new Rect(15 + (Screen.width / 5) + textX, (Screen.height / 2) + textY, Screen.width - (20 + (Screen.width / 5)), Screen.height / 2 - 60), l[page], diaStyle);
 						if (GUI.Button (new Rect (Screen.width - 120, Screen.height - 60, 100, 50), "Goodbye")) {
 							talking = false;
 							cantalk = true;
@@ -141,6 +181,9 @@ public abstract class Dialogue : MonoBehaviour {
 	}
 
 	public void makeChoice(string[] l, List<int> choices, string choice1, string choice2, string choice3) {
+		//Determine the values to shift text by if any
+		moveText(l);
+
 		//If the player is talking, display dialogue GUI
 		if (talking) {
 			GUI.Box (new Rect (10, Screen.height / 2, Screen.width - 20, Screen.height / 2 - 10), "");
@@ -150,14 +193,14 @@ public abstract class Dialogue : MonoBehaviour {
 				if (!choices.Contains(page)) {
 					//Goes to the next page of dialogue
 					if (page < (l.Length - 1) && !goodbye) {
-						GUI.Label(new Rect(15 + (Screen.width / 5), Screen.height / 2, Screen.width - (20 + (Screen.width / 5)), Screen.height / 2 - 60), l[page], diaStyle);
+						GUI.Label(new Rect(15 + (Screen.width / 5) + textX, (Screen.height / 2) + textY, Screen.width - (20 + (Screen.width / 5)), Screen.height / 2 - 60), l[page], diaStyle);
 						if (GUI.Button (new Rect (Screen.width - 120, Screen.height - 60, 100, 50), "Next")) {
 							page += 1;
 						}
 					}
 					//If on the last page, close dialogue when clicking goodbye
 					if (page == (l.Length - 1) || goodbye) {
-						GUI.Label(new Rect(15 + (Screen.width / 5), Screen.height / 2, Screen.width - (20 + (Screen.width / 5)), Screen.height / 2 - 60), l[page], diaStyle);
+						GUI.Label(new Rect(15 + (Screen.width / 5) + textX, (Screen.height / 2) + textY, Screen.width - (20 + (Screen.width / 5)), Screen.height / 2 - 60), l[page], diaStyle);
 						if (GUI.Button (new Rect (Screen.width - 120, Screen.height - 60, 100, 50), "Goodbye")) {
 							talking = false;
 							cantalk = true;
@@ -170,7 +213,7 @@ public abstract class Dialogue : MonoBehaviour {
 				if (choices.Contains (page)) {
 					//Goes to the next page of dialogue
 					if (page < (l.Length - 1) && !goodbye) {
-						GUI.Label (new Rect (15 + (Screen.width / 5), Screen.height / 2, Screen.width - (20 + (Screen.width / 5)), Screen.height / 2 - 60), l [page], diaStyle);
+						GUI.Label (new Rect (15 + (Screen.width / 5) + textX, (Screen.height / 2) + textY, Screen.width - (20 + (Screen.width / 5)), Screen.height / 2 - 60), l [page], diaStyle);
 						if (selection [0] != "Select Response") {
 							if (GUI.Button (new Rect (Screen.width - 120, Screen.height - 60, 100, 50), "Next")) {
 								if (selection [0] == choice1) {
@@ -190,7 +233,7 @@ public abstract class Dialogue : MonoBehaviour {
 					}
 					//If on the last page, close dialogue when clicking goodbye
 					if (page == (l.Length - 1) || goodbye) {
-						GUI.Label (new Rect (15 + (Screen.width / 5), Screen.height / 2, Screen.width - (20 + (Screen.width / 5)), Screen.height / 2 - 60), l [page], diaStyle);
+						GUI.Label (new Rect (15 + (Screen.width / 5) + textX, (Screen.height / 2) + textY, Screen.width - (20 + (Screen.width / 5)), Screen.height / 2 - 60), l [page], diaStyle);
 						if (selection [0] != "Select Response") {
 							if (GUI.Button (new Rect (Screen.width - 120, Screen.height - 60, 100, 50), "Goodbye")) {
 								talking = false;
