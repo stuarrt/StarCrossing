@@ -71,6 +71,8 @@ public abstract class Dialogue : MonoBehaviour {
 		Angry,
 	}
 
+	public Font NikumaruFont;
+
 	public virtual void Awake(){
 		if (shakeVal == new Vector3(0, 0, 0)){
 			shakeVal = new Vector3(2,1, 15);
