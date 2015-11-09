@@ -49,6 +49,7 @@ public abstract class Dialogue : MonoBehaviour {
 	//Defaulted to 0
 	protected int page;
 
+	//Counts how far along the player is in the dialogue
 	protected int dialoguecount;
 
 	//Max x,y text movement when dialog is shaking
@@ -83,10 +84,10 @@ public abstract class Dialogue : MonoBehaviour {
 		//If the player is talking
 		//pause all movement
 		if (talking) {
-			Time.timeScale = 0;
+			//Time.timeScale = 0;
 		}
 		if (!talking) {
-			Time.timeScale = 1;
+			//Time.timeScale = 1;
 		} 
 	}
 
@@ -155,6 +156,7 @@ public abstract class Dialogue : MonoBehaviour {
 
 		//If the player is talking, display dialogue GUI
 		if (talking) {
+			Time.timeScale = 0;
 			GUI.Box(new Rect(10, Screen.height / 2, Screen.width - 20, Screen.height / 2 - 10), "");
 			GUI.Box(new Rect(10, Screen.height / 2, Screen.width / 5, Screen.height / 2 - 10), "");
 			GUI.Box(new Rect(10 + (Screen.width / 5), Screen.height / 2, Screen.width - (20 + (Screen.width / 5)), Screen.height / 2 - 10), "");
@@ -171,6 +173,7 @@ public abstract class Dialogue : MonoBehaviour {
 					GUI.Label(new Rect(15 + (Screen.width / 5) + textX, (Screen.height / 2) + textY, Screen.width - (20 + (Screen.width / 5)), Screen.height / 2 - 60), l[page], diaStyle);
 						if (GUI.Button (new Rect (Screen.width - 120, Screen.height - 60, 100, 50), "Goodbye")) {
 							talking = false;
+							Time.timeScale = 1;
 							cantalk = true;
 							page = 0;
 							dialoguecount += 1;
@@ -186,6 +189,7 @@ public abstract class Dialogue : MonoBehaviour {
 
 		//If the player is talking, display dialogue GUI
 		if (talking) {
+			Time.timeScale = 0;
 			GUI.Box (new Rect (10, Screen.height / 2, Screen.width - 20, Screen.height / 2 - 10), "");
 			GUI.Box (new Rect (10, Screen.height / 2, Screen.width / 5, Screen.height / 2 - 10), "");
 			GUI.Box (new Rect (10 + (Screen.width / 5), Screen.height / 2, Screen.width - (20 + (Screen.width / 5)), Screen.height / 2 - 10), "");
@@ -203,6 +207,7 @@ public abstract class Dialogue : MonoBehaviour {
 						GUI.Label(new Rect(15 + (Screen.width / 5) + textX, (Screen.height / 2) + textY, Screen.width - (20 + (Screen.width / 5)), Screen.height / 2 - 60), l[page], diaStyle);
 						if (GUI.Button (new Rect (Screen.width - 120, Screen.height - 60, 100, 50), "Goodbye")) {
 							talking = false;
+							Time.timeScale = 1;
 							cantalk = true;
 							page = 0;
 							dialoguecount += 1;
@@ -237,6 +242,7 @@ public abstract class Dialogue : MonoBehaviour {
 						if (selection [0] != "Select Response") {
 							if (GUI.Button (new Rect (Screen.width - 120, Screen.height - 60, 100, 50), "Goodbye")) {
 								talking = false;
+								Time.timeScale = 1;
 								cantalk = true;
 								page = 0;
 								dialoguecount += 1;
@@ -261,7 +267,7 @@ public abstract class Dialogue : MonoBehaviour {
 				cantalk = false;
 			}
 		}
-		//GUI.Label (new Rect (Screen.width / 2, 25, 200, 50), "Current Selection: " + selection[0] + " Goodbye: " + goodbye, testgui);
+		//GUI.Label (new Rect (Screen.width / 2, 25, 200, 50), "Talking: " + talking, testgui);
 	}
 
 }
