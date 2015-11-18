@@ -61,6 +61,10 @@ public class PlayerController : MonoBehaviour {
 			}
 		}
 
+		if (this.transform.position.y < -15){
+			this.transform.position = new Vector3(0f, 1.2f, 0f);
+		}
+
 	}
 
 }
