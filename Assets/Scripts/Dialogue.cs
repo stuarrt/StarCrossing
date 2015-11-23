@@ -229,7 +229,11 @@ public abstract class Dialogue : MonoBehaviour {
 	public virtual void OnGUI() {
 		//If the player is talking, display the conversation
 		if (cantalk) {
-			if (GUI.Button (new Rect (Screen.width - 120, Screen.height - 110, 100, 100), "Talk [E]") || Input.GetKeyDown(KeyCode.E)) {
+			GUI.Box (new Rect ((Screen.width / 2) - 65, (Screen.height / 2) - 50, 100, 30), "");
+			GUI.Box (new Rect ((Screen.width / 2) - 65, (Screen.height / 2) - 50, 100, 30), "");
+			GUI.Box (new Rect ((Screen.width / 2) - 65, (Screen.height / 2) - 50, 100, 30), "");
+			GUI.Label (new Rect ((Screen.width / 2) - 50, (Screen.height / 2) - 50, 200, 50), "Talk [E]");
+			if (Input.GetKeyDown(KeyCode.E)) {
 				talking = true;
 				cantalk = false;
 			}

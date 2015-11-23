@@ -86,6 +86,11 @@ public class InventoryItem : MonoBehaviour {
 	*/
 
 	void OnGUI() {
-		GUI.Label (new Rect (Screen.width / 2, 25, 200, 50), "Can Pick Up: " + canPickUp);
+		if (canPickUp) {
+			GUI.Box (new Rect ((Screen.width / 2) - 65, (Screen.height / 2) - 50, 100, 30), "");
+			GUI.Box (new Rect ((Screen.width / 2) - 65, (Screen.height / 2) - 50, 100, 30), "");
+			GUI.Box (new Rect ((Screen.width / 2) - 65, (Screen.height / 2) - 50, 100, 30), "");
+			GUI.Label (new Rect ((Screen.width / 2) - 50, (Screen.height / 2) - 50, 200, 50), "Pick Up [E]");
+		}
 	}
 }
