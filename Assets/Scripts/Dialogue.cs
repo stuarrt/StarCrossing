@@ -203,7 +203,7 @@ public abstract class Dialogue : MonoBehaviour {
 					if (page < (l.Length - 1)) {
 						GUI.Label(new Rect(15 + (Screen.width / 5) + textX, (Screen.height / 2) + textY, Screen.width - (20 + (Screen.width / 5)), Screen.height / 2 - 60), l[page], diaStyle);
 					if (!choose && !goodbye) {
-						if (GUI.Button (new Rect (Screen.width - 120, Screen.height - 60, 100, 50), "Next") || Input.GetKeyDown(KeyCode.E)) {
+						if (GUI.Button (new Rect (Screen.width - 120, Screen.height - 60, 100, 50), "Next")) {
 							page += 1;
 							}
 						}
@@ -211,7 +211,7 @@ public abstract class Dialogue : MonoBehaviour {
 					//If on the last page, close dialogue when clicking goodbye
 					if (page == (l.Length - 1) || goodbye) {
 						GUI.Label(new Rect(15 + (Screen.width / 5) + textX, (Screen.height / 2) + textY, Screen.width - (20 + (Screen.width / 5)), Screen.height / 2 - 60), l[page], diaStyle);
-					if (GUI.Button (new Rect (Screen.width - 120, Screen.height - 60, 100, 50), "Goodbye") || Input.GetKeyDown(KeyCode.E)) {
+					if (GUI.Button (new Rect (Screen.width - 120, Screen.height - 60, 100, 50), "Goodbye")) {
 						talking = false;
 						Time.timeScale = 1;
 						cantalk = true;
