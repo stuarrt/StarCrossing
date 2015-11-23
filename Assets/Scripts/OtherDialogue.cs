@@ -12,11 +12,9 @@ public class OtherDialogue : Dialogue {
 	void Start () {
 		npcname = "OtherName"; //Name of NPC (listed as a tag)
 		textfile = File.ReadAllText ("Assets/Dialogue/OtherNPC/othernpc.txt"); //main dialogue
-		//responsefile = File.ReadAllText ("Assets/Dialogue/OtherNPC/npcresponses.txt"); //player responses
 		textfile2 = File.ReadAllText ("Assets/Dialogue/OtherNPC/othernpc2.txt"); //other lines of dialogue
 		lines = textfile.Split('\n'); //main parser
 		lines2 = textfile2.Split('\n'); //second parser
-		responses = responsefile.Split('\n'); //main responses
 	}
 	
 	public override void OnGUI() {
