@@ -23,6 +23,9 @@ public abstract class Dialogue : MonoBehaviour {
 	//Determines if the player should say goodbye to the NPC
 	protected bool goodbye;
 
+	//Determines i the text should be moving
+	protected bool shouldMoveText;
+
 	//Determines the name of the NPC the player is talking to
 	protected string npcname;
 
@@ -142,18 +145,48 @@ public abstract class Dialogue : MonoBehaviour {
 		}
 	}
 
+	//Allows player to make choices based off listed options
+	public void choiceBox (int i, int p) {
+		float x = Screen.width - 700;
+		float y = Screen.height - 250;
+		if (page == p) {
+			choose = true;
+			if (GUI.Button(new Rect(x, y, 250, 50), responses[i])) {
+				selection[0] = responses[i];
+				page += 1;
+				choose = false;
+				goodbye = true;
+			}
+			if (GUI.Button(new Rect(x, y + 75, 250, 50), responses[i+1])) {
+				selection[0] = responses[i+1];
+				page += 2;
+				choose = false;
+				goodbye = true;
+			}
+			if (GUI.Button(new Rect(x, y + 150, 250, 50), responses[i+2])) {
+				selection[0] = responses[i+2];
+				page += 3;
+				choose = false;
+				goodbye = true;
+			}
+		}
+	}
+
 	//TODO: Edit this function to determine whether the line being displayed needs to be shaken a certain way and act accordingly
 	public void moveText(string[] l){
 		//For now, it just shakes the text if there is text
 		if (l[page] != null){
-			textX = Mathf.PingPong(Time.realtimeSinceStartup * shakeVal.z, shakeVal.x);
-			textY = Mathf.PingPong(Time.realtimeSinceStartup * shakeVal.z, shakeVal.y);
+			if (shouldMoveText) {
+				textX = Mathf.PingPong(Time.realtimeSinceStartup * shakeVal.z, shakeVal.x);
+				textY = Mathf.PingPong(Time.realtimeSinceStartup * shakeVal.z, shakeVal.y);
+			}
 		}
 	}
 
 	//Generic outline of the conversation (select which conversation to display)
-	public void conversation(string[] l) {
+	public void conversation(string[] l, List<int> i) {
 		//Determine the values to shift text by if any
+		shouldMoveText = i.Contains (page);
 		moveText(l);
 
 		//If the player is talking, display dialogue GUI
@@ -162,97 +195,29 @@ public abstract class Dialogue : MonoBehaviour {
 			GUI.Box(new Rect(10, Screen.height / 2, Screen.width - 20, Screen.height / 2 - 10), "");
 			GUI.Box(new Rect(10, Screen.height / 2, Screen.width / 5, Screen.height / 2 - 10), "");
 			GUI.Box(new Rect(10 + (Screen.width / 5), Screen.height / 2, Screen.width - (20 + (Screen.width / 5)), Screen.height / 2 - 10), "");
+
 			if (gameObject.tag == npcname) {
 					//Goes to the next page of dialogue
 					if (page < (l.Length - 1)) {
 						GUI.Label(new Rect(15 + (Screen.width / 5) + textX, (Screen.height / 2) + textY, Screen.width - (20 + (Screen.width / 5)), Screen.height / 2 - 60), l[page], diaStyle);
+					if (!choose && !goodbye) {
 						if (GUI.Button (new Rect (Screen.width - 120, Screen.height - 60, 100, 50), "Next")) {
 							page += 1;
+							}
 						}
-					}
-					//If on the last page, close dialogue when clicking goodbye
-					if (page == (l.Length - 1)) {
-					GUI.Label(new Rect(15 + (Screen.width / 5) + textX, (Screen.height / 2) + textY, Screen.width - (20 + (Screen.width / 5)), Screen.height / 2 - 60), l[page], diaStyle);
-						if (GUI.Button (new Rect (Screen.width - 120, Screen.height - 60, 100, 50), "Goodbye")) {
-							talking = false;
-							Time.timeScale = 1;
-							cantalk = true;
-							page = 0;
-							dialoguecount += 1;
-						}
-					}
-			}
-		}
-	}
-
-	public void makeChoice(string[] l, List<int> choices, string choice1, string choice2, string choice3) {
-		//Determine the values to shift text by if any
-		moveText(l);
-
-		//If the player is talking, display dialogue GUI
-		if (talking) {
-			Time.timeScale = 0;
-			GUI.Box (new Rect (10, Screen.height / 2, Screen.width - 20, Screen.height / 2 - 10), "");
-			GUI.Box (new Rect (10, Screen.height / 2, Screen.width / 5, Screen.height / 2 - 10), "");
-			GUI.Box (new Rect (10 + (Screen.width / 5), Screen.height / 2, Screen.width - (20 + (Screen.width / 5)), Screen.height / 2 - 10), "");
-			if (gameObject.tag == npcname) {
-				if (!choices.Contains(page)) {
-					//Goes to the next page of dialogue
-					if (page < (l.Length - 1) && !goodbye) {
-						GUI.Label(new Rect(15 + (Screen.width / 5) + textX, (Screen.height / 2) + textY, Screen.width - (20 + (Screen.width / 5)), Screen.height / 2 - 60), l[page], diaStyle);
-						if (GUI.Button (new Rect (Screen.width - 120, Screen.height - 60, 100, 50), "Next")) {
-							page += 1;
-						}
-					}
+				}
 					//If on the last page, close dialogue when clicking goodbye
 					if (page == (l.Length - 1) || goodbye) {
 						GUI.Label(new Rect(15 + (Screen.width / 5) + textX, (Screen.height / 2) + textY, Screen.width - (20 + (Screen.width / 5)), Screen.height / 2 - 60), l[page], diaStyle);
-						if (GUI.Button (new Rect (Screen.width - 120, Screen.height - 60, 100, 50), "Goodbye")) {
-							talking = false;
-							Time.timeScale = 1;
-							cantalk = true;
-							page = 0;
-							dialoguecount += 1;
-							goodbye = false;
+					if (GUI.Button (new Rect (Screen.width - 120, Screen.height - 60, 100, 50), "Goodbye")) {
+						talking = false;
+						Time.timeScale = 1;
+						cantalk = true;
+						page = 0;
+						dialoguecount += 1;
+						goodbye = false;
 						}
 					}
-				}
-				if (choices.Contains (page)) {
-					//Goes to the next page of dialogue
-					if (page < (l.Length - 1) && !goodbye) {
-						GUI.Label (new Rect (15 + (Screen.width / 5) + textX, (Screen.height / 2) + textY, Screen.width - (20 + (Screen.width / 5)), Screen.height / 2 - 60), l [page], diaStyle);
-						if (selection [0] != "Select Response") {
-							if (GUI.Button (new Rect (Screen.width - 120, Screen.height - 60, 100, 50), "Next")) {
-								if (selection [0] == choice1) {
-									page += 1;
-									goodbye = true;
-								}
-								if (selection [0] == choice2) {
-									page += 2;
-									goodbye = true;
-								}
-								if (selection [0] == choice3) {
-									page += 3;
-									goodbye = true;
-								}
-							}
-						}
-					}
-					//If on the last page, close dialogue when clicking goodbye
-					if (page == (l.Length - 1) || goodbye) {
-						GUI.Label (new Rect (15 + (Screen.width / 5) + textX, (Screen.height / 2) + textY, Screen.width - (20 + (Screen.width / 5)), Screen.height / 2 - 60), l [page], diaStyle);
-						if (selection [0] != "Select Response") {
-							if (GUI.Button (new Rect (Screen.width - 120, Screen.height - 60, 100, 50), "Goodbye")) {
-								talking = false;
-								Time.timeScale = 1;
-								cantalk = true;
-								page = 0;
-								dialoguecount += 1;
-								goodbye = false;
-							}
-						}
-					}
-				}
 			}
 		}
 	}
@@ -264,7 +229,7 @@ public abstract class Dialogue : MonoBehaviour {
 	public virtual void OnGUI() {
 		//If the player is talking, display the conversation
 		if (cantalk) {
-			if (GUI.Button (new Rect (Screen.width - 70, Screen.height - 60, 50, 50), "Talk")) {
+			if (GUI.Button (new Rect (Screen.width - 120, Screen.height - 110, 100, 100), "Talk [E]") || Input.GetKeyDown(KeyCode.E)) {
 				talking = true;
 				cantalk = false;
 			}
