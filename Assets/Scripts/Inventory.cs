@@ -31,6 +31,8 @@ public class Inventory : MonoBehaviour {
 			return;
 		}
 		Instance = this;
+
+		gameObject.SetActive(false);
 	}
 	
 	// Update is called once per frame
@@ -39,27 +41,23 @@ public class Inventory : MonoBehaviour {
 	}
 
 	public void ToggleInventory(){
-			InventoryIcon[] allIcons = GetComponentsInChildren<InventoryIcon>();
-			if (allIcons.Length <= 0){ //Inventory is deactivated
-				Time.timeScale = 0;
-				Debug.Log ("Calling Parse Inventory Icons");
-				ParseInventoryIcons(true);
-			}
-			else {//Inventory is active 
-				Debug.Log ("Inventory Active. Deactivating");
-				Time.timeScale = 1;
-				ParseInventoryIcons(false);
-			}
+		InventoryIcon[] allIcons = GetComponentsInChildren<InventoryIcon>();
+		if (gameObject.activeSelf){ //Inventory is active
+			Debug.Log ("Inventory Active. Deactivating");
+			Time.timeScale = 1;
+			gameObject.SetActive(false);
+			ParseInventoryIcons(false);
+		}
+		else {//Inventory is decactivated. Activate it
+			Debug.Log ("Calling Parse Inventory Icons");
+			gameObject.SetActive(true);
+			ParseInventoryIcons(true);
+		}
 
 	}
 
 	public void ParseInventoryIcons(bool state){
 		InventoryIcon[] allIcons = GetComponentsInChildren<InventoryIcon>(true);
-
-		//TODO Remove this. It's a sanity check. 
-		if (allIcons.Length <= 0){
-			Debug.Log ("Not Getting all Icons");
-		}
 
 		foreach (InventoryIcon icon in allIcons){
 			if (!state){ //If we are deactivating the icons
@@ -73,6 +71,9 @@ public class Inventory : MonoBehaviour {
 		}
 	}
 
+	public void NormalizeLocalScale(){
+		transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
+	}
 	//Debug method to print Inventory contents 
 	public void PrintInventory(){
 		foreach (KeyValuePair<InventoryObjects, bool> x in CurrentInventory)
