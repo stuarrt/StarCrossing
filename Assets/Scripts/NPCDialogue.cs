@@ -23,8 +23,7 @@ public class NPCDialogue : Dialogue {
 		base.OnGUI ();
 		//Dialogue based off whether the quest was completed or not
 		if (!QuestList.quests [0].completed || !QuestList.quests [0].display) {
-			MTHelper(new List<int>(){0});
-			conversation(lines);
+			conversation(lines, new List<int>(){0});
 			choiceBox(0, 1);
 		}
 		//How much dialogue the player must go through to accept the quest ##dialoguecount >= 1
@@ -33,7 +32,7 @@ public class NPCDialogue : Dialogue {
 		}
 		//If the player has accepted and completed the quest
 		if (QuestList.quests [0].completed && QuestList.quests [0].display) {
-			conversation(lines2);
+			conversation(lines2, new List<int>(){});
 		}
 	}
 }

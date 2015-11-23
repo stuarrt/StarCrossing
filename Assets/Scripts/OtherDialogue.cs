@@ -22,10 +22,10 @@ public class OtherDialogue : Dialogue {
 		base.OnGUI ();
 		//Dialogue based off whether the quest was completed or not
 		if (!QuestList.quests [0].completed) {
-			conversation(lines);
+			conversation(lines, new List<int>(){});
 		}
 		if (QuestList.quests [0].completed) {
-			conversation(lines2);
+			conversation(lines2, new List<int>(){});
 		}
 	}
 }

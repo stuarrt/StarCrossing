@@ -20,6 +20,8 @@ public class InventoryItem : MonoBehaviour {
 	//TODO Remove this and replace it with a real working system
 	public bool canClick = false;
 
+	public bool canPickUp;
+
 	// Use this for initialization
 	void Awake () {
 		AllItems.Add(this);
@@ -42,9 +44,32 @@ public class InventoryItem : MonoBehaviour {
 		else {
 			canClick = false;
 		}
+
+		if (canPickUp) {
+			if (Input.GetKeyDown(KeyCode.E)) {
+				Inventory.Instance.CurrentInventory.Remove(inventoryType);
+				Inventory.Instance.CurrentInventory.Add (inventoryType, true);
+				Inventory.Instance.PrintInventory();
+				Destroy(gameObject);
+			}
+		}
 	
 	}
 
+	//Used for determining if the player is in range for talking to the NPC
+	void OnTriggerEnter(Collider npc) {
+		if (npc.gameObject.tag == "Player") {
+			canPickUp = true;
+		}
+	}
+	
+	//Used for determining if the player is out of range of talking to the NPC
+	void OnTriggerExit(Collider npc) {
+		if (npc.gameObject.tag == "Player") {
+			canPickUp = false;
+		}
+	}
+	/*
 	public void OnMouseDown(){
 		if (canClick){
 			Inventory.Instance.CurrentInventory.Remove(inventoryType);
@@ -57,5 +82,10 @@ public class InventoryItem : MonoBehaviour {
 		else {
 			return;
 		}
+	}
+	*/
+
+	void OnGUI() {
+		GUI.Label (new Rect (Screen.width / 2, 25, 200, 50), "Can Pick Up: " + canPickUp);
 	}
 }

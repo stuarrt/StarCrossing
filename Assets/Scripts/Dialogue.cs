@@ -183,13 +183,10 @@ public abstract class Dialogue : MonoBehaviour {
 		}
 	}
 
-	public void MTHelper(List<int> i) {
-		shouldMoveText = i.Contains (page);
-	}
-
 	//Generic outline of the conversation (select which conversation to display)
-	public void conversation(string[] l) {
+	public void conversation(string[] l, List<int> i) {
 		//Determine the values to shift text by if any
+		shouldMoveText = i.Contains (page);
 		moveText(l);
 
 		//If the player is talking, display dialogue GUI
@@ -198,6 +195,7 @@ public abstract class Dialogue : MonoBehaviour {
 			GUI.Box(new Rect(10, Screen.height / 2, Screen.width - 20, Screen.height / 2 - 10), "");
 			GUI.Box(new Rect(10, Screen.height / 2, Screen.width / 5, Screen.height / 2 - 10), "");
 			GUI.Box(new Rect(10 + (Screen.width / 5), Screen.height / 2, Screen.width - (20 + (Screen.width / 5)), Screen.height / 2 - 10), "");
+
 			if (gameObject.tag == npcname) {
 					//Goes to the next page of dialogue
 					if (page < (l.Length - 1)) {
@@ -231,7 +229,7 @@ public abstract class Dialogue : MonoBehaviour {
 	public virtual void OnGUI() {
 		//If the player is talking, display the conversation
 		if (cantalk) {
-			if (GUI.Button (new Rect (Screen.width - 70, Screen.height - 60, 50, 50), "Talk") || Input.GetKeyDown(KeyCode.E)) {
+			if (GUI.Button (new Rect (Screen.width - 120, Screen.height - 110, 100, 100), "Talk [E]") || Input.GetKeyDown(KeyCode.E)) {
 				talking = true;
 				cantalk = false;
 			}
