@@ -56,9 +56,11 @@
      <Compile Include="Assets\Standard Assets\Environment\Water\Water\Scripts\WaterTile.cs" />
      <None Include="Assets\Dialogue\NPCName\npcname.txt" />
      <None Include="Assets\Dialogue\NPCName\npcname2.txt" />
+     <None Include="Assets\Dialogue\SunNPC\sunnpc2.txt" />
      <None Include="Assets\npcresponses.txt" />
      <None Include="Assets\Standard Assets\Environment\Water\Water4\Shaders\FXWater4Simple.shader" />
      <None Include="Assets\Dialogue\NikumaruFont\ReadMe_Mac.txt" />
+     <None Include="Assets\Dialogue\SunNPC\sunnpc.txt" />
      <None Include="Assets\Dialogue\README.txt" />
      <None Include="Assets\TSF\Shaders\TSFOutline.shader" />
      <None Include="Assets\Dialogue\OtherNPC\othernpc.txt" />
@@ -69,14 +71,21 @@
      <None Include="Assets\Dialogue\NPCName\npcresponses.txt" />
      <None Include="Assets\Dialogue\OtherNPC\othernpc2.txt" />
      <None Include="Assets\npcname.txt" />
+     <None Include="Assets\Dialogue\SunNPC\sunresponses.txt" />
      <None Include="Assets\npcname2.txt" />
      <None Include="Assets\Standard Assets\Environment\Water\Water4\Shaders\WaterInclude.cginc" />
      <None Include="Assets\Standard Assets\Environment\Water\Water4\Shaders\FXWater4Advanced.shader" />
+ <Reference Include="UnityEngine.Advertisements">
+ <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Advertisements/UnityEngine.Advertisements.dll</HintPath>
+ </Reference>
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.Networking">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.Analytics">
+ <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityAnalytics/UnityEngine.Analytics.dll</HintPath>
  </Reference>
  <Reference Include="Mono.Cecil">
  <HintPath>C:/Program Files/Unity/Editor/Data/Managed/Mono.Cecil.dll</HintPath>
