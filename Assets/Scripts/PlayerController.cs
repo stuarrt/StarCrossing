@@ -8,7 +8,9 @@ public class PlayerController : MonoBehaviour {
 
 	public RuntimeAnimatorController ForwardWalkAnim, BackWalkAnim, IdleAnim;
 
-	public float speed; 
+	public float speed;
+
+	private bool pause;
 
 	void Awake(){
 		MyTransform = transform;
@@ -22,6 +24,14 @@ public class PlayerController : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
+		if (Time.timeScale != 0) {
+			if (Input.GetKeyDown (KeyCode.Escape)) {
+				pause = !pause;
+			}
+		}
+		if (pause) {
+			Time.timeScale = 0;
+		}
 		if (Time.timeScale > 0) {
 			if (Input.GetKey (KeyCode.A) || Input.GetKey (KeyCode.LeftArrow)) {
 				MyAnimator.runtimeAnimatorController = ForwardWalkAnim;
@@ -67,6 +77,26 @@ public class PlayerController : MonoBehaviour {
 			this.transform.position = new Vector3(0f, 1.2f, 0f);
 		}
 
+	}
+
+	void OnGUI() {
+		if (Time.timeScale == 0) {
+			if (pause) {
+				GUI.Box (new Rect ((Screen.width / 2) - 100, (Screen.height / 2) - 150, 200, 300), "");
+				GUI.Box (new Rect ((Screen.width / 2) - 100, (Screen.height / 2) - 150, 200, 300), "");
+				GUI.Box (new Rect ((Screen.width / 2) - 100, (Screen.height / 2) - 150, 200, 300), "");
+				if (GUI.Button (new Rect ((Screen.width / 2) - 75, (Screen.height / 2) - 125, 150, 50), "Resume")) {
+					Time.timeScale = 1;
+					pause = false;
+				}
+				if (GUI.Button (new Rect ((Screen.width / 2) - 75, (Screen.height / 2) - 35, 150, 50), "Restart")) {
+					Application.LoadLevel (Application.loadedLevelName);
+				}
+				if (GUI.Button (new Rect ((Screen.width / 2) - 75, (Screen.height / 2) + 55, 150, 50), "Quit")) {
+					Application.Quit ();
+				}
+			}
+		}
 	}
 
 }

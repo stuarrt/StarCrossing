@@ -34,11 +34,6 @@ public class Inventory : MonoBehaviour {
 
 		gameObject.SetActive(false);
 	}
-	
-	// Update is called once per frame
-	void Update () {
-
-	}
 
 	public void ToggleInventory(){
 		InventoryIcon[] allIcons = GetComponentsInChildren<InventoryIcon>();
