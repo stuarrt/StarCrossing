@@ -39,7 +39,6 @@ public class PlayerController : MonoBehaviour {
 
 				if (transform.localScale.x > 0){
 					transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
-					Inventory.Instance.NormalizeLocalScale();
 				}
 			}
 			if (Input.GetKey (KeyCode.D) || Input.GetKey (KeyCode.RightArrow)) {
@@ -48,7 +47,6 @@ public class PlayerController : MonoBehaviour {
 
 				if (transform.localScale.x < 0){
 					transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
-					Inventory.Instance.NormalizeLocalScale();
 				}
 			}
 			if (Input.GetKey (KeyCode.W) || Input.GetKey (KeyCode.UpArrow)) {

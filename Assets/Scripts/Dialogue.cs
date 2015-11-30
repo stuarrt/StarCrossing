@@ -88,12 +88,6 @@ public abstract class Dialogue : MonoBehaviour {
 	public virtual void Update() {
 		//If the player is talking
 		//pause all movement
-		if (talking) {
-			//Time.timeScale = 0;
-		}
-		if (!talking) {
-			//Time.timeScale = 1;
-		} 
 	}
 
 	//Used for determining if the player is in range for talking to the NPC
@@ -192,19 +186,20 @@ public abstract class Dialogue : MonoBehaviour {
 		//If the player is talking, display dialogue GUI
 		if (talking) {
 			Time.timeScale = 0;
-			GUI.Box(new Rect(10, Screen.height / 2, Screen.width - 20, Screen.height / 2 - 10), "");
-			GUI.Box(new Rect(10, Screen.height / 2, Screen.width / 5, Screen.height / 2 - 10), "");
-			GUI.Box(new Rect(10 + (Screen.width / 5), Screen.height / 2, Screen.width - (20 + (Screen.width / 5)), Screen.height / 2 - 10), "");
+
+			GUI.Box(new Rect(10, Screen.height / 2, Screen.width - 20, Screen.height / 2 - 10), "", diaStyle);
+			GUI.Box(new Rect(10, Screen.height / 2, Screen.width / 5, Screen.height / 2 - 10), "", diaStyle);
+			GUI.Box(new Rect(10 + (Screen.width / 5), Screen.height / 2, Screen.width - (20 + (Screen.width / 5)), Screen.height / 2 - 10), "", diaStyle);
 
 			if (gameObject.tag == npcname) {
 					//Goes to the next page of dialogue
 					if (page < (l.Length - 1)) {
 						GUI.Label(new Rect(15 + (Screen.width / 5) + textX, (Screen.height / 2) + textY, Screen.width - (20 + (Screen.width / 5)), Screen.height / 2 - 60), l[page], diaStyle);
-					if (!choose && !goodbye) {
-						if (GUI.Button (new Rect (Screen.width - 120, Screen.height - 60, 100, 50), "Next")) {
-							page += 1;
-							}
-						}
+//					if (!choose && !goodbye) {
+//						if (GUI.Button (new Rect (Screen.width - 120, Screen.height - 60, 100, 50), "Next")) {
+//							page += 1;
+//							}
+//						}
 				}
 					//If on the last page, close dialogue when clicking goodbye
 					if (page == (l.Length - 1) || goodbye) {
@@ -216,6 +211,7 @@ public abstract class Dialogue : MonoBehaviour {
 						page = 0;
 						dialoguecount += 1;
 						goodbye = false;
+						DialogHandler.Instance.ToggleUI(false);
 						}
 					}
 			}
@@ -236,9 +232,17 @@ public abstract class Dialogue : MonoBehaviour {
 			if (Input.GetKeyDown(KeyCode.E)) {
 				talking = true;
 				cantalk = false;
+				Debug.Log ("Activating Dialog Handler");
+				DialogHandler.Instance.ToggleUI(true);
 			}
 		}
 		//GUI.Label (new Rect (Screen.width / 2, 25, 200, 50), "Talking: " + talking, testgui);
+	}
+
+	public void nextPage(){
+		if (!choose && !goodbye){
+			page += 1;
+		}
 	}
 
 }

@@ -66,9 +66,6 @@ public class Inventory : MonoBehaviour {
 		}
 	}
 
-	public void NormalizeLocalScale(){
-		transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
-	}
 	//Debug method to print Inventory contents 
 	public void PrintInventory(){
 		foreach (KeyValuePair<InventoryObjects, bool> x in CurrentInventory)
