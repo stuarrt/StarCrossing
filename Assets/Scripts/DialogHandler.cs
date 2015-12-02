@@ -8,6 +8,7 @@ public class DialogHandler : MonoBehaviour {
 	static Image[] DialogUI;
 
 	public static NPCDialogue[] NPCDialogues;
+	public static SunDialogue[] SunDialogues;
 
 	// Use this for initialization
 	void Start () {
@@ -22,6 +23,8 @@ public class DialogHandler : MonoBehaviour {
 		DialogUI = gameObject.GetComponentsInChildren<Image>();
 
 		NPCDialogues = FindObjectsOfType(typeof(NPCDialogue)) as NPCDialogue[];
+
+		//SunDialogues = FindObjectsOfType(typeof(SunDialogue)) as SunDialogue[];
 
 		ToggleUI(false);
 	}
@@ -38,8 +41,11 @@ public class DialogHandler : MonoBehaviour {
 	}
 
 	public void NextButtonDown(){
-		foreach (NPCDialogue n in NPCDialogues){
-			n.SendMessage("nextPage");
-		}
+	//	foreach (NPCDialogue n in NPCDialogues){
+	//		n.SendMessage("nextPage");
+	//	}
+	//	foreach (SunDialogue n in SunDialogues){
+	//		n.SendMessage("nextPage");
+	//	}
 	}
 }

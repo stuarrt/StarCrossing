@@ -8,6 +8,9 @@ public abstract class Dialogue : MonoBehaviour {
 	//This is used for testing, can be commmented out
 	public GUIStyle testgui;
 
+	//This is used for invisible buttons
+	public GUIStyle buttonStyle;
+
 	//This is used for the style of the dialogue
 	public GUIStyle diaStyle;
 
@@ -186,25 +189,26 @@ public abstract class Dialogue : MonoBehaviour {
 		//If the player is talking, display dialogue GUI
 		if (talking) {
 			Time.timeScale = 0;
-
 			GUI.Box(new Rect(10, Screen.height / 2, Screen.width - 20, Screen.height / 2 - 10), "", diaStyle);
-			GUI.Box(new Rect(10, Screen.height / 2, Screen.width / 5, Screen.height / 2 - 10), "", diaStyle);
-			GUI.Box(new Rect(10 + (Screen.width / 5), Screen.height / 2, Screen.width - (20 + (Screen.width / 5)), Screen.height / 2 - 10), "", diaStyle);
-
+			GUI.Box(new Rect(10, Screen.height / 2, Screen.width / 4, Screen.height / 2 - 10), "", diaStyle);
+			GUI.Box(new Rect(10 + (Screen.width / 5), Screen.height / 2, Screen.width - (20 + (Screen.width / 4)), Screen.height / 2 - 10), "", diaStyle);
 			if (gameObject.tag == npcname) {
+				print ("Talking to " + npcname);
 					//Goes to the next page of dialogue
 					if (page < (l.Length - 1)) {
-						GUI.Label(new Rect(15 + (Screen.width / 5) + textX, (Screen.height / 2) + textY, Screen.width - (20 + (Screen.width / 5)), Screen.height / 2 - 60), l[page], diaStyle);
-//					if (!choose && !goodbye) {
-//						if (GUI.Button (new Rect (Screen.width - 120, Screen.height - 60, 100, 50), "Next")) {
-//							page += 1;
-//							}
-//						}
+						GUI.Label(new Rect(15 + (Screen.width / 5) + textX, (Screen.height / 2) + textY, Screen.width - (20 + (Screen.width / 4)), Screen.height / 2 - 60), l[page], diaStyle);
+					if (!choose && !goodbye) {
+						//Next button
+						if (GUI.Button (new Rect (Screen.width - 130, Screen.height - 90, 55, 40), "", buttonStyle)) {
+							page += 1;
+							}
+						}
 				}
 					//If on the last page, close dialogue when clicking goodbye
 					if (page == (l.Length - 1) || goodbye) {
-						GUI.Label(new Rect(15 + (Screen.width / 5) + textX, (Screen.height / 2) + textY, Screen.width - (20 + (Screen.width / 5)), Screen.height / 2 - 60), l[page], diaStyle);
-					if (GUI.Button (new Rect (Screen.width - 120, Screen.height - 60, 100, 50), "Goodbye")) {
+						GUI.Label(new Rect(15 + (Screen.width / 5) + textX, (Screen.height / 2) + textY, Screen.width - (20 + (Screen.width / 4)), Screen.height / 2 - 60), l[page], diaStyle);
+					//Goodbye button
+					if (GUI.Button (new Rect (Screen.width - 130, Screen.height - 90, 55, 40), "", buttonStyle)) {
 						talking = false;
 						Time.timeScale = 1;
 						cantalk = true;
@@ -240,8 +244,10 @@ public abstract class Dialogue : MonoBehaviour {
 	}
 
 	public void nextPage(){
-		if (!choose && !goodbye){
-			page += 1;
+		if (gameObject.tag == npcname) {
+			if (!choose && !goodbye) {
+		//		page += 1;
+			}
 		}
 	}
 
