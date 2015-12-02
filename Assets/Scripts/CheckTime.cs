@@ -94,11 +94,10 @@ public class CheckTime : MonoBehaviour {
 	void Update() {
 		curr = System.DateTime.Now;
 	}
-	/*
 	void OnGUI() {
-		GUI.Label (new Rect (Screen.width / 2, 50, 200, 50), "Days: " + days + " Hours: " + hours + " Minutes: " + minutes + " Seconds: " + seconds, timeStyle);
-		GUI.Label (new Rect (Screen.width / 2, 25, 200, 50), "Time: " + curr, timeStyle);
-		GUI.Label (new Rect (Screen.width / 2, 75, 200, 50), "Time Since Start*** Days: " + totalDays + " Hours: " + totalHours + " Minutes: " + totalMinutes + " Seconds: " + totalSeconds, timeStyle);
+		//GUI.Label (new Rect (10, 10, 200, 50), "Days: " + totalDays, timeStyle);
+		//GUI.Label (new Rect (Screen.width / 2, 50, 200, 50), "Days: " + days + " Hours: " + hours + " Minutes: " + minutes + " Seconds: " + seconds, timeStyle);
+		//GUI.Label (new Rect (Screen.width / 2, 25, 200, 50), "Time: " + curr, timeStyle);
+		//GUI.Label (new Rect (Screen.width / 2, 75, 200, 50), "Time Since Start*** Days: " + totalDays + " Hours: " + totalHours + " Minutes: " + totalMinutes + " Seconds: " + totalSeconds, timeStyle);
 	}
-	*/
 }
