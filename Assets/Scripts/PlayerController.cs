@@ -12,6 +12,8 @@ public class PlayerController : MonoBehaviour {
 
 	private bool pause;
 
+	private bool left, right, forward, back;
+
 	void Awake(){
 		MyTransform = transform;
 		MyAnimator = this.GetComponent<Animator>();
@@ -20,10 +22,15 @@ public class PlayerController : MonoBehaviour {
 			speed = 0.02f;
 		}
 
+		left = right = forward = back = false;
+
 	}
 
 	// Update is called once per frame
 	void Update () {
+
+		left = right = forward = back = false;
+
 		if (Time.timeScale != 0) {
 			if (Input.GetKeyDown (KeyCode.Escape)) {
 				pause = !pause;
@@ -34,31 +41,36 @@ public class PlayerController : MonoBehaviour {
 		}
 		if (Time.timeScale > 0) {
 			if (Input.GetKey (KeyCode.A) || Input.GetKey (KeyCode.LeftArrow)) {
-				MyAnimator.runtimeAnimatorController = ForwardWalkAnim;
-				transform.position = new Vector3 (transform.position.x - speed, transform.position.y, transform.position.z);
-
-				if (transform.localScale.x > 0){
-					transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
-				}
+				left = true;
+//				MyAnimator.runtimeAnimatorController = ForwardWalkAnim;
+//				transform.position = new Vector3 (transform.position.x - speed, transform.position.y, transform.position.z);
+//
+//				if (transform.localScale.x > 0){
+//					transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
+//				}
 			}
 			if (Input.GetKey (KeyCode.D) || Input.GetKey (KeyCode.RightArrow)) {
-				MyAnimator.runtimeAnimatorController = ForwardWalkAnim;
-				transform.position = new Vector3 (transform.position.x + speed, transform.position.y, transform.position.z);
-
-				if (transform.localScale.x < 0){
-					transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
-				}
+				right = true;
+//				MyAnimator.runtimeAnimatorController = ForwardWalkAnim;
+//				transform.position = new Vector3 (transform.position.x + speed, transform.position.y, transform.position.z);
+//
+//				if (transform.localScale.x < 0){
+//					transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
+//				}
 			}
 			if (Input.GetKey (KeyCode.W) || Input.GetKey (KeyCode.UpArrow)) {
-				MyAnimator.runtimeAnimatorController = BackWalkAnim;
-				transform.position = new Vector3 (transform.position.x, transform.position.y, transform.position.z + speed);
+				forward = true;
+//				MyAnimator.runtimeAnimatorController = BackWalkAnim;
+//				transform.position = new Vector3 (transform.position.x, transform.position.y, transform.position.z + speed);
 			}
 			if (Input.GetKey (KeyCode.S) || Input.GetKey (KeyCode.DownArrow)) {
-				MyAnimator.runtimeAnimatorController = ForwardWalkAnim;
-				transform.position = new Vector3 (transform.position.x, transform.position.y, transform.position.z - speed);
+				back = true;
+//				MyAnimator.runtimeAnimatorController = ForwardWalkAnim;
+//				transform.position = new Vector3 (transform.position.x, transform.position.y, transform.position.z - speed);
 			}
 			//Jumping mechanic
 			//Currently player can hold down and will fly (as if having a jet pack
+			//TODO: Make this flying thing dependent on having the jet pack
 			if (Input.GetKey (KeyCode.Space)) {
 				transform.position = new Vector3 (transform.position.x, transform.position.y + 0.08f, transform.position.z);
 			}
@@ -66,14 +78,13 @@ public class PlayerController : MonoBehaviour {
 				Debug.Log("Inventory Button Pressed");
 				Inventory.Instance.ToggleInventory();
 			}
-			else if (!Input.anyKey){
-				MyAnimator.runtimeAnimatorController = IdleAnim;
-			}
 		}
 
 		if (this.transform.position.y < -15){
 			this.transform.position = new Vector3(0f, 1.2f, 0f);
 		}
+
+		MoveCharacter();
 
 	}
 
@@ -95,6 +106,54 @@ public class PlayerController : MonoBehaviour {
 				}
 			}
 		}
+	}
+
+	void MoveCharacter(){
+		Vector3 newTransform = new Vector3(left ? -1 : 0, 0, back ? -1 : 0);
+
+		if (right){
+			newTransform = new Vector3(newTransform.x + 1, 0, newTransform.z);
+		}
+		if (forward){
+			newTransform = new Vector3(newTransform.x, 0, newTransform.z + 1);
+		}
+
+		if (left || right || forward || back){
+
+			//Determine forward or backwards animation
+			if (!back && forward){
+				//Sounds backwards but it makes sense
+				//If you're moving forward (away from the camera) the character is facing backwards
+				MyAnimator.runtimeAnimatorController = BackWalkAnim;
+			}
+			else {
+				MyAnimator.runtimeAnimatorController = ForwardWalkAnim;
+			}
+
+			//Determine whether sprite should be flipped
+			if (forward){
+				if (left && !right && transform.localScale.x < 0){
+					transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
+				}
+				else if (right && !left && transform.localScale.x > 0){
+					transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
+				}
+			}
+			else {
+				if (left && !right && transform.localScale.x > 0){
+					transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
+				}
+				else if (right && !left && transform.localScale.x < 0){
+					transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
+				}
+			}
+		}
+		else {
+			MyAnimator.runtimeAnimatorController = IdleAnim;
+		}
+
+		newTransform.Normalize();
+		transform.position = transform.position + (newTransform * speed);
 	}
 
 }
