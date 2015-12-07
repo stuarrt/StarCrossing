@@ -8,7 +8,12 @@ public class PlayerController : MonoBehaviour {
 
 	public RuntimeAnimatorController ForwardWalkAnim, BackWalkAnim, IdleAnim;
 
+	protected Rigidbody charRigidbody;
+
 	public float speed;
+	public bool jumping;
+	public float jumpHeight;
+	public float maxJumpHeight;
 
 	private bool pause;
 
@@ -17,12 +22,17 @@ public class PlayerController : MonoBehaviour {
 	void Awake(){
 		MyTransform = transform;
 		MyAnimator = this.GetComponent<Animator>();
+		charRigidbody = GetComponent<Rigidbody>();
 
 		if (speed == 0){
 			speed = 0.02f;
 		}
 
-		left = right = forward = back = false;
+		if (jumpHeight == 0){
+			jumpHeight = 1;
+		}
+
+		left = right = forward = back = jumping = false;
 
 	}
 
@@ -42,37 +52,31 @@ public class PlayerController : MonoBehaviour {
 		if (Time.timeScale > 0) {
 			if (Input.GetKey (KeyCode.A) || Input.GetKey (KeyCode.LeftArrow)) {
 				left = true;
-//				MyAnimator.runtimeAnimatorController = ForwardWalkAnim;
-//				transform.position = new Vector3 (transform.position.x - speed, transform.position.y, transform.position.z);
-//
-//				if (transform.localScale.x > 0){
-//					transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
-//				}
 			}
 			if (Input.GetKey (KeyCode.D) || Input.GetKey (KeyCode.RightArrow)) {
 				right = true;
-//				MyAnimator.runtimeAnimatorController = ForwardWalkAnim;
-//				transform.position = new Vector3 (transform.position.x + speed, transform.position.y, transform.position.z);
-//
-//				if (transform.localScale.x < 0){
-//					transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
-//				}
 			}
 			if (Input.GetKey (KeyCode.W) || Input.GetKey (KeyCode.UpArrow)) {
 				forward = true;
-//				MyAnimator.runtimeAnimatorController = BackWalkAnim;
-//				transform.position = new Vector3 (transform.position.x, transform.position.y, transform.position.z + speed);
 			}
 			if (Input.GetKey (KeyCode.S) || Input.GetKey (KeyCode.DownArrow)) {
 				back = true;
-//				MyAnimator.runtimeAnimatorController = ForwardWalkAnim;
-//				transform.position = new Vector3 (transform.position.x, transform.position.y, transform.position.z - speed);
 			}
 			//Jumping mechanic
 			//Currently player can hold down and will fly (as if having a jet pack
-			//TODO: Make this flying thing dependent on having the jet pack
 			if (Input.GetKey (KeyCode.Space)) {
-				transform.position = new Vector3 (transform.position.x, transform.position.y + 0.08f, transform.position.z);
+				//TODO: Change this to be a check for the JetPack Object once we add it
+				if (false){
+					maxJumpHeight = transform.position.y + jumpHeight;
+					jumping = true;
+				}
+				else if (Mathf.Abs(charRigidbody.velocity.y) < 0.01){
+					maxJumpHeight = transform.position.y + jumpHeight;
+					jumping = true;
+				}
+			}
+			else {
+				jumping = false;
 			}
 			if (Input.GetKeyDown (KeyCode.I)) {
 				Debug.Log("Inventory Button Pressed");
@@ -85,6 +89,7 @@ public class PlayerController : MonoBehaviour {
 		}
 
 		MoveCharacter();
+		Jump ();
 
 	}
 
@@ -154,6 +159,19 @@ public class PlayerController : MonoBehaviour {
 
 		newTransform.Normalize();
 		transform.position = transform.position + (newTransform * speed);
+	}
+
+	void Jump(){
+		if (jumping){
+			if (transform.position.y >= maxJumpHeight){
+				jumping = false;
+			}
+			else {
+				//Set the y velocity to 0 to stop gravity from messing with the jumping 
+				charRigidbody.velocity = new Vector3(charRigidbody.velocity.x, 0, charRigidbody.velocity.z);
+				transform.position = new Vector3 (transform.position.x, transform.position.y + 0.08f, transform.position.z);
+			}
+		}
 	}
 
 }
