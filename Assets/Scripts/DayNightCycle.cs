@@ -9,7 +9,7 @@ public class DayNightCycle : MonoBehaviour {
 	public float timeMultiplier = 1f;
 	public GUIStyle timeStyle;
 
-	private int days;
+	public int days;
 
 	float sunIntensity;
 
