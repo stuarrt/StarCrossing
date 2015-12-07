@@ -9,6 +9,7 @@ public class NPCDialogue : Dialogue {
 	private string[] lines2; //additional parsing
 
 	void Start() {
+		myname = "Burnadine";
 		npcname = "NPCName"; //Name of NPC (listed as a tag)
 		textfile = File.ReadAllText ("Assets/Dialogue/NPCName/npcname.txt"); //main dialogue
 		responsefile = File.ReadAllText ("Assets/Dialogue/NPCName/npcresponses.txt"); //player responses

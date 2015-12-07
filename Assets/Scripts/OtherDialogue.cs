@@ -10,6 +10,7 @@ public class OtherDialogue : Dialogue {
 
 	// Use this for initialization
 	void Start () {
+		myname = "Mayor Granite";
 		npcname = "OtherName"; //Name of NPC (listed as a tag)
 		textfile = File.ReadAllText ("Assets/Dialogue/OtherNPC/othernpc.txt"); //main dialogue
 		textfile2 = File.ReadAllText ("Assets/Dialogue/OtherNPC/othernpc2.txt"); //other lines of dialogue

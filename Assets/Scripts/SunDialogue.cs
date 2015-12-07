@@ -9,6 +9,7 @@ public class SunDialogue : Dialogue {
 	private string[] lines2; //additional parsing
 	
 	void Start() {
+		myname = "Mr. Sunshine";
 		npcname = "SunName"; //Name of NPC (listed as a tag)
 		textfile = File.ReadAllText ("Assets/Dialogue/SunNPC/sunnpc.txt"); //main dialogue
 		responsefile = File.ReadAllText ("Assets/Dialogue/SunNPC/sunresponses.txt"); //player responses

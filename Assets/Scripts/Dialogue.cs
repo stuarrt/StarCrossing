@@ -14,6 +14,8 @@ public abstract class Dialogue : MonoBehaviour {
 	//This is used for the style of the dialogue
 	public GUIStyle diaStyle;
 
+	public GUIStyle nameStyle;
+
 	//Determines if the Player can talk to the NPC
 	protected bool cantalk;
 
@@ -31,6 +33,8 @@ public abstract class Dialogue : MonoBehaviour {
 
 	//Determines the name of the NPC the player is talking to
 	protected string npcname;
+
+	protected string myname;
 
 	//Text file associated with the NPC
 	protected static string textfile;
@@ -194,6 +198,7 @@ public abstract class Dialogue : MonoBehaviour {
 			GUI.Box(new Rect(10 + (Screen.width / 5), Screen.height / 2, Screen.width - (20 + (Screen.width / 4)), Screen.height / 2 - 10), "", diaStyle);
 			if (gameObject.tag == npcname) {
 				print ("Talking to " + npcname);
+				GUI.Label (new Rect(90, (Screen.height / 2) - 75, 300, 40), myname, nameStyle);
 					//Goes to the next page of dialogue
 					if (page < (l.Length - 1)) {
 						GUI.Label(new Rect(15 + (Screen.width / 5) + textX, (Screen.height / 2) + textY, Screen.width - (20 + (Screen.width / 4)), Screen.height / 2 - 60), l[page], diaStyle);
