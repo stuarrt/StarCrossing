@@ -114,13 +114,13 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	void MoveCharacter(){
-		Vector3 newTransform = new Vector3(left ? -1 : 0, 0, back ? -1 : 0);
+		Vector3 newTransform = new Vector3(left ? 1 : 0, 0, back ? 1 : 0);
 
 		if (right){
-			newTransform = new Vector3(newTransform.x + 1, 0, newTransform.z);
+			newTransform = new Vector3(newTransform.x + -1, 0, newTransform.z);
 		}
 		if (forward){
-			newTransform = new Vector3(newTransform.x, 0, newTransform.z + 1);
+			newTransform = new Vector3(newTransform.x, 0, newTransform.z + -1);
 		}
 
 		if (left || right || forward || back){
@@ -137,18 +137,18 @@ public class PlayerController : MonoBehaviour {
 
 			//Determine whether sprite should be flipped
 			if (forward){
-				if (left && !right && transform.localScale.x < 0){
-					transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
-				}
-				else if (right && !left && transform.localScale.x > 0){
-					transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
-				}
-			}
-			else {
 				if (left && !right && transform.localScale.x > 0){
 					transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
 				}
 				else if (right && !left && transform.localScale.x < 0){
+					transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
+				}
+			}
+			else {
+				if (left && !right && transform.localScale.x < 0){
+					transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
+				}
+				else if (right && !left && transform.localScale.x > 0){
 					transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
 				}
 			}

@@ -7,6 +7,7 @@ public class NPC : MonoBehaviour {
 	public static Transform player;
 
 	public bool isMoving;
+	public bool isStealthy;
 
 	public float lookAtDistance;
 
@@ -16,9 +17,11 @@ public class NPC : MonoBehaviour {
 
 	public NPCDirection? currentDirection;
 
-	public static Animator MyAnimator { get; private set; }
+	public Animator MyAnimator { get; private set; }
 	
 	public RuntimeAnimatorController controller;
+
+	public SpriteRenderer spriteRenderer;
 
 	public float AnimationSpeed;
 
@@ -37,11 +40,13 @@ public class NPC : MonoBehaviour {
 
 		camera = MainCamera.Instance.transform;
 		player = PlayerController.MyTransform;
-		MyAnimator = GetComponent<Animator>();;
+		spriteRenderer = GetComponent<SpriteRenderer>();
+		MyAnimator = GetComponent<Animator>();
 
 		if (MyAnimator.runtimeAnimatorController == null){
 			MyAnimator.runtimeAnimatorController = controller;
 		}
+
 		if (lookAtDistance == 0){
 			lookAtDistance = 1;
 		}
@@ -77,6 +82,13 @@ public class NPC : MonoBehaviour {
 				return;
 			}
 		}
+
+		else if (isStealthy && spriteRenderer.isVisible){
+			MyAnimator.Play ("IdleAnim");
+			currentDirection = NPCDirection.Stop;
+			return;
+		}
+
 		//Other cases and stuff
 		else if (currentDirection == NPCDirection.Looking){
 			this.transform.rotation = Quaternion.identity;
@@ -92,7 +104,15 @@ public class NPC : MonoBehaviour {
 		}
 		else if ((cycleTrack <= 0) && (!isMoving)){
 			ChooseDirection(Random.Range(0, 5));
+
+			if (currentDirection == NPCDirection.Stop){
+				cycleTrack--;
+				return;
+			}
 			isMoving = true;
+
+			MyAnimator.Play("OutFocusAnim");
+			ChangeAnimation("FocusAnim", "IdleAnim");
 		}
 
 		if (isMoving){
@@ -128,6 +148,9 @@ public class NPC : MonoBehaviour {
 
 		isMoving= false;
 		cycleTrack = Random.Range (cycleSpeed - 25, cycleSpeed + 30);
+
+		MyAnimator.Play("IntoFocusAnim");
+		ChangeAnimation("IntoFocusAnim", "FocusAnim");
 	}
 
 	void LookAtPlayer(){
