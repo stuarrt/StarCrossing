@@ -4,7 +4,7 @@ using System.Collections;
 public class DayNightCycle : MonoBehaviour {
 
 	public Light sun;
-	public float seconds = 60f;
+	public float seconds = 900f;
 	public float currentTime = 0;
 	public float timeMultiplier = 1f;
 	public GUIStyle timeStyle;
