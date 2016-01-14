@@ -150,30 +150,30 @@ public abstract class Dialogue : MonoBehaviour {
 	}
 
 	//Allows player to make choices based off listed options
-	public void choiceBox (int i, int p, int c) {
+	public void choiceBox (int i, int p, int c, string[] r) {
 		float x = Screen.width - 750;
 		float y = Screen.height - 250;
 		if (page == p) {
 			choose = true;
 			if (c > 0) {
-				if (GUI.Button(new Rect(x, y, 300, 50), responses[i])) {
-					selection[0] = responses[i];
+				if (GUI.Button(new Rect(x, y, 300, 50), r[i])) {
+					selection[0] = r[i];
 					page += 1;
 					choose = false;
 					goodbye = true;
 				}
 			}
 			if (c > 1) {
-				if (GUI.Button(new Rect(x, y + 75, 300, 50), responses[i+1])) {
-					selection[0] = responses[i+1];
+				if (GUI.Button(new Rect(x, y + 75, 300, 50), r[i+1])) {
+					selection[0] = r[i+1];
 					page += 2;
 					choose = false;
 					goodbye = true;
 				}
 			}
 			if (c > 2) {
-				if (GUI.Button(new Rect(x, y + 150, 300, 50), responses[i+2])) {
-					selection[0] = responses[i+2];
+				if (GUI.Button(new Rect(x, y + 150, 300, 50), r[i+2])) {
+					selection[0] = r[i+2];
 					page += 3;
 					choose = false;
 					goodbye = true;
@@ -213,7 +213,7 @@ public abstract class Dialogue : MonoBehaviour {
 						GUI.Label(new Rect(15 + (Screen.width / 5) + textX, (Screen.height / 2) + textY, Screen.width - (20 + (Screen.width / 4)), Screen.height / 2 - 60), l[page], diaStyle);
 					if (!choose && !goodbye) {
 						//Next button
-						if (GUI.Button (new Rect (Screen.width - 130, Screen.height - 90, 55, 40), "", buttonStyle)) {
+						if (GUI.Button (new Rect (Screen.width - 130, Screen.height - 90, 55, 40), "")) {
 							page += 1;
 							}
 						}
@@ -222,7 +222,7 @@ public abstract class Dialogue : MonoBehaviour {
 					if (page == (l.Length - 1) || goodbye) {
 						GUI.Label(new Rect(15 + (Screen.width / 5) + textX, (Screen.height / 2) + textY, Screen.width - (20 + (Screen.width / 4)), Screen.height / 2 - 60), l[page], diaStyle);
 					//Goodbye button
-					if (GUI.Button (new Rect (Screen.width - 130, Screen.height - 90, 55, 40), "", buttonStyle)) {
+					if (GUI.Button (new Rect (Screen.width - 130, Screen.height - 90, 55, 40), "")) {
 						talking = false;
 						Time.timeScale = 1;
 						cantalk = true;

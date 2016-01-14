@@ -8,7 +8,7 @@ public class MakeGhost : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		print (dnc.currentTime);
+	//	print (dnc.currentTime);
 
 		if (dnc.currentTime < 0.28f || dnc.currentTime > 0.74f) {
 			this.gameObject.GetComponent<Renderer>().enabled = true;

@@ -25,7 +25,7 @@ public class NPCDialogue : Dialogue {
 		//Dialogue based off whether the quest was completed or not
 		if (!QuestList.quests [0].completed || !QuestList.quests [0].display) {
 			conversation(lines, new List<int>(){0});
-			choiceBox(0, 1, 3);
+			choiceBox(0, 1, 3, responses);
 		}
 		//How much dialogue the player must go through to accept the quest ##dialoguecount >= 1
 		if (selection[0] == responses[0]) { //used to include && goodbye

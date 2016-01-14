@@ -15,6 +15,8 @@ public class PlayerController : MonoBehaviour {
 	public float jumpHeight;
 	public float maxJumpHeight;
 
+	private float time;
+
 	private bool pause;
 
 	private bool left, right, forward, back;
@@ -93,6 +95,16 @@ public class PlayerController : MonoBehaviour {
 
 	}
 
+	void FixedUpdate() {
+		print ("Time: " + time);
+		if (!jumping) {
+			time = 0;
+		}
+		if (jumping) {
+			time += 1;
+		}
+	}
+
 	void OnGUI() {
 		if (Time.timeScale == 0) {
 			if (pause) {
@@ -163,7 +175,7 @@ public class PlayerController : MonoBehaviour {
 
 	void Jump(){
 		if (jumping){
-			if (transform.position.y >= maxJumpHeight){
+			if (transform.position.y >= maxJumpHeight || time > 25f){
 				jumping = false;
 			}
 			else {

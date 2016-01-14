@@ -28,6 +28,16 @@ public class QuestList : MonoBehaviour {
 		page = 0;
 		quests.Add(new Quest("Talk to Ruby", false, false)); //0
 		quests.Add(new Quest("Check on the Town", false, false)); //1
+		quests.Add(new Quest("Talk to Burnadine", false, false)); //2
+		quests.Add(new Quest("Talk to Dr. Cyabin", false, false)); //3
+		quests.Add(new Quest("Talk to Hat Person", false, false)); //4
+		quests.Add(new Quest("Talk to Ika", false, false)); //5
+		quests.Add(new Quest("Talk to Khet", false, false)); //6
+		quests.Add(new Quest("Talk to Morry", false, false)); //7
+		quests.Add(new Quest("Talk to Sally", false, false)); //8
+		quests.Add(new Quest("Talk to Trox", false, false)); //9
+		quests.Add(new Quest("Find Wallace Poster", false, false)); //10
+		quests.Add(new Quest("Find Missing Fossil", false, false)); //11
 	}
 
 	// Update is called once per frame
@@ -35,11 +45,11 @@ public class QuestList : MonoBehaviour {
 		//These are the quest conditions
 		//If a quest is completed, this updates to let the game know
 		//That the player has completed the quest
-		if (Inventory.Instance.CurrentInventory [Inventory.InventoryObjects.Fossil]) {
-			//quests[0].completed = true;
+		if (quests[11].display && Inventory.Instance.CurrentInventory [Inventory.InventoryObjects.Fossil]) {
+			quests[11].completed = true;
 		}
-		if (Inventory.Instance.CurrentInventory [Inventory.InventoryObjects.Shovel]) {
-			//quests[1].completed = true;
+		if (quests[10].display && Inventory.Instance.CurrentInventory [Inventory.InventoryObjects.Shovel]) {
+			quests[10].completed = true;
 		}
 		if (Input.GetKeyDown (KeyCode.Q)) {
 			notebook = !notebook;
@@ -129,11 +139,93 @@ public class QuestList : MonoBehaviour {
 				if (!quests[1].display) {
 					GUI.Box (new Rect (20, (Screen.height / 4) - 40, 280, 25), "", qboxBStyle);
 				}
+				if (quests[2].display) {
+					GUI.Box (new Rect (20, (Screen.height / 4) - 10, 280, 25), "", qboxStyle);
+					GUI.Label (new Rect (15, (Screen.height / 4) - 10, 270, 100), quests [2].name + " - " + quests [2].completed, qlist);
+				}
+				if (!quests[2].display) {
+					GUI.Box (new Rect (20, (Screen.height / 4) - 10, 280, 25), "", qboxBStyle);
+				}
 				//***Insert Quest 2 here
-				GUI.Box (new Rect (20, (Screen.height / 4) - 10, 280, 25), "", qboxBStyle);
+				//GUI.Box (new Rect (20, (Screen.height / 4) - 10, 280, 25), "", qboxBStyle);
+			}
+			if (page == 1) {
+				if (quests[3].display) {
+					GUI.Box (new Rect (20, (Screen.height / 4) - 70, 280, 25), "", qboxStyle);
+					GUI.Label (new Rect (15, (Screen.height / 4) - 70, 270, 100), quests [3].name + " - " + quests [3].completed, qlist);
+				}
+				if (!quests[3].display) {
+					GUI.Box (new Rect (20, (Screen.height / 4) - 70, 280, 25), "", qboxBStyle);
+				}
+				if (quests[4].display) {
+					GUI.Box (new Rect (20, (Screen.height / 4) - 40, 280, 25), "", qboxStyle);
+					GUI.Label (new Rect (15, (Screen.height / 4) - 40, 270, 100), quests [4].name + " - " + quests [4].completed, qlist);
+				}
+				if (!quests[4].display) {
+					GUI.Box (new Rect (20, (Screen.height / 4) - 40, 280, 25), "", qboxBStyle);
+				}
+				if (quests[5].display) {
+					GUI.Box (new Rect (20, (Screen.height / 4) - 10, 280, 25), "", qboxStyle);
+					GUI.Label (new Rect (15, (Screen.height / 4) - 10, 270, 100), quests [5].name + " - " + quests [5].completed, qlist);
+				}
+				if (!quests[5].display) {
+					GUI.Box (new Rect (20, (Screen.height / 4) - 10, 280, 25), "", qboxBStyle);
+				}
+				//***Insert Quest 2 here
+				//GUI.Box (new Rect (20, (Screen.height / 4) - 10, 280, 25), "", qboxBStyle);
+			}
+			if (page == 2) {
+				if (quests[6].display) {
+					GUI.Box (new Rect (20, (Screen.height / 4) - 70, 280, 25), "", qboxStyle);
+					GUI.Label (new Rect (15, (Screen.height / 4) - 70, 270, 100), quests [6].name + " - " + quests [6].completed, qlist);
+				}
+				if (!quests[6].display) {
+					GUI.Box (new Rect (20, (Screen.height / 4) - 70, 280, 25), "", qboxBStyle);
+				}
+				if (quests[7].display) {
+					GUI.Box (new Rect (20, (Screen.height / 4) - 40, 280, 25), "", qboxStyle);
+					GUI.Label (new Rect (15, (Screen.height / 4) - 40, 270, 100), quests [7].name + " - " + quests [7].completed, qlist);
+				}
+				if (!quests[7].display) {
+					GUI.Box (new Rect (20, (Screen.height / 4) - 40, 280, 25), "", qboxBStyle);
+				}
+				if (quests[8].display) {
+					GUI.Box (new Rect (20, (Screen.height / 4) - 10, 280, 25), "", qboxStyle);
+					GUI.Label (new Rect (15, (Screen.height / 4) - 10, 270, 100), quests [8].name + " - " + quests [8].completed, qlist);
+				}
+				if (!quests[8].display) {
+					GUI.Box (new Rect (20, (Screen.height / 4) - 10, 280, 25), "", qboxBStyle);
+				}
+				//***Insert Quest 2 here
+				//GUI.Box (new Rect (20, (Screen.height / 4) - 10, 280, 25), "", qboxBStyle);
+			}
+			if (page == 3) {
+				if (quests[9].display) {
+					GUI.Box (new Rect (20, (Screen.height / 4) - 70, 280, 25), "", qboxStyle);
+					GUI.Label (new Rect (15, (Screen.height / 4) - 70, 270, 100), quests [9].name + " - " + quests [9].completed, qlist);
+				}
+				if (!quests[9].display) {
+					GUI.Box (new Rect (20, (Screen.height / 4) - 70, 280, 25), "", qboxBStyle);
+				}
+				if (quests[10].display) {
+					GUI.Box (new Rect (20, (Screen.height / 4) - 40, 280, 25), "", qboxStyle);
+					GUI.Label (new Rect (15, (Screen.height / 4) - 40, 270, 100), quests [10].name + " - " + quests [10].completed, qlist);
+				}
+				if (!quests[10].display) {
+					GUI.Box (new Rect (20, (Screen.height / 4) - 40, 280, 25), "", qboxBStyle);
+				}
+				if (quests[11].display) {
+					GUI.Box (new Rect (20, (Screen.height / 4) - 10, 280, 25), "", qboxStyle);
+					GUI.Label (new Rect (15, (Screen.height / 4) - 10, 270, 100), quests [11].name + " - " + quests [11].completed, qlist);
+				}
+				if (!quests[11].display) {
+					GUI.Box (new Rect (20, (Screen.height / 4) - 10, 280, 25), "", qboxBStyle);
+				}
+				//***Insert Quest 2 here
+				//GUI.Box (new Rect (20, (Screen.height / 4) - 10, 280, 25), "", qboxBStyle);
 			}
 			//***Insert other quest pages here
-			if (page > 0) {
+			if (page > 3) {
 				GUI.Box (new Rect (20, (Screen.height / 4) - 70, 280, 25), "", qboxBStyle);
 				GUI.Box (new Rect (20, (Screen.height / 4) - 40, 280, 25), "", qboxBStyle);
 				GUI.Box (new Rect (20, (Screen.height / 4) - 10, 280, 25), "", qboxBStyle);
