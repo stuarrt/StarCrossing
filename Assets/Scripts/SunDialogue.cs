@@ -23,10 +23,10 @@ public class SunDialogue : Dialogue {
 		//Inherits Dialogue OnGUI
 		base.OnGUI ();
 		//Dialogue based off whether the quest was completed or not
-		if (!QuestList.quests [1].completed || !QuestList.quests [1].display) {
-			conversation(lines, new List<int>(){});
-			choiceBox(0, 1);
-		}
+//		if (!QuestList.quests [1].completed || !QuestList.quests [1].display) {
+//			conversation(lines, new List<int>(){});
+//			choiceBox(0, 1);
+//		}
 		//How much dialogue the player must go through to accept the quest ##dialoguecount >= 1
 		if (selection[0] == responses[0]) { //used to include && goodbye
 			addQuest(1);

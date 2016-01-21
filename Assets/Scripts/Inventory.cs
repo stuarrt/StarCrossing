@@ -12,6 +12,7 @@ public class Inventory : MonoBehaviour {
 	{
 		Fossil, 
 		Shovel,
+		RocketBoots, 
 	}
 
 
@@ -21,6 +22,7 @@ public class Inventory : MonoBehaviour {
 	{
 		{ InventoryObjects.Fossil, false },
 		{ InventoryObjects.Shovel, false },
+		{ InventoryObjects.RocketBoots, true },
 	};
 
 	// Use this for initialization

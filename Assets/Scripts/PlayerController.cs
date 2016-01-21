@@ -15,8 +15,6 @@ public class PlayerController : MonoBehaviour {
 	public float jumpHeight;
 	public float maxJumpHeight;
 
-	private float time;
-
 	private bool pause;
 
 	private bool left, right, forward, back;
@@ -95,16 +93,6 @@ public class PlayerController : MonoBehaviour {
 
 	}
 
-	void FixedUpdate() {
-		print ("Time: " + time);
-		if (!jumping) {
-			time = 0;
-		}
-		if (jumping) {
-			time += 1;
-		}
-	}
-
 	void OnGUI() {
 		if (Time.timeScale == 0) {
 			if (pause) {
@@ -175,8 +163,15 @@ public class PlayerController : MonoBehaviour {
 
 	void Jump(){
 		if (jumping){
-			if (transform.position.y >= maxJumpHeight || time > 25f){
-				jumping = false;
+			if (transform.position.y >= maxJumpHeight){
+				//If the Current Inventory contains the Rocket Boots
+				if (Inventory.Instance.CurrentInventory[Inventory.InventoryObjects.RocketBoots]){
+					//TODO: Put the animation for rocket boots trigger here
+					charRigidbody.velocity = new Vector3(charRigidbody.velocity.x, 0, charRigidbody.velocity.z);
+				}
+				else {
+					jumping = false;
+				}
 			}
 			else {
 				//Set the y velocity to 0 to stop gravity from messing with the jumping 

@@ -1,3 +1,7 @@
 Base path: C:/Program Files/Unity/Editor/Data
-Pipe name: \\.\pipe\UnityShaderCompiler-64bit-1-9200
+Pipe name: \\.\pipe\UnityShaderCompiler-64bit-1-13724
 Cmd: getPlatforms
+Cmd: compileSnippet
+  api=4 type=0 insize=9538 outsize=2793 kw=WATER_VERTEX_DISPLACEMENT_OFF WATER_REFLECTIVE WATER_EDGEBLEND_ON pd= ok=1
+Cmd: compileSnippet
+  api=4 type=1 insize=9538 outsize=5263 kw=WATER_VERTEX_DISPLACEMENT_OFF WATER_REFLECTIVE WATER_EDGEBLEND_ON pd= ok=1

@@ -47,10 +47,21 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\CheckTime.cs" />
      <Compile Include="Assets\Scripts\DayNightCycle.cs" />
-     <Compile Include="Assets\Scripts\DialogHandler.cs" />
-     <Compile Include="Assets\Scripts\Dialogue.cs" />
+     <Compile Include="Assets\Scripts\DialogueScripts\BurnadineDialogue.cs" />
+     <Compile Include="Assets\Scripts\DialogueScripts\DialogHandler.cs" />
+     <Compile Include="Assets\Scripts\DialogueScripts\Dialogue.cs" />
+     <Compile Include="Assets\Scripts\DialogueScripts\DrCyabinDialogue.cs" />
+     <Compile Include="Assets\Scripts\DialogueScripts\GhostDialogue.cs" />
+     <Compile Include="Assets\Scripts\DialogueScripts\HatPersonDialogue.cs" />
+     <Compile Include="Assets\Scripts\DialogueScripts\IkaDialogue.cs" />
+     <Compile Include="Assets\Scripts\DialogueScripts\KhetDialogue.cs" />
+     <Compile Include="Assets\Scripts\DialogueScripts\MayorGranDialogue.cs" />
+     <Compile Include="Assets\Scripts\DialogueScripts\MorryDialogue.cs" />
+     <Compile Include="Assets\Scripts\DialogueScripts\NPCDialogue.cs" />
+     <Compile Include="Assets\Scripts\DialogueScripts\RubyDialogue.cs" />
+     <Compile Include="Assets\Scripts\DialogueScripts\SallyDialogue.cs" />
+     <Compile Include="Assets\Scripts\DialogueScripts\TroxDialogue.cs" />
      <Compile Include="Assets\Scripts\Doorway.cs" />
-     <Compile Include="Assets\Scripts\GhostDialogue.cs" />
      <Compile Include="Assets\Scripts\Inventory.cs" />
      <Compile Include="Assets\Scripts\InventoryBox.cs" />
      <Compile Include="Assets\Scripts\InventoryIcon.cs" />
@@ -58,15 +69,29 @@
      <Compile Include="Assets\Scripts\MainCamera.cs" />
      <Compile Include="Assets\Scripts\MakeGhost.cs" />
      <Compile Include="Assets\Scripts\NPC.cs" />
-     <Compile Include="Assets\Scripts\NPCDialogue.cs" />
      <Compile Include="Assets\Scripts\OtherDialogue.cs" />
      <Compile Include="Assets\Scripts\PlayerController.cs" />
      <Compile Include="Assets\Scripts\Quest.cs" />
      <Compile Include="Assets\Scripts\QuestList.cs" />
      <Compile Include="Assets\Scripts\SunDialogue.cs" />
      <None Include="Assets\Dialogue\NPCName\npcname.txt" />
+     <None Include="Assets\Dialogue\Sally\introresponses.txt" />
+     <None Include="Assets\Dialogue\Trox\introresponses.txt" />
      <None Include="Assets\Dialogue\NPCName\npcname2.txt" />
+     <None Include="Assets\Dialogue\Khet\introduction.txt" />
+     <None Include="Assets\Dialogue\Ruby\introduction.txt" />
      <None Include="Assets\Dialogue\SunNPC\sunnpc2.txt" />
+     <None Include="Assets\Dialogue\DrCyabin\introduction.txt" />
+     <None Include="Assets\Dialogue\Fluke\introresponses.txt" />
+     <None Include="Assets\Dialogue\Trox\posterQuest.txt" />
+     <None Include="Assets\Dialogue\Sally\introduction.txt" />
+     <None Include="Assets\Dialogue\Ruby\introductionFinishedresponses.txt" />
+     <None Include="Assets\Dialogue\Fluke\introduction.txt" />
+     <None Include="Assets\Dialogue\DrCyabin\fossilFinish.txt" />
+     <None Include="Assets\Dialogue\Hatguy\introduction.txt" />
+     <None Include="Assets\Dialogue\Ruby\sunnpc2.txt" />
+     <None Include="Assets\Dialogue\Trox\posterFinish.txt" />
+     <None Include="Assets\Dialogue\Hatguy\introresponses.txt" />
      <None Include="Assets\npcresponses.txt" />
      <None Include="Assets\Dialogue\Ghost\dayone.txt" />
      <None Include="Assets\Standard Assets\Environment\Water\Water4\Shaders\FXWater4Simple.shader" />
@@ -74,28 +99,38 @@
      <None Include="Assets\Dialogue\SunNPC\sunnpc.txt" />
      <None Include="Assets\Dialogue\Ghost\daytwo.txt" />
      <None Include="Assets\Dialogue\README.txt" />
+     <None Include="Assets\Dialogue\Burnadine\introresponses.txt" />
+     <None Include="Assets\Dialogue\DrCyabin\fossilResponses.txt" />
+     <None Include="Assets\Dialogue\DrCyabin\fossilQuest.txt" />
+     <None Include="Assets\Dialogue\DrCyabin\introresponses.txt" />
+     <None Include="Assets\Dialogue\MayorGran\introresponses.txt" />
+     <None Include="Assets\Dialogue\Khet\introresponses.txt" />
+     <None Include="Assets\Dialogue\Ika\introresponses.txt" />
      <None Include="Assets\Dialogue\OtherNPC\othernpc.txt" />
      <None Include="Assets\Standard Assets\Environment\Water (Basic)\Shaders\FXWaterBasic.shader" />
+     <None Include="Assets\Dialogue\Burnadine\introduction.txt" />
      <None Include="Assets\Dialogue\NikumaruFont\ReadMe_Windows.txt" />
+     <None Include="Assets\Dialogue\Morry\introresponses.txt" />
+     <None Include="Assets\Dialogue\Ika\introduction.txt" />
      <None Include="Assets\Standard Assets\Environment\Water\Water\Shaders\FXWaterPro.shader" />
+     <None Include="Assets\Dialogue\Ruby\introductionFinished.txt" />
      <None Include="Assets\Dialogue\NPCName\npcresponses.txt" />
+     <None Include="Assets\Dialogue\Trox\posterResponses.txt" />
      <None Include="Assets\Dialogue\OtherNPC\othernpc2.txt" />
+     <None Include="Assets\Dialogue\Trox\introduction.txt" />
+     <None Include="Assets\Dialogue\Morry\introduction.txt" />
      <None Include="Assets\npcname.txt" />
      <None Include="Assets\Dialogue\SunNPC\sunresponses.txt" />
      <None Include="Assets\npcname2.txt" />
      <None Include="Assets\Standard Assets\Environment\Water\Water4\Shaders\WaterInclude.cginc" />
+     <None Include="Assets\Dialogue\MayorGran\introduction.txt" />
      <None Include="Assets\Standard Assets\Environment\Water\Water4\Shaders\FXWater4Advanced.shader" />
- <Reference Include="UnityEngine.Advertisements">
- <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Advertisements/UnityEngine.Advertisements.dll</HintPath>
- </Reference>
+     <None Include="Assets\Dialogue\Ruby\introresponses.txt" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.Networking">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.Analytics">
- <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityAnalytics/UnityEngine.Analytics.dll</HintPath>
  </Reference>
  <Reference Include="Mono.Cecil">
  <HintPath>C:/Program Files/Unity/Editor/Data/Managed/Mono.Cecil.dll</HintPath>
