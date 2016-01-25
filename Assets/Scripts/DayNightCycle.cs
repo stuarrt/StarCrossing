@@ -3,6 +3,17 @@ using System.Collections;
 
 public class DayNightCycle : MonoBehaviour {
 
+	public static DayNightCycle Instance { get; private set; }
+
+	public enum TimeOfDay
+	{
+		Dawn, 
+		Noon, 
+		Dusk, 
+		Midnight,
+	}
+
+	public TimeOfDay dayState;
 	public Light sun;
 	public float seconds = 900f;
 	public float currentTime = 0;
@@ -15,6 +26,13 @@ public class DayNightCycle : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		if (Instance != null)
+		{
+			Debug.LogError("More than one DayNightCycle in scene!");
+			return;
+		}
+		Instance = this;
+
 		sunIntensity = sun.intensity;
 	}
 	
@@ -33,12 +51,20 @@ public class DayNightCycle : MonoBehaviour {
 		sun.transform.localRotation = Quaternion.Euler ((currentTime * 360f) - 90, 170, 0);
 
 		float intmult = 1;
-		if (currentTime <= 0.23f || currentTime >= 0.75f) {
+		//TODO: Separating the (currentTime <= 0.23f || currentTime >= 0.75f) case 
+		//into two cases so that we can have four time states: Dawn/Noon/Dusk/Midnight.
+		if (currentTime <= 0.23f) {
+			dayState = TimeOfDay.Dawn;
 			intmult = 0;
-		} else if (currentTime <= 0.25f) { 
+		}else if (currentTime <= 0.25f) { 
+			dayState = TimeOfDay.Noon;
 			intmult = Mathf.Clamp01 ((currentTime - 0.23f) * (1 / 0.02f));
 		} else if (currentTime >= 0.73f) {
+			dayState = TimeOfDay.Dusk;
 			intmult = Mathf.Clamp01(1 - ((currentTime - 0.73f) * (1 / 0.02f)));
+		} else if (currentTime >= 0.75f) {
+			dayState = TimeOfDay.Midnight;
+			intmult = 0;
 		}
 
 		sun.intensity = sunIntensity * intmult;

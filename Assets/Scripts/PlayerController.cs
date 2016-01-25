@@ -14,7 +14,9 @@ public class PlayerController : MonoBehaviour {
 	public bool jumping;
 	public float jumpHeight;
 	public float maxJumpHeight;
+	public int rocketLimit;
 
+	private int rocketTimer;
 	private bool pause;
 
 	private bool left, right, forward, back;
@@ -30,6 +32,10 @@ public class PlayerController : MonoBehaviour {
 
 		if (jumpHeight == 0){
 			jumpHeight = 1;
+		}
+
+		if (rocketLimit == 0) {
+			rocketLimit = 3;
 		}
 
 		left = right = forward = back = jumping = false;
@@ -64,18 +70,13 @@ public class PlayerController : MonoBehaviour {
 			}
 			//Jumping mechanic
 			//Currently player can hold down and will fly (as if having a jet pack
-			if (Input.GetKey (KeyCode.Space)) {
+			if (Input.GetKeyDown (KeyCode.Space)) {
 				//TODO: Change this to be a check for the JetPack Object once we add it
-				if (false){
+				if (!jumping) {
 					maxJumpHeight = transform.position.y + jumpHeight;
 					jumping = true;
 				}
-				else if (Mathf.Abs(charRigidbody.velocity.y) < 0.01){
-					maxJumpHeight = transform.position.y + jumpHeight;
-					jumping = true;
-				}
-			}
-			else {
+			} else if (Input.GetKeyUp (KeyCode.Space)) {
 				jumping = false;
 			}
 			if (Input.GetKeyDown (KeyCode.I)) {
@@ -167,6 +168,11 @@ public class PlayerController : MonoBehaviour {
 				//If the Current Inventory contains the Rocket Boots
 				if (Inventory.Instance.CurrentInventory[Inventory.InventoryObjects.RocketBoots]){
 					//TODO: Put the animation for rocket boots trigger here
+					rocketTimer++;
+					if (rocketTimer >= rocketLimit) {
+						jumping = false;
+						rocketTimer = 0;
+					}
 					charRigidbody.velocity = new Vector3(charRigidbody.velocity.x, 0, charRigidbody.velocity.z);
 				}
 				else {

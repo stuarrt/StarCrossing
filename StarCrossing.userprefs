@@ -1,18 +1,23 @@
-﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\PlayerController.cs">
+﻿<Properties StartupItem="Assembly-CSharp.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\NPC.cs">
     <Files>
+      <File FileName="Assets\Scripts\PlayerController.cs" Line="174" Column="23" />
+      <File FileName="Assets\Scripts\DialogueScripts\BurnadineDialogue.cs" Line="17" Column="1" />
+      <File FileName="Assets\Scripts\DialogueScripts\MayorGranDialogue.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Doorway.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\CheckTime.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\CheckTime.cs" Line="11" Column="15" />
+      <File FileName="Assets\Scripts\DayNightCycle.cs" Line="59" Column="37" />
       <File FileName="Assets\Scripts\QuestList.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Inventory.cs" Line="23" Column="38" />
+      <File FileName="Assets\Scripts\Inventory.cs" Line="17" Column="2" />
       <File FileName="Assets\Scripts\InventoryIcon.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\InventoryBox.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\OtherDialogue.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\PlayerController.cs" Line="164" Column="14" />
-      <File FileName="Assets\Scripts\NPC.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\SunDialogue.cs" Line="10" Column="2" />
-      <File FileName="Assets\Scripts\MainCamera.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\NPC.cs" Line="74" Column="28" />
+      <File FileName="Assets\Scripts\SunDialogue.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\MainCamera.cs" Line="3" Column="1" />
+      <File FileName="Assets\Scripts\DialogueScripts\GhostDialogue.cs" Line="23" Column="9" />
+      <File FileName="Assets\Scripts\DialogueScripts\Dialogue.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

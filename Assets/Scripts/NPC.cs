@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[RequireComponent(typeof(NavMeshAgent))]
 public class NPC : MonoBehaviour {
 
 	public static Transform camera;
@@ -16,6 +17,9 @@ public class NPC : MonoBehaviour {
 	public float speed;
 
 	public NPCDirection? currentDirection;
+
+	public Transform destination;
+	NavMeshAgent NavAgent;
 
 	public Animator MyAnimator { get; private set; }
 	
@@ -40,8 +44,9 @@ public class NPC : MonoBehaviour {
 
 		camera = MainCamera.Instance.transform;
 		player = PlayerController.MyTransform;
-		spriteRenderer = GetComponent<SpriteRenderer>();
-		MyAnimator = GetComponent<Animator>();
+		spriteRenderer = GetComponent < SpriteRenderer >();
+		MyAnimator = GetComponent < Animator >();
+		NavAgent = GetComponent < NavMeshAgent > ();
 
 		if (MyAnimator.runtimeAnimatorController == null){
 			MyAnimator.runtimeAnimatorController = controller;
@@ -65,11 +70,26 @@ public class NPC : MonoBehaviour {
 
 		isMoving = true;
 		cycleTrack = Random.Range (cycleSpeed - 22, cycleSpeed + 31);
+		NavAgent.baseOffset = 3.0f;
+		NavAgent.enabled = false;
 	}
 	
 	// Update is called once per frame
 	void FixedUpdate () {
-
+		if (destination){
+			if (Vector3.Distance (this.transform.position, destination.position) < lookAtDistance) {
+				destination = null;
+				transform.rotation = Quaternion.identity;
+				StopMoving (); 
+				NavAgent.enabled = false;
+			} else {
+				NavAgent.enabled = true;
+				NavAgent.destination = destination.position;
+				isMoving = false;
+				//MyAnimator.Play ("Idle Anim");
+				transform.rotation = Quaternion.identity;
+			}
+		}
 		//Case when player is within the lookAt range
 		if (Vector3.Distance(this.transform.position, player.position) < lookAtDistance){
 			if (currentDirection != NPCDirection.Looking){

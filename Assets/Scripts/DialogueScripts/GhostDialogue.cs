@@ -20,7 +20,7 @@ public class GhostDialogue : Dialogue {
 		//responses = responsefile.Split('\n'); //main responses
 	}
 
-	void Update() {
+	public override void Update() {
 		if (dnc.currentTime < 0.28f || dnc.currentTime > 0.74f) {
 			this.gameObject.GetComponent<BoxCollider>().enabled = true;
 		}
