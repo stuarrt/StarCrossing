@@ -76,20 +76,7 @@ public class NPC : MonoBehaviour {
 	
 	// Update is called once per frame
 	void FixedUpdate () {
-		if (destination){
-			if (Vector3.Distance (this.transform.position, destination.position) < lookAtDistance) {
-				destination = null;
-				transform.rotation = Quaternion.identity;
-				StopMoving (); 
-				NavAgent.enabled = false;
-			} else {
-				NavAgent.enabled = true;
-				NavAgent.destination = destination.position;
-				isMoving = false;
-				//MyAnimator.Play ("Idle Anim");
-				transform.rotation = Quaternion.identity;
-			}
-		}
+
 		//Case when player is within the lookAt range
 		if (Vector3.Distance(this.transform.position, player.position) < lookAtDistance){
 			if (currentDirection != NPCDirection.Looking){
@@ -103,7 +90,21 @@ public class NPC : MonoBehaviour {
 			}
 		}
 
-		else if (isStealthy && spriteRenderer.isVisible){
+		if (destination){
+			if (Vector3.Distance (this.transform.position, destination.position) < lookAtDistance) {
+				destination = null;
+				transform.rotation = Quaternion.identity;
+				StopMoving (); 
+				NavAgent.enabled = false;
+			} else {
+				NavAgent.enabled = true;
+				NavAgent.destination = destination.position;
+				MyAnimator.Play ("OutFocusAnim");
+				transform.rotation = Quaternion.identity;
+				return;
+			}
+		}
+		if (isStealthy && spriteRenderer.isVisible){
 			MyAnimator.Play ("IdleAnim");
 			currentDirection = NPCDirection.Stop;
 			return;

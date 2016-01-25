@@ -71,12 +71,12 @@ public class PlayerController : MonoBehaviour {
 			//Jumping mechanic
 			//Currently player can hold down and will fly (as if having a jet pack
 			if (Input.GetKeyDown (KeyCode.Space)) {
-				//TODO: Change this to be a check for the JetPack Object once we add it
-				if (!jumping) {
+				if (!jumping && (charRigidbody.velocity.y > -3)) {
 					maxJumpHeight = transform.position.y + jumpHeight;
 					jumping = true;
 				}
 			} else if (Input.GetKeyUp (KeyCode.Space)) {
+				charRigidbody.velocity = new Vector3(charRigidbody.velocity.x, -3, charRigidbody.velocity.z );
 				jumping = false;
 			}
 			if (Input.GetKeyDown (KeyCode.I)) {
@@ -177,6 +177,7 @@ public class PlayerController : MonoBehaviour {
 				}
 				else {
 					jumping = false;
+					charRigidbody.velocity = new Vector3(charRigidbody.velocity.x, -3, charRigidbody.velocity.z );
 				}
 			}
 			else {
