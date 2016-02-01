@@ -19,6 +19,7 @@ public class DrCyabinDialogue : Dialogue {
 	void Start () {
 		myname = "Dr. Cyabin";
 		npcname = "DrCyabin"; //Name of NPC (listed as a tag)
+		friendmeter = PlayerPrefs.GetInt ("DrCyabinMeter");
 		textfile = File.ReadAllText ("Assets/Dialogue/DrCyabin/introduction.txt"); //main dialogue
 		responsefile = File.ReadAllText ("Assets/Dialogue/DrCyabin/introresponses.txt"); //player responses
 		textfile2 = File.ReadAllText ("Assets/Dialogue/DrCyabin/fossilQuest.txt"); //main dialogue

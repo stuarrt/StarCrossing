@@ -18,6 +18,7 @@ public class TroxDialogue : Dialogue {
 	void Start () {
 		myname = "Trox";
 		npcname = "Trox"; //Name of NPC (listed as a tag)
+		friendmeter = PlayerPrefs.GetInt ("TroxMeter");
 		textfile = File.ReadAllText ("Assets/Dialogue/Trox/introduction.txt"); //main dialogue
 		responsefile = File.ReadAllText ("Assets/Dialogue/Trox/introresponses.txt"); //player responses
 		textfile2 = File.ReadAllText ("Assets/Dialogue/Trox/posterQuest.txt"); //main dialogue

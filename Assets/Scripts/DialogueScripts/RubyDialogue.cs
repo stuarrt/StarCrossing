@@ -13,6 +13,7 @@ public class RubyDialogue : Dialogue {
 	void Start() {
 		myname = "Ruby";
 		npcname = "Ruby"; //Name of NPC (listed as a tag)
+		friendmeter = PlayerPrefs.GetInt ("RubyMeter");
 		textfile = File.ReadAllText ("Assets/Dialogue/Ruby/introduction.txt"); //main dialogue
 		responsefile = File.ReadAllText ("Assets/Dialogue/Ruby/introresponses.txt"); //player responses
 		textfile2 = File.ReadAllText ("Assets/Dialogue/Ruby/introductionFinished.txt"); //other lines of dialogue

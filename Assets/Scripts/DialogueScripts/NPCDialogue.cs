@@ -11,6 +11,7 @@ public class NPCDialogue : Dialogue {
 	void Start() {
 		myname = "Burnadine";
 		npcname = "NPCName"; //Name of NPC (listed as a tag)
+		friendmeter = 0;
 		textfile = File.ReadAllText ("Assets/Dialogue/NPCName/npcname.txt"); //main dialogue
 		responsefile = File.ReadAllText ("Assets/Dialogue/NPCName/npcresponses.txt"); //player responses
 		textfile2 = File.ReadAllText ("Assets/Dialogue/NPCName/npcname2.txt"); //other lines of dialogue

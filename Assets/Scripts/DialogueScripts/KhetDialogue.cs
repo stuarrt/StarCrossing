@@ -14,6 +14,7 @@ public class KhetDialogue : Dialogue {
 	void Start () {
 		myname = "Khet";
 		npcname = "Khet"; //Name of NPC (listed as a tag)
+		friendmeter = PlayerPrefs.GetInt ("KhetMeter");
 		textfile = File.ReadAllText ("Assets/Dialogue/Khet/introduction.txt"); //main dialogue
 		responsefile = File.ReadAllText ("Assets/Dialogue/Khet/introresponses.txt"); //player responses
 		lines = textfile.Split('\n'); //main parser

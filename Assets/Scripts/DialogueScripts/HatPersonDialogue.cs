@@ -14,6 +14,7 @@ public class HatPersonDialogue : Dialogue {
 	void Start () {
 		myname = "Hat Person";
 		npcname = "HatPerson"; //Name of NPC (listed as a tag)
+		friendmeter = PlayerPrefs.GetInt ("HatPersonMeter");
 		textfile = File.ReadAllText ("Assets/Dialogue/Hatguy/introduction.txt"); //main dialogue
 		responsefile = File.ReadAllText ("Assets/Dialogue/Hatguy/introresponses.txt"); //player responses
 		lines = textfile.Split('\n'); //main parser

@@ -14,6 +14,7 @@ public class IkaDialogue : Dialogue {
 	void Start () {
 		myname = "Ika";
 		npcname = "Ika"; //Name of NPC (listed as a tag)
+		friendmeter = PlayerPrefs.GetInt ("IkaMeter");
 		textfile = File.ReadAllText ("Assets/Dialogue/Ika/introduction.txt"); //main dialogue
 		responsefile = File.ReadAllText ("Assets/Dialogue/Ika/introresponses.txt"); //player responses
 		lines = textfile.Split('\n'); //main parser

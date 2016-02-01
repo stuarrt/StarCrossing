@@ -14,6 +14,7 @@ public class BurnadineDialogue : Dialogue {
 	void Start () {
 		myname = "Burnadine";
 		npcname = "Burnadine"; //Name of NPC (listed as a tag)
+		friendmeter = PlayerPrefs.GetInt ("BurnadineMeter");
 		textfile = File.ReadAllText ("Assets/Dialogue/Burnadine/introduction.txt"); //main dialogue
 		responsefile = File.ReadAllText ("Assets/Dialogue/Burnadine/introresponses.txt"); //player responses
 		lines = textfile.Split('\n'); //main parser

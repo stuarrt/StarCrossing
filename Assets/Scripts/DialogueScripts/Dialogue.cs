@@ -39,6 +39,8 @@ public abstract class Dialogue : MonoBehaviour {
 
 	protected string myname;
 
+	protected int friendmeter;
+
 	//Text file associated with the NPC
 	protected static string textfile;
 

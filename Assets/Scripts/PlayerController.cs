@@ -19,6 +19,10 @@ public class PlayerController : MonoBehaviour {
 	private int rocketTimer;
 	private bool pause;
 
+	private bool digging;
+	
+	private float digtime;
+
 	private bool left, right, forward, back;
 
 	void Awake(){
@@ -55,27 +59,39 @@ public class PlayerController : MonoBehaviour {
 		if (pause) {
 			Time.timeScale = 0;
 		}
+		if (Inventory.Instance.CurrentInventory [Inventory.InventoryObjects.Shovel]) {
+			if (Input.GetKeyDown(KeyCode.R) && !digging) {
+				digging = true;
+			}
+		}
+		if (digging) {
+			digtime += Time.deltaTime;
+		}
+		if (digtime > 2) {
+			digging = false;
+			digtime = 0;
+		}
 		if (Time.timeScale > 0) {
-			if (Input.GetKey (KeyCode.A) || Input.GetKey (KeyCode.LeftArrow)) {
+			if ((Input.GetKey (KeyCode.A) || Input.GetKey (KeyCode.LeftArrow)) && !digging) {
 				left = true;
 			}
-			if (Input.GetKey (KeyCode.D) || Input.GetKey (KeyCode.RightArrow)) {
+			if ((Input.GetKey (KeyCode.D) || Input.GetKey (KeyCode.RightArrow)) && !digging) {
 				right = true;
 			}
-			if (Input.GetKey (KeyCode.W) || Input.GetKey (KeyCode.UpArrow)) {
+			if ((Input.GetKey (KeyCode.W) || Input.GetKey (KeyCode.UpArrow)) && !digging) {
 				forward = true;
 			}
-			if (Input.GetKey (KeyCode.S) || Input.GetKey (KeyCode.DownArrow)) {
+			if ((Input.GetKey (KeyCode.S) || Input.GetKey (KeyCode.DownArrow)) && !digging) {
 				back = true;
 			}
 			//Jumping mechanic
 			//Currently player can hold down and will fly (as if having a jet pack
-			if (Input.GetKeyDown (KeyCode.Space)) {
+			if (Input.GetKeyDown (KeyCode.Space) && !digging) {
 				if (!jumping && (charRigidbody.velocity.y > -3)) {
 					maxJumpHeight = transform.position.y + jumpHeight;
 					jumping = true;
 				}
-			} else if (Input.GetKeyUp (KeyCode.Space)) {
+			} else if (Input.GetKeyUp (KeyCode.Space) && !digging) {
 				charRigidbody.velocity = new Vector3(charRigidbody.velocity.x, -3, charRigidbody.velocity.z );
 				jumping = false;
 			}

@@ -14,6 +14,7 @@ public class SallyDialogue : Dialogue {
 	void Start () {
 		myname = "Sally";
 		npcname = "Sally"; //Name of NPC (listed as a tag)
+		friendmeter = PlayerPrefs.GetInt ("SallyMeter");
 		textfile = File.ReadAllText ("Assets/Dialogue/Sally/introduction.txt"); //main dialogue
 		responsefile = File.ReadAllText ("Assets/Dialogue/Sally/introresponses.txt"); //player responses
 		lines = textfile.Split('\n'); //main parser

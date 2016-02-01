@@ -12,6 +12,7 @@ public class MayorGranDialogue : Dialogue {
 	void Start () {
 		myname = "Mayor Gran";
 		npcname = "MayorGran"; //Name of NPC (listed as a tag)
+		friendmeter = PlayerPrefs.GetInt ("MayorGranMeter");
 		textfile = File.ReadAllText ("Assets/Dialogue/MayorGran/introduction.txt"); //main dialogue
 		responsefile = File.ReadAllText ("Assets/Dialogue/MayorGran/introresponses.txt"); //player responses
 		lines = textfile.Split('\n'); //main parser
