@@ -24,8 +24,10 @@ public class DayNightCycle : MonoBehaviour {
 
 	float sunIntensity;
 
+	NPC[] NPCs;
+
 	// Use this for initialization
-	void Start () {
+	void Awake () {
 		if (Instance != null)
 		{
 			Debug.LogError("More than one DayNightCycle in scene!");
@@ -34,6 +36,8 @@ public class DayNightCycle : MonoBehaviour {
 		Instance = this;
 
 		sunIntensity = sun.intensity;
+
+		NPCs = FindObjectsOfType (typeof(NPC)) as NPC[];
 	}
 	
 	// Update is called once per frame
@@ -54,17 +58,26 @@ public class DayNightCycle : MonoBehaviour {
 		//TODO: Separating the (currentTime <= 0.23f || currentTime >= 0.75f) case 
 		//into two cases so that we can have four time states: Dawn/Noon/Dusk/Midnight.
 		if (currentTime <= 0.23f) {
-			dayState = TimeOfDay.Dawn;
+			if (dayState != TimeOfDay.Dawn) {
+				ChangeNPCLocations (0);
+				dayState = TimeOfDay.Dawn;
+			}
 			intmult = 0;
 		}else if (currentTime <= 0.25f) { 
-			dayState = TimeOfDay.Noon;
-			intmult = Mathf.Clamp01 ((currentTime - 0.23f) * (1 / 0.02f));
+			if (dayState != TimeOfDay.Noon) {
+				ChangeNPCLocations (1);
+				dayState = TimeOfDay.Dawn;
+			}			intmult = Mathf.Clamp01 ((currentTime - 0.23f) * (1 / 0.02f));
 		} else if (currentTime >= 0.73f) {
-			dayState = TimeOfDay.Dusk;
-			intmult = Mathf.Clamp01(1 - ((currentTime - 0.73f) * (1 / 0.02f)));
+			if (dayState != TimeOfDay.Dusk) {
+				ChangeNPCLocations (2);
+				dayState = TimeOfDay.Dawn;
+			}			intmult = Mathf.Clamp01(1 - ((currentTime - 0.73f) * (1 / 0.02f)));
 		} else if (currentTime >= 0.75f) {
-			dayState = TimeOfDay.Midnight;
-			intmult = 0;
+			if (dayState != TimeOfDay.Midnight) {
+				ChangeNPCLocations (3);
+				dayState = TimeOfDay.Dawn;
+			}			intmult = 0;
 		}
 
 		sun.intensity = sunIntensity * intmult;
@@ -72,5 +85,17 @@ public class DayNightCycle : MonoBehaviour {
 
 	void OnGUI() {
 		GUI.Label (new Rect (10, 10, 200, 50), "Days: " + days, timeStyle);
+	}
+
+	void ChangeNPCLocations(int t){
+		foreach (NPC n in NPCs){
+			n.SendMessage("changeLocation", t, SendMessageOptions.RequireReceiver);
+		}
+	}
+
+	void ChangeNPCDay(float totalDays){
+		foreach (NPC n in NPCs){
+			n.SendMessage("changeDay", totalDays, SendMessageOptions.RequireReceiver);
+		}
 	}
 }

@@ -39,6 +39,13 @@ public class NPC : MonoBehaviour {
 		Looking,
 	}
 
+	public Transform[] World1Locations = new Transform[4];
+	public Transform[] World2Locations = new Transform[4];
+	public Transform[] World3Locations = new Transform[4];
+	public Transform[] World4Locations = new Transform[4];
+	public Transform[] World5Locations = new Transform[4];
+
+	Transform[] currentLocations;
 	// Use this for initialization
 	void Start () {
 
@@ -184,5 +191,44 @@ public class NPC : MonoBehaviour {
 	void ChangeAnimation(string oldState, string newState){
 		MyAnimator.SetBool(oldState, false);
 		MyAnimator.SetBool(newState, true);
+	}
+
+	//Sets the destination for the NPC based on time of current day. Called by DayNightCycle object in scene
+	void changeLocation(int t){
+		if (currentLocations.Length != 4) {
+			Debug.Log("NPC Positions not properly set for NPC \"" + this.name + "\"");
+			return;
+		}
+		switch (t) {
+		case 0: //Dawn
+			destination = currentLocations [0];
+			break;
+		case 1: //Noon
+			destination = currentLocations [1];
+			break;
+		case 2: //Dusk
+			destination = currentLocations [2];
+			break;
+		case 3: //Midnight
+			destination = currentLocations [3];
+			break;
+		}
+	}
+
+	//Sets the locations for the NPC to visit for the current day. 
+	void changeDay(float totalDays){
+		//int totalDays = CheckTime.Instance.totalDays;
+
+		if (totalDays < 10) { //First World State
+			currentLocations = World1Locations;
+		} else if (totalDays >= 10 && totalDays < 16) { //Second World State
+			currentLocations = World2Locations;
+		} else if (totalDays >= 16 && totalDays < 21) { //Third World State
+			currentLocations = World3Locations;
+		} else if (totalDays >= 21 && totalDays < 28) { //Fourth World State
+			currentLocations = World4Locations;
+		} else {
+			currentLocations = World5Locations;
+		}
 	}
 }

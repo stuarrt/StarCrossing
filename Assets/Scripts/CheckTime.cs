@@ -4,6 +4,8 @@ using System;
 
 public class CheckTime : MonoBehaviour {
 
+	public static CheckTime Instance { get; private set; }
+
 	//Current Time
 	DateTime curr;
 
@@ -44,6 +46,8 @@ public class CheckTime : MonoBehaviour {
 
 		long temp = Convert.ToInt64 (PlayerPrefs.GetString ("LastTime"));
 
+		Instance = this;
+
 		DateTime old = DateTime.FromBinary (temp);
 		print("oldDate: " + old);
 
@@ -70,12 +74,15 @@ public class CheckTime : MonoBehaviour {
 		if (totalHours >= 24) {
 			totalDays += 1;
 			totalHours -= 24;
+			CallChangeDay ();
 		}
 		days = PlayerPrefs.GetString ("TimeDiffDays");
 		hours = PlayerPrefs.GetString ("TimeDiffHours");
 		minutes = PlayerPrefs.GetString ("TimeDiffMinutes");
 		seconds = PlayerPrefs.GetString ("TimeDiffSeconds");
 		print("Difference: " + timediff);
+
+		CallChangeDay ();
 	}
 	
 	// Update is called once per frame
@@ -94,6 +101,11 @@ public class CheckTime : MonoBehaviour {
 	void Update() {
 		curr = System.DateTime.Now;
 	}
+
+	void CallChangeDay(){
+		DayNightCycle.Instance.SendMessage ("ChangeNPCDay", totalDays, SendMessageOptions.RequireReceiver);
+	}
+
 	void OnGUI() {
 		//GUI.Label (new Rect (10, 10, 200, 50), "Days: " + totalDays, timeStyle);
 		//GUI.Label (new Rect (Screen.width / 2, 50, 200, 50), "Days: " + days + " Hours: " + hours + " Minutes: " + minutes + " Seconds: " + seconds, timeStyle);
