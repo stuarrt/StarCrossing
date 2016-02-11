@@ -22,10 +22,12 @@ public class NPC : MonoBehaviour {
 	NavMeshAgent NavAgent;
 
 	public Animator MyAnimator { get; private set; }
-	
+
 	public RuntimeAnimatorController controller;
 
-	public SpriteRenderer spriteRenderer;
+	SpriteRenderer spriteRenderer;
+	Collider MyCollider;
+	Dialogue dialogueScript;
 
 	public float AnimationSpeed;
 
@@ -52,8 +54,11 @@ public class NPC : MonoBehaviour {
 		camera = MainCamera.Instance.transform;
 		player = PlayerController.MyTransform;
 		spriteRenderer = GetComponent < SpriteRenderer >();
+		MyCollider = GetComponent < Collider >();
 		MyAnimator = GetComponent < Animator >();
 		NavAgent = GetComponent < NavMeshAgent > ();
+
+		dialogueScript = GetComponentInChildren< Dialogue >();
 
 		if (MyAnimator.runtimeAnimatorController == null){
 			MyAnimator.runtimeAnimatorController = controller;
@@ -98,6 +103,9 @@ public class NPC : MonoBehaviour {
 		}
 
 		if (destination){
+			if (!spriteRenderer.enabled && !spriteRenderer.isVisible){
+				ToggleVisible(true);
+			}
 			if (Vector3.Distance (this.transform.position, destination.position) < lookAtDistance) {
 				destination = null;
 				transform.rotation = Quaternion.identity;
@@ -109,6 +117,11 @@ public class NPC : MonoBehaviour {
 				MyAnimator.Play ("OutFocusAnim");
 				transform.rotation = Quaternion.identity;
 				return;
+			}
+		}
+		else {
+			if (spriteRenderer.enabled && !spriteRenderer.isVisible){
+				ToggleVisible(false);
 			}
 		}
 		if (isStealthy && spriteRenderer.isVisible){
@@ -199,20 +212,8 @@ public class NPC : MonoBehaviour {
 			Debug.Log("NPC Positions not properly set for NPC \"" + this.name + "\"");
 			return;
 		}
-		switch (t) {
-		case 0: //Dawn
-			destination = currentLocations [0];
-			break;
-		case 1: //Noon
-			destination = currentLocations [1];
-			break;
-		case 2: //Dusk
-			destination = currentLocations [2];
-			break;
-		case 3: //Midnight
-			destination = currentLocations [3];
-			break;
-		}
+		// 0 == Dawn; 1 == Noon; 2 == Dusk; 3 == Midnight
+		destination = currentLocations[t];
 	}
 
 	//Sets the locations for the NPC to visit for the current day. 
@@ -230,5 +231,11 @@ public class NPC : MonoBehaviour {
 		} else {
 			currentLocations = World5Locations;
 		}
+	}
+
+	void ToggleVisible(bool t){
+		MyCollider.enabled = t;
+		dialogueScript.enabled = t;
+		spriteRenderer.enabled = t;
 	}
 }
