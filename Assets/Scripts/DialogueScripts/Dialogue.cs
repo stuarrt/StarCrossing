@@ -215,16 +215,16 @@ public abstract class Dialogue : MonoBehaviour {
 						GUI.Label(new Rect(15 + (Screen.width / 5) + textX, (Screen.height / 2) + textY, Screen.width - (20 + (Screen.width / 4)), Screen.height / 2 - 60), l[page], diaStyle);
 					if (!choose && !goodbye) {
 						//Next button
-						if (GUI.Button (new Rect (Screen.width - 130, Screen.height - 90, 55, 40), "")) {
+						if (GUI.Button (new Rect (Screen.width - 130, Screen.height - 90, 55, 40), "") || Input.GetKeyDown(KeyCode.R)) {
 							page += 1;
-							}
 						}
+					}
 				}
 					//If on the last page, close dialogue when clicking goodbye
 					if (page == (l.Length - 1) || goodbye) {
 						GUI.Label(new Rect(15 + (Screen.width / 5) + textX, (Screen.height / 2) + textY, Screen.width - (20 + (Screen.width / 4)), Screen.height / 2 - 60), l[page], diaStyle);
 					//Goodbye button
-					if (GUI.Button (new Rect (Screen.width - 130, Screen.height - 90, 55, 40), "")) {
+					if (GUI.Button (new Rect (Screen.width - 130, Screen.height - 90, 55, 40), "") || Input.GetKeyDown(KeyCode.R)) {
 						talking = false;
 						Time.timeScale = 1;
 						cantalk = true;
@@ -233,7 +233,7 @@ public abstract class Dialogue : MonoBehaviour {
 						goodbye = false;
 						DialogHandler.Instance.ToggleUI(false);
 						}
-					}
+				}
 			}
 		}
 	}

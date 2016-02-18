@@ -15,7 +15,19 @@ public class QuestList : MonoBehaviour {
 
 	public GUIStyle buttonStyle;
 
+	public GUIStyle fontStyle;
+
 	private bool notebook;
+
+	private bool showinfo;
+
+	private Texture questimage;
+
+	public Texture mayorgran;
+
+	public Texture ruby;
+
+	private string qinfo;
 
 	private int page;
 
@@ -26,18 +38,21 @@ public class QuestList : MonoBehaviour {
 		//Quests are added here
 		//***NOTE: Comment to put the quest number at the end
 		page = 0;
-		quests.Add(new Quest("Talk to Ruby", false, false)); //0
-		quests.Add(new Quest("Check on the Town", false, false)); //1
-		quests.Add(new Quest("Talk to Burnadine", false, false)); //2
-		quests.Add(new Quest("Talk to Dr. Cyabin", false, false)); //3
-		quests.Add(new Quest("Talk to Hat Person", false, false)); //4
-		quests.Add(new Quest("Talk to Ika", false, false)); //5
-		quests.Add(new Quest("Talk to Khet", false, false)); //6
-		quests.Add(new Quest("Talk to Morry", false, false)); //7
-		quests.Add(new Quest("Talk to Sally", false, false)); //8
-		quests.Add(new Quest("Talk to Trox", false, false)); //9
-		quests.Add(new Quest("Find Wallace Poster", false, false)); //10
-		quests.Add(new Quest("Find Missing Fossil", false, false)); //11
+		showinfo = false;
+		qinfo = "";
+		quests.Add(new Quest("Talk to Mayor Gran", true, false)); //0
+		quests.Add(new Quest("Talk to Ruby", false, false)); //1
+		quests.Add(new Quest("Check on the Town", false, false)); //2
+		quests.Add(new Quest("Talk to Burnadine", false, false)); //3
+		quests.Add(new Quest("Talk to Dr. Cyabin", false, false)); //4
+		quests.Add(new Quest("Talk to Hat Person", false, false)); //5
+		quests.Add(new Quest("Talk to Ika", false, false)); //6
+		quests.Add(new Quest("Talk to Khet", false, false)); //7
+		quests.Add(new Quest("Talk to Morry", false, false)); //8
+		quests.Add(new Quest("Talk to Sally", false, false)); //9
+		quests.Add(new Quest("Talk to Trox", false, false)); //10
+		quests.Add(new Quest("Find Wallace Poster", false, false)); //11
+		quests.Add(new Quest("Find Missing Fossil", false, false)); //12
 	}
 
 	// Update is called once per frame
@@ -45,11 +60,11 @@ public class QuestList : MonoBehaviour {
 		//These are the quest conditions
 		//If a quest is completed, this updates to let the game know
 		//That the player has completed the quest
-		if (quests[11].display && Inventory.Instance.CurrentInventory [Inventory.InventoryObjects.Fossil]) {
-			quests[11].completed = true;
+		if (quests[12].display && Inventory.Instance.CurrentInventory [Inventory.InventoryObjects.Fossil]) {
+			quests[12].completed = true;
 		}
-		if (quests[10].display && Inventory.Instance.CurrentInventory [Inventory.InventoryObjects.Shovel]) {
-			quests[10].completed = true;
+		if (quests[11].display && Inventory.Instance.CurrentInventory [Inventory.InventoryObjects.Shovel]) {
+			quests[11].completed = true;
 		}
 		if (Input.GetKeyDown (KeyCode.Q)) {
 			notebook = !notebook;
@@ -91,6 +106,14 @@ public class QuestList : MonoBehaviour {
 		}
 	}
 
+	string questCheck(bool completed) {
+		if (completed) {
+			return "Completed";
+		} else {
+			return "In Progress";
+		}
+	}
+
 	void OnGUI() {
 		//Temp inventory
 	//	GUI.Box (new Rect (Screen.width - 150, (Screen.height / 4) - 100, 100, 50), "");
@@ -126,22 +149,36 @@ public class QuestList : MonoBehaviour {
 			}
 			if (page == 0) {
 				if (quests[0].display) {
-					GUI.Box (new Rect (20, (Screen.height / 4) - 70, 280, 25), "", qboxStyle);
-					GUI.Label (new Rect (15, (Screen.height / 4) - 70, 270, 100), quests [0].name + " - " + quests [0].completed, qlist);
+					//GUI.Box (new Rect (20, (Screen.height / 4) - 70, 280, 25), "", qboxStyle);
+					//GUI.Label (new Rect (15, (Screen.height / 4) - 70, 270, 100), quests [1].name + " - " + questCheck(quests [0].completed), qlist);
+					if (GUI.Button (new Rect (20, (Screen.height / 4) - 70, 280, 25), quests [0].name + " - " + questCheck(quests [0].completed), qlist)) {
+						showinfo = true;
+						questimage = mayorgran;
+						qinfo = "Talk to Mayor Gran Ite, leader of the planet you have just crashed landed on. He will surely want to talk to you and will probably need your help.";
+					}
 				}
 				if (!quests[0].display) {
 					GUI.Box (new Rect (20, (Screen.height / 4) - 70, 280, 25), "", qboxBStyle);
 				}
 				if (quests[1].display) {
-					GUI.Box (new Rect (20, (Screen.height / 4) - 40, 280, 25), "", qboxStyle);
-					GUI.Label (new Rect (15, (Screen.height / 4) - 40, 270, 100), quests [1].name + " - " + quests [1].completed, qlist);
+					//GUI.Box (new Rect (20, (Screen.height / 4) - 40, 280, 25), "", qboxStyle);
+					//GUI.Label (new Rect (15, (Screen.height / 4) - 40, 270, 100), quests [1].name + " - " + questCheck(quests [1].completed), qlist);
+					if (GUI.Button (new Rect (20, (Screen.height / 4) - 40, 280, 25), quests [1].name + " - " + questCheck(quests [1].completed), qlist)) {
+						showinfo = true;
+						questimage = ruby;
+						qinfo = "Mayor Gran wants you to speak to his daughter, Ruby, about the destruction of the town. She usually hangs out near the center of the town.";
+
+					}
 				}
 				if (!quests[1].display) {
 					GUI.Box (new Rect (20, (Screen.height / 4) - 40, 280, 25), "", qboxBStyle);
 				}
 				if (quests[2].display) {
-					GUI.Box (new Rect (20, (Screen.height / 4) - 10, 280, 25), "", qboxStyle);
-					GUI.Label (new Rect (15, (Screen.height / 4) - 10, 270, 100), quests [2].name + " - " + quests [2].completed, qlist);
+					//GUI.Box (new Rect (20, (Screen.height / 4) - 10, 280, 25), "", qboxStyle);
+					//GUI.Label (new Rect (15, (Screen.height / 4) - 10, 270, 100), quests [2].name + " - " + questCheck(quests [2].completed), qlist);
+					if (GUI.Button (new Rect (20, (Screen.height / 4) - 10, 280, 25), quests [2].name + " - " + questCheck(quests [2].completed), qlist)) {
+						showinfo = true;
+					}
 				}
 				if (!quests[2].display) {
 					GUI.Box (new Rect (20, (Screen.height / 4) - 10, 280, 25), "", qboxBStyle);
@@ -151,22 +188,31 @@ public class QuestList : MonoBehaviour {
 			}
 			if (page == 1) {
 				if (quests[3].display) {
-					GUI.Box (new Rect (20, (Screen.height / 4) - 70, 280, 25), "", qboxStyle);
-					GUI.Label (new Rect (15, (Screen.height / 4) - 70, 270, 100), quests [3].name + " - " + quests [3].completed, qlist);
+					//GUI.Box (new Rect (20, (Screen.height / 4) - 70, 280, 25), "", qboxStyle);
+					//GUI.Label (new Rect (15, (Screen.height / 4) - 70, 270, 100), quests [3].name + " - " + questCheck(quests [3].completed), qlist);
+					if (GUI.Button (new Rect (20, (Screen.height / 4) - 70, 280, 25), quests [3].name + " - " + questCheck(quests [3].completed), qlist)) {
+						showinfo = true;
+					}
 				}
 				if (!quests[3].display) {
 					GUI.Box (new Rect (20, (Screen.height / 4) - 70, 280, 25), "", qboxBStyle);
 				}
 				if (quests[4].display) {
-					GUI.Box (new Rect (20, (Screen.height / 4) - 40, 280, 25), "", qboxStyle);
-					GUI.Label (new Rect (15, (Screen.height / 4) - 40, 270, 100), quests [4].name + " - " + quests [4].completed, qlist);
+					//GUI.Box (new Rect (20, (Screen.height / 4) - 40, 280, 25), "", qboxStyle);
+					//GUI.Label (new Rect (15, (Screen.height / 4) - 40, 270, 100), quests [4].name + " - " + questCheck(quests [4].completed), qlist);
+					if (GUI.Button (new Rect (20, (Screen.height / 4) - 40, 280, 25), quests [4].name + " - " + questCheck(quests [4].completed), qlist)) {
+						showinfo = true;
+					}
 				}
 				if (!quests[4].display) {
 					GUI.Box (new Rect (20, (Screen.height / 4) - 40, 280, 25), "", qboxBStyle);
 				}
 				if (quests[5].display) {
-					GUI.Box (new Rect (20, (Screen.height / 4) - 10, 280, 25), "", qboxStyle);
-					GUI.Label (new Rect (15, (Screen.height / 4) - 10, 270, 100), quests [5].name + " - " + quests [5].completed, qlist);
+					//GUI.Box (new Rect (20, (Screen.height / 4) - 10, 280, 25), "", qboxStyle);
+					//GUI.Label (new Rect (15, (Screen.height / 4) - 10, 270, 100), quests [5].name + " - " + questCheck(quests [5].completed), qlist);
+					if (GUI.Button (new Rect (20, (Screen.height / 4) - 10, 280, 25), quests [5].name + " - " + questCheck(quests [5].completed), qlist)) {
+						showinfo = true;
+					}
 				}
 				if (!quests[5].display) {
 					GUI.Box (new Rect (20, (Screen.height / 4) - 10, 280, 25), "", qboxBStyle);
@@ -176,22 +222,31 @@ public class QuestList : MonoBehaviour {
 			}
 			if (page == 2) {
 				if (quests[6].display) {
-					GUI.Box (new Rect (20, (Screen.height / 4) - 70, 280, 25), "", qboxStyle);
-					GUI.Label (new Rect (15, (Screen.height / 4) - 70, 270, 100), quests [6].name + " - " + quests [6].completed, qlist);
+					//GUI.Box (new Rect (20, (Screen.height / 4) - 70, 280, 25), "", qboxStyle);
+					//GUI.Label (new Rect (15, (Screen.height / 4) - 70, 270, 100), quests [6].name + " - " + questCheck(quests [6].completed), qlist);
+					if (GUI.Button (new Rect (20, (Screen.height / 4) - 70, 280, 25), quests [6].name + " - " + questCheck(quests [6].completed), qlist)) {
+						showinfo = true;
+					}
 				}
 				if (!quests[6].display) {
 					GUI.Box (new Rect (20, (Screen.height / 4) - 70, 280, 25), "", qboxBStyle);
 				}
 				if (quests[7].display) {
-					GUI.Box (new Rect (20, (Screen.height / 4) - 40, 280, 25), "", qboxStyle);
-					GUI.Label (new Rect (15, (Screen.height / 4) - 40, 270, 100), quests [7].name + " - " + quests [7].completed, qlist);
+					//GUI.Box (new Rect (20, (Screen.height / 4) - 40, 280, 25), "", qboxStyle);
+					//GUI.Label (new Rect (15, (Screen.height / 4) - 40, 270, 100), quests [7].name + " - " + questCheck(quests [7].completed), qlist);
+					if (GUI.Button (new Rect (20, (Screen.height / 4) - 40, 280, 25), quests [7].name + " - " + questCheck(quests [7].completed), qlist)) {
+						showinfo = true;
+					}
 				}
 				if (!quests[7].display) {
 					GUI.Box (new Rect (20, (Screen.height / 4) - 40, 280, 25), "", qboxBStyle);
 				}
 				if (quests[8].display) {
-					GUI.Box (new Rect (20, (Screen.height / 4) - 10, 280, 25), "", qboxStyle);
-					GUI.Label (new Rect (15, (Screen.height / 4) - 10, 270, 100), quests [8].name + " - " + quests [8].completed, qlist);
+					//GUI.Box (new Rect (20, (Screen.height / 4) - 10, 280, 25), "", qboxStyle);
+					//GUI.Label (new Rect (15, (Screen.height / 4) - 10, 270, 100), quests [8].name + " - " + questCheck(quests [8].completed), qlist);
+					if (GUI.Button (new Rect (20, (Screen.height / 4) - 10, 280, 25), quests [8].name + " - " + questCheck(quests [8].completed), qlist)) {
+						showinfo = true;
+					}
 				}
 				if (!quests[8].display) {
 					GUI.Box (new Rect (20, (Screen.height / 4) - 10, 280, 25), "", qboxBStyle);
@@ -201,22 +256,31 @@ public class QuestList : MonoBehaviour {
 			}
 			if (page == 3) {
 				if (quests[9].display) {
-					GUI.Box (new Rect (20, (Screen.height / 4) - 70, 280, 25), "", qboxStyle);
-					GUI.Label (new Rect (15, (Screen.height / 4) - 70, 270, 100), quests [9].name + " - " + quests [9].completed, qlist);
+					//GUI.Box (new Rect (20, (Screen.height / 4) - 70, 280, 25), "", qboxStyle);
+					//GUI.Label (new Rect (15, (Screen.height / 4) - 70, 270, 100), quests [9].name + " - " + questCheck(quests [9].completed), qlist);
+					if (GUI.Button (new Rect (20, (Screen.height / 4) - 70, 280, 25), quests [9].name + " - " + questCheck(quests [9].completed), qlist)) {
+						showinfo = true;
+					}
 				}
 				if (!quests[9].display) {
 					GUI.Box (new Rect (20, (Screen.height / 4) - 70, 280, 25), "", qboxBStyle);
 				}
 				if (quests[10].display) {
-					GUI.Box (new Rect (20, (Screen.height / 4) - 40, 280, 25), "", qboxStyle);
-					GUI.Label (new Rect (15, (Screen.height / 4) - 40, 270, 100), quests [10].name + " - " + quests [10].completed, qlist);
+					//GUI.Box (new Rect (20, (Screen.height / 4) - 40, 280, 25), "", qboxStyle);
+					//GUI.Label (new Rect (15, (Screen.height / 4) - 40, 270, 100), quests [10].name + " - " + questCheck(quests [10].completed), qlist);
+					if (GUI.Button (new Rect (20, (Screen.height / 4) - 40, 280, 25), quests [10].name + " - " + questCheck(quests [10].completed), qlist)) {
+						showinfo = true;
+					}
 				}
 				if (!quests[10].display) {
 					GUI.Box (new Rect (20, (Screen.height / 4) - 40, 280, 25), "", qboxBStyle);
 				}
 				if (quests[11].display) {
-					GUI.Box (new Rect (20, (Screen.height / 4) - 10, 280, 25), "", qboxStyle);
-					GUI.Label (new Rect (15, (Screen.height / 4) - 10, 270, 100), quests [11].name + " - " + quests [11].completed, qlist);
+					//GUI.Box (new Rect (20, (Screen.height / 4) - 10, 280, 25), "", qboxStyle);
+					//GUI.Label (new Rect (15, (Screen.height / 4) - 10, 270, 100), quests [11].name + " - " + questCheck(quests [11].completed), qlist);
+					if (GUI.Button (new Rect (20, (Screen.height / 4) - 10, 280, 25), quests [11].name + " - " + questCheck(quests [11].completed), qlist)) {
+						showinfo = true;
+					}
 				}
 				if (!quests[11].display) {
 					GUI.Box (new Rect (20, (Screen.height / 4) - 10, 280, 25), "", qboxBStyle);
@@ -224,8 +288,24 @@ public class QuestList : MonoBehaviour {
 				//***Insert Quest 2 here
 				//GUI.Box (new Rect (20, (Screen.height / 4) - 10, 280, 25), "", qboxBStyle);
 			}
+			if (page == 4) {
+				if (quests[12].display) {
+					//GUI.Box (new Rect (20, (Screen.height / 4) - 70, 280, 25), "", qboxStyle);
+					//GUI.Label (new Rect (15, (Screen.height / 4) - 70, 270, 100), quests [12].name + " - " + questCheck(quests [12].completed), qlist);
+					if (GUI.Button (new Rect (20, (Screen.height / 4) - 70, 280, 25), quests [12].name + " - " + questCheck(quests [12].completed), qlist)) {
+						showinfo = true;
+					}
+				}
+				if (!quests[12].display) {
+					GUI.Box (new Rect (20, (Screen.height / 4) - 70, 280, 25), "", qboxBStyle);
+				//***Insert Quest 2 here
+				//GUI.Box (new Rect (20, (Screen.height / 4) - 10, 280, 25), "", qboxBStyle);
+				}
+				GUI.Box (new Rect (20, (Screen.height / 4) - 40, 280, 25), "", qboxBStyle);
+				GUI.Box (new Rect (20, (Screen.height / 4) - 10, 280, 25), "", qboxBStyle);
+			}
 			//***Insert other quest pages here
-			if (page > 3) {
+			if (page > 4) {
 				GUI.Box (new Rect (20, (Screen.height / 4) - 70, 280, 25), "", qboxBStyle);
 				GUI.Box (new Rect (20, (Screen.height / 4) - 40, 280, 25), "", qboxBStyle);
 				GUI.Box (new Rect (20, (Screen.height / 4) - 10, 280, 25), "", qboxBStyle);
@@ -233,6 +313,16 @@ public class QuestList : MonoBehaviour {
 			//if (GUI.Button (new Rect (10, (Screen.height / 4), 200, 20), "Close")) {
 			//	notebook = !notebook;
 			//}
+			if (showinfo) {
+				GUI.Box(new Rect(50, (Screen.height / 4) - 70, 600, 430), "", noteStyle);
+				GUI.Box (new Rect (70, (Screen.height / 4), 560, 300), "", qboxStyle);
+				GUI.Box (new Rect (315, (Screen.height / 4) + 160, 100, 100), questimage, fontStyle);
+				GUI.Label(new Rect (70, (Screen.height / 4) + 30, 540, 300), qinfo, fontStyle);
+				if (GUI.Button (new Rect (325, (Screen.height / 4) + 310, 60, 100), "Close", qlist)) {
+					showinfo = false;
+					qinfo = "";
+				}
+			}
 		}
 	}
 

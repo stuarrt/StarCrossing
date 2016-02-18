@@ -28,9 +28,9 @@ public class HatPersonDialogue : Dialogue {
 		//Dialogue based off whether the quest was completed or not
 		conversation(lines, new List<int>(){});
 		choiceBox(0, 1, 2, responses);
-		if (QuestList.quests [1].display && (selection[0] == responses[0] || selection[0] == responses[1])) {
+		if (QuestList.quests [2].display && (selection[0] == responses[0] || selection[0] == responses[1])) {
 			checkedOn = true;
-			QuestList.quests[4].completed = true;
+			QuestList.quests[5].completed = true;
 		}
 	}
 }

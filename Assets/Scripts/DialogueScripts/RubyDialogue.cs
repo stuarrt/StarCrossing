@@ -28,17 +28,16 @@ public class RubyDialogue : Dialogue {
 		//Inherits Dialogue OnGUI
 		base.OnGUI ();
 		//Dialogue based off whether the quest was completed or not
-		if (!QuestList.quests [1].completed) {
+		if (!QuestList.quests [2].completed) {
 			conversation (lines, new List<int> (){});
 			choiceBox (0, 1, 2, responses);
 		}
-		if (QuestList.quests [1].completed) {
+		if (QuestList.quests [2].completed) {
 			conversation (lines2, new List<int> (){});
 			choiceBox (0, 1, 2, responses2);
 		}
-		if (QuestList.quests [0].display && (selection[0] == responses[0] || selection[0] == responses[1])) {
-			QuestList.quests[0].completed = true;
-			addQuest(1);
+		if (QuestList.quests [1].display && (selection[0] == responses[0] || selection[0] == responses[1])) {
+			QuestList.quests[1].completed = true;
 			addQuest(2);
 			addQuest(3);
 			addQuest(4);
@@ -47,9 +46,10 @@ public class RubyDialogue : Dialogue {
 			addQuest(7);
 			addQuest(8);
 			addQuest(9);
+			addQuest(10);
 		}
 		if (SallyDialogue.checkedOn && TroxDialogue.checkedOn && MorryDialogue.checkedOn && KhetDialogue.checkedOn && IkaDialogue.checkedOn && HatPersonDialogue.checkedOn && DrCyabinDialogue.checkedOn && BurnadineDialogue.checkedOn) {
-			QuestList.quests[1].completed = true;
+			QuestList.quests[2].completed = true;
 		}
 	}
 }

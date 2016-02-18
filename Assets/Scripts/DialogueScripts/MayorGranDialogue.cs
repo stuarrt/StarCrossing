@@ -26,8 +26,9 @@ public class MayorGranDialogue : Dialogue {
 		//Dialogue based off whether the quest was completed or not
 		conversation(lines, new List<int>(){});
 		choiceBox(0, 1, 2, responses);
-		if (!QuestList.quests [0].completed && (selection[0] == responses[0] || selection[0] == responses[1])) {
-			addQuest(0);
+		if (!QuestList.quests [1].completed && (selection[0] == responses[0] || selection[0] == responses[1])) {
+			addQuest(1);
+			QuestList.quests[0].completed = true;
 		}
 	}
 }

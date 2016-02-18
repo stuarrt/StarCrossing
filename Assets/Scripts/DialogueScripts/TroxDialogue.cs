@@ -35,23 +35,23 @@ public class TroxDialogue : Dialogue {
 		//Inherits Dialogue OnGUI
 		base.OnGUI ();
 		//Dialogue based off whether the quest was completed or not
-		if (!QuestList.quests [1].completed) {
+		if (!QuestList.quests [2].completed) {
 			conversation (lines, new List<int> (){});
 			choiceBox (0, 1, 2, responses);
 		}
-		if (QuestList.quests [1].completed && !QuestList.quests [10].completed) {
+		if (QuestList.quests [2].completed && !QuestList.quests [11].completed) {
 			conversation (lines2, new List<int> (){});
 			choiceBox (0, 1, 2, responses2);
 		}
-		if (QuestList.quests [10].display && QuestList.quests [10].completed && QuestList.quests [1].completed) {
+		if (QuestList.quests [11].display && QuestList.quests [11].completed && QuestList.quests [2].completed) {
 			conversation (lines3, new List<int> (){});
 		}
-		if (QuestList.quests [1].completed && (selection[0] == responses2[0] || selection[0] == responses2[1])) {
-			addQuest(10);
+		if (QuestList.quests [2].completed && (selection[0] == responses2[0] || selection[0] == responses2[1])) {
+			addQuest(11);
 		}
-		if (QuestList.quests [1].display && (selection[0] == responses[0] || selection[0] == responses[1])) {
+		if (QuestList.quests [2].display && (selection[0] == responses[0] || selection[0] == responses[1])) {
 			checkedOn = true;
-			QuestList.quests[9].completed = true;
+			QuestList.quests[10].completed = true;
 		}
 	}
 }
