@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-[RequireComponent(typeof(NavMeshAgent))]
-public class NPC : MonoBehaviour {
+[RequireComponent (typeof(NavMeshAgent))]
+public class NPC : MonoBehaviour
+{
 
 	public static Transform camera;
 	public static Transform player;
@@ -13,7 +14,7 @@ public class NPC : MonoBehaviour {
 	public float lookAtDistance;
 
 	public int cycleSpeed;
-	public int cycleTrack; 
+	public int cycleTrack;
 	public float speed;
 
 	public NPCDirection? currentDirection;
@@ -33,10 +34,10 @@ public class NPC : MonoBehaviour {
 
 	public enum NPCDirection
 	{
-		Left, 
+		Left,
 		Right,
 		Forward,
-		Backward, 
+		Backward,
 		Stop,
 		Looking,
 	}
@@ -49,34 +50,37 @@ public class NPC : MonoBehaviour {
 
 	Transform[] currentLocations;
 	// Use this for initialization
-	void Start () {
+	void Start ()
+	{
 
 		camera = MainCamera.Instance.transform;
 		player = PlayerController.MyTransform;
-		spriteRenderer = GetComponent < SpriteRenderer >();
-		MyCollider = GetComponent < Collider >();
-		MyAnimator = GetComponent < Animator >();
+		spriteRenderer = GetComponent < SpriteRenderer > ();
+		MyCollider = GetComponent < Collider > ();
+		MyAnimator = GetComponent < Animator > ();
 		NavAgent = GetComponent < NavMeshAgent > ();
+		NavAgent.stoppingDistance = lookAtDistance;
 
-		dialogueScript = GetComponentInChildren< Dialogue >();
+		dialogueScript = GetComponentInChildren< Dialogue > ();
 
-		if (MyAnimator.runtimeAnimatorController == null){
+		if (MyAnimator.runtimeAnimatorController == null) {
 			MyAnimator.runtimeAnimatorController = controller;
 		}
 
-		if (lookAtDistance == 0){
+		if (lookAtDistance == 0) {
 			lookAtDistance = 1;
 		}
 
-		if (cycleSpeed == 0){
+		if (cycleSpeed == 0) {
 			cycleSpeed = 125;
 		}
 
-		if (speed == 0){
+		if (speed == 0) {
 			speed = 0.01f;
 		}
+		NavAgent.speed = speed;
 
-		if (AnimationSpeed == 0){
+		if (AnimationSpeed == 0) {
 			AnimationSpeed = .5f;
 		}
 
@@ -87,77 +91,73 @@ public class NPC : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void FixedUpdate () {
+	void FixedUpdate ()
+	{
 
 		//Case when player is within the lookAt range
-		if (Vector3.Distance(this.transform.position, player.position) < lookAtDistance){
-			if (currentDirection != NPCDirection.Looking){
-				LookAtPlayer();
-				StopMoving(NPCDirection.Looking);
+		if (Vector3.Distance (this.transform.position, player.position) < lookAtDistance) {
+			if (currentDirection != NPCDirection.Looking) {
+				LookAtPlayer ();
+				StopMoving (NPCDirection.Looking);
 				return;
-			}
-			else {
-				this.transform.LookAt(camera);
+			} else {
+				this.transform.LookAt (camera);
 				return;
 			}
 		}
 
-		if (destination){
-			if (!spriteRenderer.enabled && !spriteRenderer.isVisible){
-				ToggleVisible(true);
+		if (destination) {
+			if (!spriteRenderer.enabled && !spriteRenderer.isVisible) {
+				ToggleVisible (true);
 			}
-			if (Vector3.Distance (this.transform.position, destination.position) < lookAtDistance) {
-				destination = null;
-				transform.rotation = Quaternion.identity;
-				StopMoving (); 
-				NavAgent.enabled = false;
-			} else {
-				NavAgent.enabled = true;
-				NavAgent.destination = destination.position;
-				MyAnimator.Play ("OutFocusAnim");
-				transform.rotation = Quaternion.identity;
-				return;
+			if (NavAgent.enabled) {
+				if (Vector3.Distance (this.transform.position, destination.position) < lookAtDistance) {
+					transform.rotation = Quaternion.identity;
+					StopMoving (); 
+					NavAgent.enabled = false;
+				} else {
+					NavAgent.destination = destination.position;
+					MyAnimator.Play ("OutFocusAnim");
+					transform.rotation = Quaternion.identity;
+					return;
+				} 
+			}
+		} else {
+			if (spriteRenderer.enabled && !spriteRenderer.isVisible) {
+				ToggleVisible (false);
 			}
 		}
-		else {
-			if (spriteRenderer.enabled && !spriteRenderer.isVisible){
-				ToggleVisible(false);
-			}
-		}
-		if (isStealthy && spriteRenderer.isVisible){
+		if (isStealthy && spriteRenderer.isVisible) {
 			MyAnimator.Play ("IdleAnim");
 			currentDirection = NPCDirection.Stop;
 			return;
 		}
 
 		//Other cases and stuff
-		else if (currentDirection == NPCDirection.Looking){
+		else if (currentDirection == NPCDirection.Looking) {
 			this.transform.rotation = Quaternion.identity;
 			isMoving = true;
-			ChooseDirection(Random.Range(0, 5));
+			ChooseDirection (Random.Range (0, 5));
 
-			MyAnimator.Play("OutFocusAnim");
-			ChangeAnimation("FocusAnim", "IdleAnim");
-		}
+			MyAnimator.Play ("OutFocusAnim");
+			ChangeAnimation ("FocusAnim", "IdleAnim");
+		} else if ((cycleTrack <= 0) && (isMoving)) {
+			StopMoving ();
+		} else if ((cycleTrack <= 0) && (!isMoving)) {
+			ChooseDirection (Random.Range (0, 5));
 
-		else if ((cycleTrack <= 0) && (isMoving)){
-			StopMoving();
-		}
-		else if ((cycleTrack <= 0) && (!isMoving)){
-			ChooseDirection(Random.Range(0, 5));
-
-			if (currentDirection == NPCDirection.Stop){
+			if (currentDirection == NPCDirection.Stop) {
 				cycleTrack--;
 				return;
 			}
 			isMoving = true;
 
-			MyAnimator.Play("OutFocusAnim");
-			ChangeAnimation("FocusAnim", "IdleAnim");
+			MyAnimator.Play ("OutFocusAnim");
+			ChangeAnimation ("FocusAnim", "IdleAnim");
 		}
 
-		if (isMoving){
-			switch(currentDirection){		
+		if (isMoving) {
+			switch (currentDirection) {		
 			case NPCDirection.Left:
 				transform.position = new Vector3 (transform.position.x - speed, transform.position.y, transform.position.z);
 				break;
@@ -179,45 +179,52 @@ public class NPC : MonoBehaviour {
 		cycleTrack--;
 	}
 
-	void ChooseDirection(int i){
-		currentDirection = (NPCDirection) i;
+	void ChooseDirection (int i)
+	{
+		currentDirection = (NPCDirection)i;
 		cycleTrack = Random.Range (cycleSpeed - 20, cycleSpeed + 27);
 	}
 
-	void StopMoving(NPCDirection newDirection = NPCDirection.Stop){
+	void StopMoving (NPCDirection newDirection = NPCDirection.Stop)
+	{
 		currentDirection = newDirection;
 
-		isMoving= false;
+		isMoving = false;
 		cycleTrack = Random.Range (cycleSpeed - 25, cycleSpeed + 30);
 
-		MyAnimator.Play("IntoFocusAnim");
-		ChangeAnimation("IntoFocusAnim", "FocusAnim");
+		MyAnimator.Play ("IntoFocusAnim");
+		ChangeAnimation ("IntoFocusAnim", "FocusAnim");
 	}
 
-	void LookAtPlayer(){
-		this.transform.LookAt(camera);
+	void LookAtPlayer ()
+	{
+		this.transform.LookAt (camera);
 
-		MyAnimator.Play("IntoFocusAnim");
-		ChangeAnimation("IntoFocusAnim", "FocusAnim");
+		MyAnimator.Play ("IntoFocusAnim");
+		ChangeAnimation ("IntoFocusAnim", "FocusAnim");
 	}
 
-	void ChangeAnimation(string oldState, string newState){
-		MyAnimator.SetBool(oldState, false);
-		MyAnimator.SetBool(newState, true);
+	void ChangeAnimation (string oldState, string newState)
+	{
+		MyAnimator.SetBool (oldState, false);
+		MyAnimator.SetBool (newState, true);
 	}
 
 	//Sets the destination for the NPC based on time of current day. Called by DayNightCycle object in scene
-	void changeLocation(int t){
+	void changeLocation (int t)
+	{
 		if (currentLocations.Length != 4) {
-			Debug.Log("NPC Positions not properly set for NPC \"" + this.name + "\"");
+			Debug.Log ("NPC Positions not properly set for NPC \"" + this.name + "\"");
 			return;
 		}
 		// 0 == Dawn; 1 == Noon; 2 == Dusk; 3 == Midnight
-		destination = currentLocations[t];
+		NavAgent.enabled = true;
+		destination = currentLocations [t];
 	}
 
-	//Sets the locations for the NPC to visit for the current day. 
-	void changeDay(float totalDays){
+	//Sets the locations for the NPC to visit for the current day.
+	void changeDay (float totalDays)
+	{
 		//int totalDays = CheckTime.Instance.totalDays;
 
 		if (totalDays < 10) { //First World State
@@ -233,9 +240,13 @@ public class NPC : MonoBehaviour {
 		}
 	}
 
-	void ToggleVisible(bool t){
+	void ToggleVisible (bool t)
+	{
 		MyCollider.enabled = t;
-		dialogueScript.enabled = t;
 		spriteRenderer.enabled = t;
+
+		if (dialogueScript) {
+			dialogueScript.enabled = t;
+		}
 	}
 }

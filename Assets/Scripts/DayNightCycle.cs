@@ -61,23 +61,30 @@ public class DayNightCycle : MonoBehaviour {
 			if (dayState != TimeOfDay.Dawn) {
 				ChangeNPCLocations (0);
 				dayState = TimeOfDay.Dawn;
+				Debug.Log ("Dawn Time");
 			}
 			intmult = 0;
 		}else if (currentTime <= 0.25f) { 
 			if (dayState != TimeOfDay.Noon) {
 				ChangeNPCLocations (1);
-				dayState = TimeOfDay.Dawn;
-			}			intmult = Mathf.Clamp01 ((currentTime - 0.23f) * (1 / 0.02f));
+				dayState = TimeOfDay.Noon;
+				Debug.Log ("Noon Time");
+			}			
+			intmult = Mathf.Clamp01 ((currentTime - 0.23f) * (1 / 0.02f));
 		} else if (currentTime >= 0.73f) {
 			if (dayState != TimeOfDay.Dusk) {
 				ChangeNPCLocations (2);
-				dayState = TimeOfDay.Dawn;
-			}			intmult = Mathf.Clamp01(1 - ((currentTime - 0.73f) * (1 / 0.02f)));
+				dayState = TimeOfDay.Dusk;
+				Debug.Log ("Dusk Time");
+			}			
+			intmult = Mathf.Clamp01(1 - ((currentTime - 0.73f) * (1 / 0.02f)));
 		} else if (currentTime >= 0.75f) {
 			if (dayState != TimeOfDay.Midnight) {
 				ChangeNPCLocations (3);
-				dayState = TimeOfDay.Dawn;
-			}			intmult = 0;
+				dayState = TimeOfDay.Midnight;
+				Debug.Log ("Midnight Time");
+			}			
+			intmult = 0;
 		}
 
 		sun.intensity = sunIntensity * intmult;
@@ -96,6 +103,7 @@ public class DayNightCycle : MonoBehaviour {
 	void ChangeNPCDay(float totalDays){
 		foreach (NPC n in NPCs){
 			n.SendMessage("changeDay", totalDays, SendMessageOptions.RequireReceiver);
+			Debug.Log("Day is: " + totalDays.ToString());
 		}
 	}
 }
