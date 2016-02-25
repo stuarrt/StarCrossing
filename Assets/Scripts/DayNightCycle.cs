@@ -26,6 +26,10 @@ public class DayNightCycle : MonoBehaviour {
 
 	NPC[] NPCs;
 
+	public AudioClip dayMusic;
+	public AudioClip nightMusic;
+	AudioSource audio; 
+
 	// Use this for initialization
 	void Awake () {
 		if (Instance != null)
@@ -38,6 +42,7 @@ public class DayNightCycle : MonoBehaviour {
 		sunIntensity = sun.intensity;
 
 		NPCs = FindObjectsOfType (typeof(NPC)) as NPC[];
+		audio = this.GetComponent<AudioSource> ();
 	}
 	
 	// Update is called once per frame
@@ -69,6 +74,7 @@ public class DayNightCycle : MonoBehaviour {
 				ChangeNPCLocations (1);
 				dayState = TimeOfDay.Noon;
 				Debug.Log ("Noon Time");
+				StartCoroutine(FadeAudio (dayMusic));
 			}			
 			intmult = Mathf.Clamp01 ((currentTime - 0.23f) * (1 / 0.02f));
 		} else if (currentTime >= 0.73f) {
@@ -76,6 +82,7 @@ public class DayNightCycle : MonoBehaviour {
 				ChangeNPCLocations (2);
 				dayState = TimeOfDay.Dusk;
 				Debug.Log ("Dusk Time");
+				StartCoroutine(FadeAudio (nightMusic));
 			}			
 			intmult = Mathf.Clamp01(1 - ((currentTime - 0.73f) * (1 / 0.02f)));
 		} else if (currentTime >= 0.75f) {
@@ -105,5 +112,24 @@ public class DayNightCycle : MonoBehaviour {
 			n.SendMessage("changeDay", totalDays, SendMessageOptions.RequireReceiver);
 			Debug.Log("Day is: " + totalDays.ToString());
 		}
+	}
+
+	IEnumerator FadeAudio(AudioClip newClip){
+		int i = 10;
+		while (i > 0){
+			audio.volume = i * .1f;
+			yield return new WaitForSeconds (.5f);
+			Debug.Log ("Iteration: " + i);
+			i--;
+		}
+
+		audio.clip = newClip;
+		audio.Play ();
+		while (i < 11) {
+			audio.volume = i * .1f;
+			yield return new WaitForSeconds (.5f);
+			i++;
+		}
+		Debug.Log ("Audio Volume: " + audio.volume);
 	}
 }
