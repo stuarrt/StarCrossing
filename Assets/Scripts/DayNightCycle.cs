@@ -14,21 +14,23 @@ public class DayNightCycle : MonoBehaviour {
 	}
 
 	public TimeOfDay dayState;
+
 	public Light sun;
+	float sunIntensity;
+
 	public float seconds = 900f;
 	public float currentTime = 0;
 	public float timeMultiplier = 1f;
 	public GUIStyle timeStyle;
-
 	public int days;
-
-	float sunIntensity;
 
 	NPC[] NPCs;
 
 	public AudioClip dayMusic;
 	public AudioClip nightMusic;
 	AudioSource audio; 
+
+	Color skyboxColor;
 
 	// Use this for initialization
 	void Awake () {
@@ -43,6 +45,7 @@ public class DayNightCycle : MonoBehaviour {
 
 		NPCs = FindObjectsOfType (typeof(NPC)) as NPC[];
 		audio = this.GetComponent<AudioSource> ();
+		skyboxColor = new Color (.5f, .5f, .5f);//RenderSettings.skybox.GetColor("_Tint");
 	}
 	
 	// Update is called once per frame
@@ -93,7 +96,7 @@ public class DayNightCycle : MonoBehaviour {
 			}			
 			intmult = 0;
 		}
-
+		RenderSettings.skybox.SetColor("_Tint", skyboxColor * intmult);
 		sun.intensity = sunIntensity * intmult;
 	}
 
@@ -119,7 +122,6 @@ public class DayNightCycle : MonoBehaviour {
 		while (i > 0){
 			audio.volume = i * .1f;
 			yield return new WaitForSeconds (.5f);
-			Debug.Log ("Iteration: " + i);
 			i--;
 		}
 
@@ -130,6 +132,5 @@ public class DayNightCycle : MonoBehaviour {
 			yield return new WaitForSeconds (.5f);
 			i++;
 		}
-		Debug.Log ("Audio Volume: " + audio.volume);
 	}
 }
