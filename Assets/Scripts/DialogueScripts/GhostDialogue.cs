@@ -12,6 +12,7 @@ public class GhostDialogue : Dialogue {
 	void Start() {
 		myname = "Wallace";
 		npcname = "Ghost"; //Name of NPC (listed as a tag)
+		friendmeter = PlayerPrefs.GetInt ("GhostMeter");
 		textfile = File.ReadAllText ("Assets/Dialogue/Ghost/dayone.txt"); //main dialogue
 		//responsefile = File.ReadAllText ("Assets/Dialogue/Ghost/sunresponses.txt"); //player responses
 		textfile2 = File.ReadAllText ("Assets/Dialogue/Ghost/daytwo.txt"); //other lines of dialogue
@@ -20,7 +21,7 @@ public class GhostDialogue : Dialogue {
 		//responses = responsefile.Split('\n'); //main responses
 	}
 
-	public override void Update() {
+	void Update() {
 		if (dnc.currentTime < 0.28f || dnc.currentTime > 0.74f) {
 			this.gameObject.GetComponent<BoxCollider>().enabled = true;
 		}

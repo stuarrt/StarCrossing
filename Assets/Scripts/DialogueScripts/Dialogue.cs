@@ -16,6 +16,8 @@ public abstract class Dialogue : MonoBehaviour {
 
 	public Texture npcPic;
 
+	public Texture dialUI;
+
 	//Name of the npc
 	public GUIStyle nameStyle;
 
@@ -204,6 +206,7 @@ public abstract class Dialogue : MonoBehaviour {
 		//If the player is talking, display dialogue GUI
 		if (talking) {
 			Time.timeScale = 0;
+			GUI.Box(new Rect(10, Screen.height / 2 - 90, Screen.width + 50, Screen.height / 2 + 50), dialUI, diaStyle);
 			GUI.Box(new Rect(30, Screen.height / 2 - 50, Screen.width - 20, Screen.height / 2 - 10), npcPic, diaStyle);
 			GUI.Box(new Rect(10, Screen.height / 2, Screen.width / 4, Screen.height / 2 - 10), "", diaStyle);
 			GUI.Box(new Rect(10 + (Screen.width / 5), Screen.height / 2, Screen.width - (20 + (Screen.width / 4)), Screen.height / 2 - 10), "", diaStyle);
@@ -215,7 +218,7 @@ public abstract class Dialogue : MonoBehaviour {
 						GUI.Label(new Rect(15 + (Screen.width / 5) + textX, (Screen.height / 2) + textY, Screen.width - (20 + (Screen.width / 4)), Screen.height / 2 - 60), l[page], diaStyle);
 					if (!choose && !goodbye) {
 						//Next button
-						if (GUI.Button (new Rect (Screen.width - 130, Screen.height - 90, 55, 40), "") || Input.GetKeyDown(KeyCode.R)) {
+						if (GUI.Button (new Rect (Screen.width - 130, Screen.height - 90, 55, 40), "[R]") || Input.GetKeyDown(KeyCode.R)) {
 							page += 1;
 						}
 					}
@@ -224,7 +227,7 @@ public abstract class Dialogue : MonoBehaviour {
 					if (page == (l.Length - 1) || goodbye) {
 						GUI.Label(new Rect(15 + (Screen.width / 5) + textX, (Screen.height / 2) + textY, Screen.width - (20 + (Screen.width / 4)), Screen.height / 2 - 60), l[page], diaStyle);
 					//Goodbye button
-					if (GUI.Button (new Rect (Screen.width - 130, Screen.height - 90, 55, 40), "") || Input.GetKeyDown(KeyCode.R)) {
+					if (GUI.Button (new Rect (Screen.width - 130, Screen.height - 90, 55, 40), "[R]") || Input.GetKeyDown(KeyCode.R)) {
 						talking = false;
 						Time.timeScale = 1;
 						cantalk = true;

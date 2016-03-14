@@ -7,9 +7,9 @@ public class FireProjectile : MonoBehaviour {
 
 	private bool canFire;
 
-	private float spawnDistance = 1f;
+	private float spawnDistance = 0.25f;
 
-	private float reloadTime = 1f;
+	private float reloadTime = 0.5f;
 
 	private float reload; 
 

@@ -23,9 +23,19 @@ public class QuestList : MonoBehaviour {
 
 	private Texture questimage;
 
+	//Quest Images
 	public Texture mayorgran;
-
 	public Texture ruby;
+	public Texture burnadine;
+	public Texture drcyabine;
+	public Texture hatperson;
+	public Texture ika;
+	public Texture khet;
+	public Texture morry;
+	public Texture sally;
+	public Texture trox;
+	public Texture wallacepost;
+	public Texture fossil;
 
 	private string qinfo;
 
@@ -167,7 +177,6 @@ public class QuestList : MonoBehaviour {
 						showinfo = true;
 						questimage = ruby;
 						qinfo = "Mayor Gran wants you to speak to his daughter, Ruby, about the destruction of the town. She usually hangs out near the center of the town.";
-
 					}
 				}
 				if (!quests[1].display) {
@@ -178,6 +187,8 @@ public class QuestList : MonoBehaviour {
 					//GUI.Label (new Rect (15, (Screen.height / 4) - 10, 270, 100), quests [2].name + " - " + questCheck(quests [2].completed), qlist);
 					if (GUI.Button (new Rect (20, (Screen.height / 4) - 10, 280, 25), quests [2].name + " - " + questCheck(quests [2].completed), qlist)) {
 						showinfo = true;
+						questimage = ruby;
+						qinfo = "Ruby wants you to check on the rest of the town and talk to all everyone to make sure that they are okay.";
 					}
 				}
 				if (!quests[2].display) {
@@ -192,6 +203,8 @@ public class QuestList : MonoBehaviour {
 					//GUI.Label (new Rect (15, (Screen.height / 4) - 70, 270, 100), quests [3].name + " - " + questCheck(quests [3].completed), qlist);
 					if (GUI.Button (new Rect (20, (Screen.height / 4) - 70, 280, 25), quests [3].name + " - " + questCheck(quests [3].completed), qlist)) {
 						showinfo = true;
+						questimage = burnadine;
+						qinfo = "Burnadine usually hangs around with Morry near their mushroom houses on the east side of town.";
 					}
 				}
 				if (!quests[3].display) {
@@ -202,6 +215,8 @@ public class QuestList : MonoBehaviour {
 					//GUI.Label (new Rect (15, (Screen.height / 4) - 40, 270, 100), quests [4].name + " - " + questCheck(quests [4].completed), qlist);
 					if (GUI.Button (new Rect (20, (Screen.height / 4) - 40, 280, 25), quests [4].name + " - " + questCheck(quests [4].completed), qlist)) {
 						showinfo = true;
+						questimage = drcyabine;
+						qinfo = "Dr. Cyabine is often spotted near his observatory towards the north of the town.";
 					}
 				}
 				if (!quests[4].display) {
@@ -212,6 +227,8 @@ public class QuestList : MonoBehaviour {
 					//GUI.Label (new Rect (15, (Screen.height / 4) - 10, 270, 100), quests [5].name + " - " + questCheck(quests [5].completed), qlist);
 					if (GUI.Button (new Rect (20, (Screen.height / 4) - 10, 280, 25), quests [5].name + " - " + questCheck(quests [5].completed), qlist)) {
 						showinfo = true;
+						questimage = hatperson;
+						qinfo = "Hat Person can be spotted towards the center of town near Ruby, often trying to get people to go to his store and buy hats.";
 					}
 				}
 				if (!quests[5].display) {
@@ -226,6 +243,8 @@ public class QuestList : MonoBehaviour {
 					//GUI.Label (new Rect (15, (Screen.height / 4) - 70, 270, 100), quests [6].name + " - " + questCheck(quests [6].completed), qlist);
 					if (GUI.Button (new Rect (20, (Screen.height / 4) - 70, 280, 25), quests [6].name + " - " + questCheck(quests [6].completed), qlist)) {
 						showinfo = true;
+						questimage = ika;
+						qinfo = "Ika works at his ramen shop towards the south end of the town on the beach.";
 					}
 				}
 				if (!quests[6].display) {
@@ -236,6 +255,8 @@ public class QuestList : MonoBehaviour {
 					//GUI.Label (new Rect (15, (Screen.height / 4) - 40, 270, 100), quests [7].name + " - " + questCheck(quests [7].completed), qlist);
 					if (GUI.Button (new Rect (20, (Screen.height / 4) - 40, 280, 25), quests [7].name + " - " + questCheck(quests [7].completed), qlist)) {
 						showinfo = true;
+						questimage = khet;
+						qinfo = "Khet can be found near Ika on the beach towards the south end of the town.";
 					}
 				}
 				if (!quests[7].display) {
@@ -246,6 +267,8 @@ public class QuestList : MonoBehaviour {
 					//GUI.Label (new Rect (15, (Screen.height / 4) - 10, 270, 100), quests [8].name + " - " + questCheck(quests [8].completed), qlist);
 					if (GUI.Button (new Rect (20, (Screen.height / 4) - 10, 280, 25), quests [8].name + " - " + questCheck(quests [8].completed), qlist)) {
 						showinfo = true;
+						questimage = morry;
+						qinfo = "Morry usually hangs out in the mushroom field near Burnadine towards the east side of the town.";
 					}
 				}
 				if (!quests[8].display) {
@@ -260,6 +283,8 @@ public class QuestList : MonoBehaviour {
 					//GUI.Label (new Rect (15, (Screen.height / 4) - 70, 270, 100), quests [9].name + " - " + questCheck(quests [9].completed), qlist);
 					if (GUI.Button (new Rect (20, (Screen.height / 4) - 70, 280, 25), quests [9].name + " - " + questCheck(quests [9].completed), qlist)) {
 						showinfo = true;
+						questimage = sally;
+						qinfo = "Sally hangs around the Fish Hut towards the south end of the town near the beach.";
 					}
 				}
 				if (!quests[9].display) {
@@ -270,6 +295,8 @@ public class QuestList : MonoBehaviour {
 					//GUI.Label (new Rect (15, (Screen.height / 4) - 40, 270, 100), quests [10].name + " - " + questCheck(quests [10].completed), qlist);
 					if (GUI.Button (new Rect (20, (Screen.height / 4) - 40, 280, 25), quests [10].name + " - " + questCheck(quests [10].completed), qlist)) {
 						showinfo = true;
+						questimage = trox;
+						qinfo = "Trox is often located towards the western end of the town, usually close to the beach.";
 					}
 				}
 				if (!quests[10].display) {
@@ -280,6 +307,8 @@ public class QuestList : MonoBehaviour {
 					//GUI.Label (new Rect (15, (Screen.height / 4) - 10, 270, 100), quests [11].name + " - " + questCheck(quests [11].completed), qlist);
 					if (GUI.Button (new Rect (20, (Screen.height / 4) - 10, 280, 25), quests [11].name + " - " + questCheck(quests [11].completed), qlist)) {
 						showinfo = true;
+						questimage = wallacepost;
+						qinfo = "Trox wants you to find his missing Wallace Poster. According to him, it was blown away towards the Observatory.";
 					}
 				}
 				if (!quests[11].display) {
@@ -294,6 +323,8 @@ public class QuestList : MonoBehaviour {
 					//GUI.Label (new Rect (15, (Screen.height / 4) - 70, 270, 100), quests [12].name + " - " + questCheck(quests [12].completed), qlist);
 					if (GUI.Button (new Rect (20, (Screen.height / 4) - 70, 280, 25), quests [12].name + " - " + questCheck(quests [12].completed), qlist)) {
 						showinfo = true;
+						questimage = fossil;
+						qinfo = "Dr. Cyabin needs you to find a fossil for his research. Rumor has it that it is near the southeast end of the town.";
 					}
 				}
 				if (!quests[12].display) {

@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Projectile : MonoBehaviour {
 
-	private float force = 100f;
+	private float force = 50f;
 
 	public float life;
 
@@ -11,7 +11,7 @@ public class Projectile : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		life = 7.5f;
+		life = 3.5f;
 	}
 
 	void Update() {
