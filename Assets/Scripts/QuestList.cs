@@ -83,18 +83,19 @@ public class QuestList : MonoBehaviour {
 			if (Input.GetKeyDown(KeyCode.Alpha1)) {
 				page = 0;
 			}
-			if (Input.GetKeyDown(KeyCode.Alpha2)) {
+			if (Input.GetKeyDown(KeyCode.Alpha2) && (quests[3].display || quests[4].display || quests[5].display)) {
 				page = 1;
 			}
-			if (Input.GetKeyDown(KeyCode.Alpha3)) {
+			if (Input.GetKeyDown(KeyCode.Alpha3) && (quests[6].display || quests[7].display || quests[8].display)) {
 				page = 2;
 			}
-			if (Input.GetKeyDown(KeyCode.Alpha4)) {
+			if (Input.GetKeyDown(KeyCode.Alpha4) && (quests[9].display || quests[10].display || quests[11].display)) {
 				page = 3;
 			}
-			if (Input.GetKeyDown(KeyCode.Alpha5)) {
+			if (Input.GetKeyDown(KeyCode.Alpha5) && quests[12].display) {
 				page = 4;
 			}
+			/*
 			if (Input.GetKeyDown(KeyCode.Alpha6)) {
 				page = 5;
 			}
@@ -113,6 +114,7 @@ public class QuestList : MonoBehaviour {
 			if (Input.GetKeyDown(KeyCode.Minus)) {
 				page = 10;
 			}
+			*/
 		}
 	}
 
@@ -147,7 +149,29 @@ public class QuestList : MonoBehaviour {
 			//GUI.Box (new Rect (10, (Screen.height / 4), 200, 20), "");
 			//GUI.Box (new Rect (10, (Screen.height / 4), 200, 20), "");
 			//GUI.Box (new Rect (10, (Screen.height / 4), 200, 20), "");
+			/*
 			if (page <= 9) {
+				if (GUI.Button (new Rect(275, (Screen.height / 4) + 20, 20, 20), ">", buttonStyle)) {
+					page += 1;
+				}
+			}
+			*/
+			if (page == 0 && (quests[3].display || quests[4].display || quests[5].display)) {
+				if (GUI.Button (new Rect(275, (Screen.height / 4) + 20, 20, 20), ">", buttonStyle)) {
+					page += 1;
+				}
+			}
+			if (page == 1 && (quests[6].display || quests[7].display || quests[8].display)) {
+				if (GUI.Button (new Rect(275, (Screen.height / 4) + 20, 20, 20), ">", buttonStyle)) {
+					page += 1;
+				}
+			}
+			if (page == 2 && (quests[9].display || quests[10].display || quests[11].display)) {
+				if (GUI.Button (new Rect(275, (Screen.height / 4) + 20, 20, 20), ">", buttonStyle)) {
+					page += 1;
+				}
+			}
+			if (page == 3 && quests[12].display) {
 				if (GUI.Button (new Rect(275, (Screen.height / 4) + 20, 20, 20), ">", buttonStyle)) {
 					page += 1;
 				}
