@@ -19,7 +19,9 @@ public class NPC : MonoBehaviour
 
 	public NPCDirection? currentDirection;
 
-	public Transform destination;
+	public GameObject destinationObj;
+	public bool charDisabled;
+
 	NavMeshAgent NavAgent;
 
 	public Animator MyAnimator { get; private set; }
@@ -40,6 +42,7 @@ public class NPC : MonoBehaviour
 		Backward,
 		Stop,
 		Looking,
+		ChangeLocation,
 	}
 
 	public Transform[] World1Locations = new Transform[4];
@@ -76,9 +79,8 @@ public class NPC : MonoBehaviour
 		}
 
 		if (speed == 0) {
-			speed = 0.01f;
+			speed = 2.5f;
 		}
-		NavAgent.speed = speed;
 
 		if (AnimationSpeed == 0) {
 			AnimationSpeed = .5f;
@@ -87,13 +89,23 @@ public class NPC : MonoBehaviour
 		isMoving = true;
 		cycleTrack = Random.Range (cycleSpeed - 22, cycleSpeed + 31);
 		NavAgent.baseOffset = 3.0f;
-		NavAgent.enabled = false;
+		NavAgent.autoBraking = true;
+		NavAgent.speed = speed/5;
+
+		destinationObj = new GameObject ();
+		destinationObj.transform.position = this.transform.position;
 	}
 	
 	// Update is called once per frame
 	void FixedUpdate ()
 	{
-
+		//When the character should be off, but isn't and is currently not on screen
+		if (charDisabled && spriteRenderer.enabled && !spriteRenderer.isVisible) {
+			ToggleVisible (false);
+		//When the character should be on, but isn't and is currently not on screen
+		} else if (!charDisabled && !spriteRenderer.enabled && !spriteRenderer.isVisible) {
+			ToggleVisible (true);
+		}
 		//Case when player is within the lookAt range
 		if (Vector3.Distance (this.transform.position, player.position) < lookAtDistance) {
 			if (currentDirection != NPCDirection.Looking) {
@@ -105,44 +117,44 @@ public class NPC : MonoBehaviour
 				return;
 			}
 		}
-
-		if (destination) {
-			if (!spriteRenderer.enabled && !spriteRenderer.isVisible) {
-				ToggleVisible (true);
+		//If the character shouldn't be moving
+		if (!isMoving) {
+			cycleTrack--;
+		}
+		//If the character isn't within lookAtDistance of their NavAgent destination
+		else if (Vector3.Distance (this.transform.position, NavAgent.destination) > lookAtDistance) {
+			//If they're 'stealthy' but they're on screen
+			if (isStealthy && spriteRenderer.isVisible) {
+				MyAnimator.Play ("IdleAnim");
+				currentDirection = NPCDirection.Stop;
+				return;
 			}
-			if (NavAgent.enabled) {
-				if (Vector3.Distance (this.transform.position, destination.position) < lookAtDistance) {
-					transform.rotation = Quaternion.identity;
-					StopMoving (); 
-					NavAgent.enabled = false;
-				} else {
-					NavAgent.destination = destination.position;
-					MyAnimator.Play ("OutFocusAnim");
-					transform.rotation = Quaternion.identity;
-					return;
-				} 
-			}
+			isMoving = true;
+			MyAnimator.Play ("OutFocusAnim");
+			transform.rotation = Quaternion.identity;
+			cycleTrack--;
+		//If they ARE within lookAtDistance of their NavAgent destination
 		} else {
-			if (spriteRenderer.enabled && !spriteRenderer.isVisible) {
-				ToggleVisible (false);
+			if (isMoving) {
+				if (currentDirection == NPCDirection.ChangeLocation) {
+					currentDirection = NPCDirection.Stop;
+				}
+				StopMoving ();
 			}
-		}
-		if (isStealthy && spriteRenderer.isVisible) {
-			MyAnimator.Play ("IdleAnim");
-			currentDirection = NPCDirection.Stop;
-			return;
+			transform.rotation = Quaternion.identity;
 		}
 
-		//Other cases and stuff
-		else if (currentDirection == NPCDirection.Looking) {
+		//If they were looking at the player but are no longer
+		if (currentDirection == NPCDirection.Looking) {
 			this.transform.rotation = Quaternion.identity;
 			isMoving = true;
 			ChooseDirection (Random.Range (0, 5));
-
 			MyAnimator.Play ("OutFocusAnim");
 			ChangeAnimation ("FocusAnim", "IdleAnim");
+		//If they were moving but the cycle ended
 		} else if ((cycleTrack <= 0) && (isMoving)) {
 			StopMoving ();
+		//If they weren't moving and the cycle ended
 		} else if ((cycleTrack <= 0) && (!isMoving)) {
 			ChooseDirection (Random.Range (0, 5));
 
@@ -155,45 +167,68 @@ public class NPC : MonoBehaviour
 			MyAnimator.Play ("OutFocusAnim");
 			ChangeAnimation ("FocusAnim", "IdleAnim");
 		}
-
-		if (isMoving) {
-			switch (currentDirection) {		
-			case NPCDirection.Left:
-				transform.position = new Vector3 (transform.position.x - speed, transform.position.y, transform.position.z);
-				break;
-
-			case NPCDirection.Right:
-				transform.position = new Vector3 (transform.position.x + speed, transform.position.y, transform.position.z);
-				break;
-
-			case NPCDirection.Forward:
-				transform.position = new Vector3 (transform.position.x, transform.position.y, transform.position.z - speed);
-				break;
-
-			case NPCDirection.Backward:
-				transform.position = new Vector3 (transform.position.x, transform.position.y, transform.position.z + speed);
-				break;
-			}
-		}
-
 		cycleTrack--;
 	}
 
 	void ChooseDirection (int i)
 	{
-		currentDirection = (NPCDirection)i;
 		cycleTrack = Random.Range (cycleSpeed - 20, cycleSpeed + 27);
+
+		if (currentDirection == NPCDirection.ChangeLocation) {
+			NavAgent.Resume ();
+			return;
+		}
+		currentDirection = (NPCDirection)i;
+		SetNavAgentDestination ();
+		NavMeshHit hit;
+		if (NavAgent.Raycast (destinationObj.transform.position, out hit)) {
+			Debug.Log ("Found a hit, pointing to hit");
+			destinationObj.transform.position = hit.position;
+			NavAgent.destination = hit.position;
+		}
+
+	}
+
+	void SetNavAgentDestination ()
+	{
+		switch (currentDirection) {		
+		case NPCDirection.Left:
+			destinationObj.transform.position = new Vector3 (transform.position.x - speed, transform.position.y, transform.position.z);
+			NavAgent.destination = destinationObj.transform.position;
+			break;
+
+		case NPCDirection.Right:
+			destinationObj.transform.position = new Vector3 (transform.position.x + speed, transform.position.y, transform.position.z);
+			NavAgent.destination = destinationObj.transform.position;
+			break;
+
+		case NPCDirection.Forward:
+			destinationObj.transform.position = new Vector3 (transform.position.x, transform.position.y, transform.position.z - speed);
+			NavAgent.destination = destinationObj.transform.position;
+			break;
+
+		case NPCDirection.Backward:
+			destinationObj.transform.position = new Vector3 (transform.position.x, transform.position.y, transform.position.z + speed);
+			NavAgent.destination = destinationObj.transform.position;
+			break;
+		default:
+			break;
+		}
 	}
 
 	void StopMoving (NPCDirection newDirection = NPCDirection.Stop)
 	{
-		currentDirection = newDirection;
-
 		isMoving = false;
 		cycleTrack = Random.Range (cycleSpeed - 25, cycleSpeed + 30);
-
 		MyAnimator.Play ("IntoFocusAnim");
 		ChangeAnimation ("IntoFocusAnim", "FocusAnim");
+
+		if (currentDirection == NPCDirection.ChangeLocation) {
+			NavAgent.Stop ();
+			return;
+		}
+		currentDirection = newDirection;
+		NavAgent.destination = this.transform.position;
 	}
 
 	void LookAtPlayer ()
@@ -219,7 +254,15 @@ public class NPC : MonoBehaviour
 		}
 		// 0 == Dawn; 1 == Noon; 2 == Dusk; 3 == Midnight
 		NavAgent.enabled = true;
-		destination = currentLocations [t];
+		if (currentLocations [t] == null) {
+			charDisabled = true;
+		} else {
+			charDisabled = false;
+			destinationObj.transform.position = currentLocations [t].position;
+			NavAgent.destination = destinationObj.transform.position;
+			currentDirection = NPCDirection.ChangeLocation;
+			isMoving = true;
+		}
 	}
 
 	//Sets the locations for the NPC to visit for the current day.
@@ -242,7 +285,6 @@ public class NPC : MonoBehaviour
 
 	void ToggleVisible (bool t)
 	{
-		MyCollider.enabled = t;
 		spriteRenderer.enabled = t;
 
 		if (dialogueScript) {
