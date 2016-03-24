@@ -6,7 +6,7 @@ public class PlayerController : MonoBehaviour {
 	public static Transform MyTransform { get; private set; }
 	public static Animator MyAnimator { get; private set; }
 
-	public RuntimeAnimatorController ForwardWalkAnim, BackWalkAnim, IdleAnim;
+	public RuntimeAnimatorController PlayerAnimController, ShovelAnimController, GrappleAnimController, BootsAnimController, HammerAnimController;
 
 	protected Rigidbody charRigidbody;
 
@@ -146,10 +146,10 @@ public class PlayerController : MonoBehaviour {
 			if (!back && forward){
 				//Sounds backwards but it makes sense
 				//If you're moving forward (away from the camera) the character is facing backwards
-				MyAnimator.runtimeAnimatorController = BackWalkAnim;
+				MyAnimator.Play("BackWalk");
 			}
 			else {
-				MyAnimator.runtimeAnimatorController = ForwardWalkAnim;
+				MyAnimator.Play("ForwardWalk");
 			}
 
 			//Determine whether sprite should be flipped
@@ -171,7 +171,7 @@ public class PlayerController : MonoBehaviour {
 			}
 		}
 		else {
-			MyAnimator.runtimeAnimatorController = IdleAnim;
+			MyAnimator.Play("ForwardIdle");
 		}
 
 		newTransform.Normalize();

@@ -182,7 +182,6 @@ public class NPC : MonoBehaviour
 		SetNavAgentDestination ();
 		NavMeshHit hit;
 		if (NavAgent.Raycast (destinationObj.transform.position, out hit)) {
-			Debug.Log ("Found a hit, pointing to hit");
 			destinationObj.transform.position = hit.position;
 			NavAgent.destination = hit.position;
 		}
