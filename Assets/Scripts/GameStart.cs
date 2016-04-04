@@ -62,7 +62,7 @@ public class GameStart : MonoBehaviour {
 		}
 		if (GUI.Button (new Rect ((Screen.width / 2) - 75, (Screen.height / 2) - 125, 150, 50), "Play")) {
 			loading = true;
-			Application.LoadLevel ("testScene");
+			Application.LoadLevel ("testScene - Backup");
 		}
 		if (GUI.Button (new Rect ((Screen.width / 2) - 75, (Screen.height / 2) + 55, 150, 50), "Quit")) {
 			Application.Quit ();

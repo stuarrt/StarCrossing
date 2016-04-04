@@ -20,7 +20,15 @@ public class SceneChange : MonoBehaviour {
 		}
 		if (c.gameObject.tag == "StoreMat") {
 			PlayerPrefs.SetString ("LastScene", "Store");
-			Application.LoadLevel ("testScene");
+			Application.LoadLevel ("testScene - Backup");
+		}
+		if (c.gameObject.tag == "CaveDoor") {
+			//PlayerPrefs.SetString ("LastScene", "Observatory");
+			Application.LoadLevel ("cave");
+		}
+		if (c.gameObject.tag == "CaveMat") {
+			PlayerPrefs.SetString ("LastScene", "Cave");
+			Application.LoadLevel ("testScene - Backup");
 		}
 		if (c.gameObject.tag == "ObserveDoor") {
 			//PlayerPrefs.SetString ("LastScene", "Observatory");
@@ -36,7 +44,7 @@ public class SceneChange : MonoBehaviour {
 		}
 		if (c.gameObject.tag == "ObserveMat") {
 			PlayerPrefs.SetString ("LastScene", "Observatory");
-			Application.LoadLevel ("testScene");
+			Application.LoadLevel ("testScene - Backup");
 		}
 	}
 }

@@ -14,6 +14,9 @@ public class MovePlayer : MonoBehaviour {
 		if (PlayerPrefs.GetString ("LastScene") == "Observatory2") {
 			gameObject.transform.position = new Vector3 (20.2f, 2.85f, -13.24f);
 		}
+		if (PlayerPrefs.GetString ("LastScene") == "Cave") {
+			gameObject.transform.position = new Vector3 (-36.4f, 1.372f, -8.374f);
+		}
 	}
 	
 	// Update is called once per frame
