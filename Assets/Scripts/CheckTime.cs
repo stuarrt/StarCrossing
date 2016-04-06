@@ -103,7 +103,7 @@ public class CheckTime : MonoBehaviour {
 	}
 
 	void CallChangeDay(){
-		DayNightCycle.Instance.SendMessage ("ChangeNPCDay", totalDays, SendMessageOptions.RequireReceiver);
+	//	DayNightCycle.Instance.SendMessage ("ChangeNPCDay", totalDays, SendMessageOptions.RequireReceiver);
 	}
 
 	void OnGUI() {

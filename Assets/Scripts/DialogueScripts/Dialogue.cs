@@ -160,7 +160,7 @@ public abstract class Dialogue : MonoBehaviour {
 		if (page == p) {
 			choose = true;
 			if (c > 0) {
-				if (GUI.Button(new Rect(x, y, 300, 50), r[i])) {
+				if (GUI.Button(new Rect(x, y, 300, 50), r[i] + " [1]") || Input.GetKeyDown(KeyCode.Alpha1)) {
 					selection[0] = r[i];
 					page += 1;
 					choose = false;
@@ -168,7 +168,7 @@ public abstract class Dialogue : MonoBehaviour {
 				}
 			}
 			if (c > 1) {
-				if (GUI.Button(new Rect(x, y + 75, 300, 50), r[i+1])) {
+				if (GUI.Button(new Rect(x, y + 75, 300, 50), r[i+1] + " [2]") || Input.GetKeyDown(KeyCode.Alpha2)) {
 					selection[0] = r[i+1];
 					page += 2;
 					choose = false;

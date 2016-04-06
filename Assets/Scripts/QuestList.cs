@@ -50,8 +50,8 @@ public class QuestList : MonoBehaviour {
 		page = 0;
 		showinfo = false;
 		qinfo = "";
-		quests.Add(new Quest("Talk to Mayor Gran", true, false)); //0
-		quests.Add(new Quest("Talk to Ruby", false, false)); //1
+		quests.Add(new Quest("Talk to Mayor Gran", questDC ("Quest0Displayed"), questDC ("Quest0Completed"))); //0
+		quests.Add(new Quest("Talk to Ruby", questDC ("Quest1Displayed"), questDC ("Quest1Completed"))); //1
 		quests.Add(new Quest("Check on the Town", false, false)); //2
 		quests.Add(new Quest("Talk to Burnadine", false, false)); //3
 		quests.Add(new Quest("Talk to Dr. Cyabin", false, false)); //4
@@ -125,6 +125,10 @@ public class QuestList : MonoBehaviour {
 		} else {
 			return "In Progress";
 		}
+	}
+
+	bool questDC(string quest) {
+		return (PlayerPrefs.GetInt (quest) == 1);
 	}
 
 	void OnGUI() {
