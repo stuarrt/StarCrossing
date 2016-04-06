@@ -62,7 +62,7 @@ public class QuestList : MonoBehaviour {
 		quests.Add(new Quest("Talk to Sally", false, false)); //9
 		quests.Add(new Quest("Talk to Trox", false, false)); //10
 		quests.Add(new Quest("Find Wallace Poster", false, false)); //11
-		quests.Add(new Quest("Find Missing Fossil", false, false)); //12
+		quests.Add(new Quest("Find a Coconut", false, false)); //12
 	}
 
 	// Update is called once per frame
@@ -70,7 +70,8 @@ public class QuestList : MonoBehaviour {
 		//These are the quest conditions
 		//If a quest is completed, this updates to let the game know
 		//That the player has completed the quest
-		if (quests[12].display && Inventory.Instance.CurrentInventory [Inventory.InventoryObjects.Fossil]) {
+		if (quests[12].display && (Inventory.Instance.CurrentInventory [Inventory.InventoryObjects.Coconut01]) || 
+			Inventory.Instance.CurrentInventory [Inventory.InventoryObjects.Coconut02]){
 			quests[12].completed = true;
 		}
 		if (quests[11].display && Inventory.Instance.CurrentInventory [Inventory.InventoryObjects.Shovel]) {
