@@ -51,14 +51,18 @@ public class PlayerController : MonoBehaviour {
 
 		left = right = forward = back = false;
 
-		if (Time.timeScale != 0) {
+		//if (Time.timeScale != 0) {
 			if (Input.GetKeyDown (KeyCode.Escape)) {
 				pause = !pause;
-			}
+		//	}
 		}
 		if (pause) {
 			Time.timeScale = 0;
 		}
+		if (!pause) {
+			Time.timeScale = 1;
+		}
+		/*
 		if (Inventory.Instance.CurrentInventory [Inventory.InventoryObjects.Shovel]) {
 			if (Input.GetKeyDown(KeyCode.R) && !digging) {
 				digging = true;
@@ -71,6 +75,7 @@ public class PlayerController : MonoBehaviour {
 			digging = false;
 			digtime = 0;
 		}
+		*/
 		if (Time.timeScale > 0) {
 			if ((Input.GetKey (KeyCode.A) || Input.GetKey (KeyCode.LeftArrow)) && !digging) {
 				left = true;
@@ -121,7 +126,36 @@ public class PlayerController : MonoBehaviour {
 					pause = false;
 				}
 				if (GUI.Button (new Rect ((Screen.width / 2) - 75, (Screen.height / 2) - 35, 150, 50), "Restart")) {
-					Application.LoadLevel (Application.loadedLevelName);
+					//Application.LoadLevel (Application.loadedLevelName);
+					PlayerPrefs.SetInt ("Quest0Displayed", 1);
+					PlayerPrefs.SetInt ("Quest1Displayed", 0);
+					PlayerPrefs.SetInt ("Quest2Displayed", 0);
+					PlayerPrefs.SetInt ("Quest3Displayed", 0);
+					PlayerPrefs.SetInt ("Quest4Displayed", 0);
+					PlayerPrefs.SetInt ("Quest5Displayed", 0);
+					PlayerPrefs.SetInt ("Quest6Displayed", 0);
+					PlayerPrefs.SetInt ("Quest7Displayed", 0);
+					PlayerPrefs.SetInt ("Quest8Displayed", 0);
+					PlayerPrefs.SetInt ("Quest9Displayed", 0);
+					PlayerPrefs.SetInt ("Quest10Displayed", 0);
+					PlayerPrefs.SetInt ("Quest11Displayed", 0);
+					PlayerPrefs.SetInt ("Quest12Displayed", 0);
+					PlayerPrefs.SetInt ("Quest0Completed", 0);
+					PlayerPrefs.SetInt ("Quest1Completed", 0);
+					PlayerPrefs.SetInt ("Quest2Completed", 0);
+					PlayerPrefs.SetInt ("Quest3Completed", 0);
+					PlayerPrefs.SetInt ("Quest4Completed", 0);
+					PlayerPrefs.SetInt ("Quest5Completed", 0);
+					PlayerPrefs.SetInt ("Quest6Completed", 0);
+					PlayerPrefs.SetInt ("Quest7Completed", 0);
+					PlayerPrefs.SetInt ("Quest8Completed", 0);
+					PlayerPrefs.SetInt ("Quest9Completed", 0);
+					PlayerPrefs.SetInt ("Quest10Completed", 0);
+					PlayerPrefs.SetInt ("Quest11Completed", 0);
+					PlayerPrefs.SetInt ("Quest12Completed", 0);
+					PlayerPrefs.SetInt ("HasShovel", 0);
+					PlayerPrefs.SetString ("LastScene", "Main");
+					Application.LoadLevel ("testScene - Backup");
 				}
 				if (GUI.Button (new Rect ((Screen.width / 2) - 75, (Screen.height / 2) + 55, 150, 50), "Quit")) {
 					Application.Quit ();
@@ -181,6 +215,7 @@ public class PlayerController : MonoBehaviour {
 	void Jump(){
 		if (jumping){
 			if (transform.position.y >= maxJumpHeight){
+				/*
 				//If the Current Inventory contains the Rocket Boots
 				if (Inventory.Instance.CurrentInventory[Inventory.InventoryObjects.RocketBoots]){
 					//TODO: Put the animation for rocket boots trigger here
@@ -192,9 +227,10 @@ public class PlayerController : MonoBehaviour {
 					charRigidbody.velocity = new Vector3(charRigidbody.velocity.x, 0, charRigidbody.velocity.z);
 				}
 				else {
+				*/
 					jumping = false;
 					charRigidbody.velocity = new Vector3(charRigidbody.velocity.x, -3, charRigidbody.velocity.z );
-				}
+				//}
 			}
 			else {
 				//Set the y velocity to 0 to stop gravity from messing with the jumping 
