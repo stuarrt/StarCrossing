@@ -74,7 +74,6 @@ public class CheckTime : MonoBehaviour {
 		if (totalHours >= 24) {
 			totalDays += 1;
 			totalHours -= 24;
-			CallChangeDay ();
 		}
 		days = PlayerPrefs.GetString ("TimeDiffDays");
 		hours = PlayerPrefs.GetString ("TimeDiffHours");
@@ -103,7 +102,7 @@ public class CheckTime : MonoBehaviour {
 	}
 
 	void CallChangeDay(){
-	//	DayNightCycle.Instance.SendMessage ("ChangeNPCDay", totalDays, SendMessageOptions.RequireReceiver);
+		DayNightCycle.Instance.SendMessage ("ChangeNPCDay", totalDays, SendMessageOptions.RequireReceiver);
 	}
 
 	void OnGUI() {

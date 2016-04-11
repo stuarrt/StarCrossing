@@ -267,8 +267,6 @@ public class NPC : MonoBehaviour
 	//Sets the locations for the NPC to visit for the current day.
 	void changeDay (float totalDays)
 	{
-		//int totalDays = CheckTime.Instance.totalDays;
-
 		if (totalDays < 10) { //First World State
 			currentLocations = World1Locations;
 		} else if (totalDays >= 10 && totalDays < 16) { //Second World State
