@@ -155,8 +155,8 @@ public abstract class Dialogue : MonoBehaviour {
 
 	//Allows player to make choices based off listed options
 	public void choiceBox (int i, int p, int c, string[] r) {
-		float x = Screen.width - 750;
-		float y = Screen.height - 250;
+		float x = Screen.width - (Screen.width * (750f / 1366f));
+		float y = Screen.height - (Screen.height * (250f / 728f));
 		if (page == p) {
 			choose = true;
 			if (c > 0) {
@@ -206,28 +206,30 @@ public abstract class Dialogue : MonoBehaviour {
 		//If the player is talking, display dialogue GUI
 		if (talking) {
 			Time.timeScale = 0;
-			GUI.Box(new Rect(10, Screen.height / 2 - 90, Screen.width + 50, Screen.height / 2 + 50), dialUI, diaStyle);
-			GUI.Box(new Rect(30, Screen.height / 2 - 50, Screen.width - 20, Screen.height / 2 - 10), npcPic, diaStyle);
-			GUI.Box(new Rect(10, Screen.height / 2, Screen.width / 4, Screen.height / 2 - 10), "", diaStyle);
-			GUI.Box(new Rect(10 + (Screen.width / 5), Screen.height / 2, Screen.width - (20 + (Screen.width / 4)), Screen.height / 2 - 10), "", diaStyle);
+			//GUI.Box(new Rect(Screen.width * (10f / 1366f), Screen.height / 2 - 90, Screen.width + 50, Screen.height / 2 + 50), dialUI, diaStyle);
+			//GUI.Box(new Rect(Screen.width * (30f / 1366f), Screen.height / 2 - (Screen.height * (50f / 728f)), Screen.width - (Screen.width * (20f / 1366f)), Screen.height / 2 - (Screen.height * (10f / 728f))), npcPic, diaStyle);
+			GUI.DrawTexture(new Rect(Screen.width * (5f / 1366f), Screen.height / 2 - (Screen.height * (90f / 728f)), Screen.width - (Screen.width * (10f / 1366f)), Screen.height / 2 + (Screen.height * (50f / 728f))), dialUI);
+			GUI.DrawTexture(new Rect(Screen.width * (30f / 1366f), Screen.height / 2 - (Screen.height * (50f / 728f)), Screen.width / 5 - (Screen.width * (20f / 1366f)), Screen.height / 2 - (Screen.height * (10f / 728f))), npcPic);
+			GUI.Box(new Rect(Screen.width * (10f / 1366f), Screen.height / 2, Screen.width / 4, Screen.height / 2 - 10), "", diaStyle);
+			GUI.Box(new Rect((Screen.width * (10f / 1366f)) + (Screen.width / 5), Screen.height / 2, Screen.width - (20 + (Screen.width / 4)), Screen.height / 2 - 10), "", diaStyle);
 			if (gameObject.tag == npcname) {
 				print ("Talking to " + npcname);
-				GUI.Label (new Rect(65, (Screen.height / 2) - 75, 300, 40), myname, nameStyle);
+				GUI.Label (new Rect(Screen.width * (65f / 1366f), (Screen.height / 2) - (Screen.height * (75f / 728f)), Screen.width * (300f / 1366f), Screen.height * (40f / 728f)), myname, nameStyle);
 					//Goes to the next page of dialogue
-					if (page < (l.Length - 1)) {
-						GUI.Label(new Rect(15 + (Screen.width / 5) + textX, (Screen.height / 2) + textY, Screen.width - (20 + (Screen.width / 4)), Screen.height / 2 - 60), l[page], diaStyle);
+					if (page < (l.Length - 1) && !goodbye) {
+						GUI.Label(new Rect((Screen.width * (35f / 1366f)) + (Screen.width / 5) + textX, (Screen.height / 2) + textY, Screen.width - (20 + (Screen.width / 4)), Screen.height / 2 - 60), l[page], diaStyle);
 					if (!choose && !goodbye) {
 						//Next button
-						if (GUI.Button (new Rect (Screen.width - 130, Screen.height - 90, 55, 40), "[R]") || Input.GetKeyDown(KeyCode.R)) {
+						if (GUI.Button (new Rect (Screen.width - (Screen.width * (130f / 1366f)), Screen.height - 90, 55, 40), "[R]") || Input.GetKeyDown(KeyCode.R)) {
 							page += 1;
 						}
 					}
 				}
 					//If on the last page, close dialogue when clicking goodbye
 					if (page == (l.Length - 1) || goodbye) {
-						GUI.Label(new Rect(15 + (Screen.width / 5) + textX, (Screen.height / 2) + textY, Screen.width - (20 + (Screen.width / 4)), Screen.height / 2 - 60), l[page], diaStyle);
+						GUI.Label(new Rect((Screen.width * (35f / 1366f)) + (Screen.width / 5) + textX, (Screen.height / 2) + textY, Screen.width - (20 + (Screen.width / 4)), Screen.height / 2 - 60), l[page], diaStyle);
 					//Goodbye button
-					if (GUI.Button (new Rect (Screen.width - 130, Screen.height - 90, 55, 40), "[R]") || Input.GetKeyDown(KeyCode.R)) {
+					if (GUI.Button (new Rect (Screen.width - (Screen.width * (130f / 1366f)), Screen.height - 90, 55, 40), "[R]") || Input.GetKeyDown(KeyCode.R)) {
 						talking = false;
 						Time.timeScale = 1;
 						cantalk = true;
@@ -248,10 +250,10 @@ public abstract class Dialogue : MonoBehaviour {
 	public virtual void OnGUI() {
 		//If the player is talking, display the conversation
 		if (cantalk) {
-			GUI.Box (new Rect ((Screen.width / 2) - 65, (Screen.height / 2) - 50, 100, 30), "");
-			GUI.Box (new Rect ((Screen.width / 2) - 65, (Screen.height / 2) - 50, 100, 30), "");
-			GUI.Box (new Rect ((Screen.width / 2) - 65, (Screen.height / 2) - 50, 100, 30), "");
-			GUI.Label (new Rect ((Screen.width / 2) - 50, (Screen.height / 2) - 50, 200, 50), "Talk [E]");
+			GUI.Box (new Rect ((Screen.width / 2) - (Screen.width * (65f / 1366f)), (Screen.height / 2) - 50, 100, 30), "");
+			GUI.Box (new Rect ((Screen.width / 2) - (Screen.width * (65f / 1366f)), (Screen.height / 2) - 50, 100, 30), "");
+			GUI.Box (new Rect ((Screen.width / 2) - (Screen.width * (65f / 1366f)), (Screen.height / 2) - 50, 100, 30), "");
+			GUI.Label (new Rect ((Screen.width / 2) - (Screen.width * (50f / 1366f)), (Screen.height / 2) - 50, 200, 50), "Talk [E]");
 			if (Input.GetKeyDown(KeyCode.E)) {
 				talking = true;
 				cantalk = false;
