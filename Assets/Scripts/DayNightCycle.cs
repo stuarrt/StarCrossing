@@ -124,7 +124,7 @@ public class DayNightCycle : MonoBehaviour {
 		audio.Play ();
 		while (i < 11) {
 			audio.volume = i * .1f;
-			yield return new WaitForSeconds (.5f);
+			yield return new WaitForSeconds (.5f);		
 			i++;
 		}
 	}

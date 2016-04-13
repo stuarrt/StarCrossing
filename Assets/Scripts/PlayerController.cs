@@ -5,6 +5,7 @@ public class PlayerController : MonoBehaviour {
 
 	public static Transform MyTransform { get; private set; }
 	public static Animator MyAnimator { get; private set; }
+	public static PlayerController Instance { get; private set; }
 
 	public RuntimeAnimatorController PlayerAnimController, ShovelAnimController, GrappleAnimController, BootsAnimController, HammerAnimController;
 
@@ -48,6 +49,7 @@ public class PlayerController : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
+		Instance = this;
 
 		left = right = forward = back = false;
 
@@ -62,20 +64,24 @@ public class PlayerController : MonoBehaviour {
 		if (!pause) {
 			Time.timeScale = 1;
 		}
-		/*
+
 		if (Inventory.Instance.CurrentInventory [Inventory.InventoryObjects.Shovel]) {
 			if (Input.GetKeyDown(KeyCode.R) && !digging) {
+				MyAnimator.runtimeAnimatorController = ShovelAnimController;
+				MyAnimator.SetBool ("Digging", true);
 				digging = true;
 			}
-		}
-		if (digging) {
-			digtime += Time.deltaTime;
 		}
 		if (digtime > 2) {
 			digging = false;
 			digtime = 0;
+			MyAnimator.SetBool ("Digging", false);
 		}
-		*/
+		if (digging) {
+			digtime += Time.deltaTime;
+			return;
+		}
+
 		if (Time.timeScale > 0) {
 			if ((Input.GetKey (KeyCode.A) || Input.GetKey (KeyCode.LeftArrow)) && !digging) {
 				left = true;
