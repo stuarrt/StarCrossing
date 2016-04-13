@@ -68,7 +68,7 @@ public class Inventory : MonoBehaviour {
 	{
 		{ InventoryObjects.GrappleGun, false },
 		{ InventoryObjects.Hammer, false },
-		{ InventoryObjects.Shovel, true },
+		{ InventoryObjects.Shovel, false },
 		{ InventoryObjects.RocketBoots, false },
 		{ InventoryObjects.Coconut01, false },
 		{ InventoryObjects.Coconut02, false },
