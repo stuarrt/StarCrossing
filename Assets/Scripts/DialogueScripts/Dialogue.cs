@@ -213,7 +213,7 @@ public abstract class Dialogue : MonoBehaviour {
 			GUI.Box(new Rect(Screen.width * (10f / 1366f), Screen.height / 2, Screen.width / 4, Screen.height / 2 - 10), "", diaStyle);
 			GUI.Box(new Rect((Screen.width * (10f / 1366f)) + (Screen.width / 5), Screen.height / 2, Screen.width - (20 + (Screen.width / 4)), Screen.height / 2 - 10), "", diaStyle);
 			if (gameObject.tag == npcname) {
-				print ("Talking to " + npcname);
+			//	print ("Talking to " + npcname);
 				GUI.Label (new Rect(Screen.width * (65f / 1366f), (Screen.height / 2) - (Screen.height * (75f / 728f)), Screen.width * (300f / 1366f), Screen.height * (40f / 728f)), myname, nameStyle);
 					//Goes to the next page of dialogue
 					if (page < (l.Length - 1) && !goodbye) {
