@@ -18,9 +18,5 @@ public class MovePlayer : MonoBehaviour {
 			gameObject.transform.position = new Vector3 (-36.4f, 1.372f, -8.374f);
 		}
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+
 }

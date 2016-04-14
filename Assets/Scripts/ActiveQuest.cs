@@ -16,11 +16,11 @@ public class ActiveQuest : MonoBehaviour {
 	void Update () {
 		int doOnceA = 0;
 		int doOnceB = 0;
-		if (QuestList.quests [11].display && doOnceA == 0) {
+		if (QuestList.quests [12].display && doOnceA == 0) {
 			doOnceA = 1;
 			wallacepost.SetActive(true);
 		}
-		if (QuestList.quests [12].display && doOnceB == 0) {
+		if (QuestList.quests [13].display && doOnceB == 0) {
 			doOnceB = 1;
 			fossil.SetActive(true);
 		}

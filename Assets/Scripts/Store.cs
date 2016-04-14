@@ -62,7 +62,7 @@ public class Store : MonoBehaviour {
 		if (page == p) {
 			choose = true;
 			if (c > 0) {
-				if (GUI.Button(new Rect(x, y, 300, 50), "Shop")) {
+				if (GUI.Button(new Rect(x, y, 300, 50), "Shop - [1]") || Input.GetKeyDown(KeyCode.Alpha0)) {
 					//selection[0] = r[i];
 					page += 1;
 					choose = false;
@@ -70,7 +70,7 @@ public class Store : MonoBehaviour {
 				}
 			}
 			if (c > 1) {
-				if (GUI.Button(new Rect(x, y + 75, 300, 50), "Leave")) {
+				if (GUI.Button(new Rect(x, y + 75, 300, 50), "Leave - [2]") || Input.GetKeyDown(KeyCode.Alpha2)) {
 					//selection[0] = r[i+1];
 					page += 2;
 					choose = false;
@@ -99,7 +99,6 @@ public class Store : MonoBehaviour {
 				talking = true;
 				cantalk = false;
 				Debug.Log ("Activating Dialog Handler");
-				//DialogHandler.Instance.ToggleUI(true);
 			}
 		}
 		//If the player is talking, display dialogue GUI
@@ -131,9 +130,7 @@ public class Store : MonoBehaviour {
 						Time.timeScale = 1;
 						cantalk = true;
 						page = 0;
-						//dialoguecount += 1;
 						goodbye = false;
-						//DialogHandler.Instance.ToggleUI(false);
 					}
 				}
 			}

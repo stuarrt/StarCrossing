@@ -21,7 +21,7 @@ public class GameStart : MonoBehaviour {
 		PlayerPrefs.SetInt ("TroxMeter", 0);
 		//Quest Displayed
 		PlayerPrefs.SetInt ("Quest0Displayed", 1);
-		PlayerPrefs.SetInt ("Quest1Displayed", 0);
+		PlayerPrefs.SetInt ("Quest1Displayed", 1);
 		PlayerPrefs.SetInt ("Quest2Displayed", 0);
 		PlayerPrefs.SetInt ("Quest3Displayed", 0);
 		PlayerPrefs.SetInt ("Quest4Displayed", 0);
@@ -33,6 +33,7 @@ public class GameStart : MonoBehaviour {
 		PlayerPrefs.SetInt ("Quest10Displayed", 0);
 		PlayerPrefs.SetInt ("Quest11Displayed", 0);
 		PlayerPrefs.SetInt ("Quest12Displayed", 0);
+		PlayerPrefs.SetInt ("Quest13Displayed", 0);
 		//Quest Completed
 		PlayerPrefs.SetInt ("Quest0Completed", 0);
 		PlayerPrefs.SetInt ("Quest1Completed", 0);
@@ -47,6 +48,7 @@ public class GameStart : MonoBehaviour {
 		PlayerPrefs.SetInt ("Quest10Completed", 0);
 		PlayerPrefs.SetInt ("Quest11Completed", 0);
 		PlayerPrefs.SetInt ("Quest12Completed", 0);
+		PlayerPrefs.SetInt ("Quest13Completed", 0);
 		//Inventory
 		PlayerPrefs.SetInt ("HasShovel", 0);
 		//Track Scene
