@@ -49,7 +49,7 @@ public class HatPersonDialogue : Dialogue {
 		responsefile4 = File.ReadAllText ("Assets/Dialogue/Hatguy/suitQuestIntroResponses.txt"); //player responses
 		textfile7 = File.ReadAllText ("Assets/Dialogue/Hatguy/suitQuestDuring.txt"); //main dialogue
 		responsefile5 = File.ReadAllText ("Assets/Dialogue/Hatguy/suitQuestDuringResponses.txt"); //player responses
-		textfile8 = File.ReadAllText ("Assets/Dialogue/Hatguy/suitpQuestCompleted.txt"); //main dialogue
+		textfile8 = File.ReadAllText ("Assets/Dialogue/Hatguy/suitQuestCompleted.txt"); //main dialogue
 		textfile9 = File.ReadAllText ("Assets/Dialogue/Hatguy/suitQuestFailed.txt"); //player responses
 		lines = textfile.Split('\n'); //main parser
 		scrapintronpc = textfile2.Split('\n'); //second parser

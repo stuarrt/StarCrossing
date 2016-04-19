@@ -99,12 +99,17 @@ public class PlayerController : MonoBehaviour {
 			//Currently player can hold down and will fly (as if having a jet pack
 			if (Input.GetKeyDown (KeyCode.Space) && !digging) {
 				if (!jumping && (charRigidbody.velocity.y > -3)) {
+					if (Inventory.Instance.CurrentInventory [Inventory.InventoryObjects.RocketBoots]) {
+						MyAnimator.runtimeAnimatorController = BootsAnimController;
+						MyAnimator.SetBool ("jump", true);
+					}
 					maxJumpHeight = transform.position.y + jumpHeight;
 					jumping = true;
 				}
 			} else if (Input.GetKeyUp (KeyCode.Space) && !digging) {
 				charRigidbody.velocity = new Vector3(charRigidbody.velocity.x, -3, charRigidbody.velocity.z );
 				jumping = false;
+				MyAnimator.SetBool ("jump", false);
 			}
 			if (Input.GetKeyDown (KeyCode.I)) {
 				Debug.Log("Inventory Button Pressed");
@@ -182,16 +187,6 @@ public class PlayerController : MonoBehaviour {
 
 		if (left || right || forward || back){
 
-			//Determine forward or backwards animation
-			if (!back && forward){
-				//Sounds backwards but it makes sense
-				//If you're moving forward (away from the camera) the character is facing backwards
-				MyAnimator.Play("BackWalk");
-			}
-			else {
-				MyAnimator.Play("ForwardWalk");
-			}
-
 			//Determine whether sprite should be flipped
 			if (forward){
 				if (left && !right && transform.localScale.x > 0){
@@ -209,34 +204,48 @@ public class PlayerController : MonoBehaviour {
 					transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
 				}
 			}
+
+			newTransform.Normalize();
+			transform.position = transform.position + (newTransform * speed);
+
+			if (jumping && Inventory.Instance.CurrentInventory [Inventory.InventoryObjects.RocketBoots]) {
+				return;
+			}
+			//Determine forward or backwards animation
+			if (!back && forward){
+				//Sounds backwards but it makes sense
+				//If you're moving forward (away from the camera) the character is facing backwards
+				MyAnimator.Play("BackWalk");
+			}
+			else {
+				MyAnimator.Play("ForwardWalk");
+			}
 		}
 		else {
 			MyAnimator.Play("ForwardIdle");
 		}
-
-		newTransform.Normalize();
-		transform.position = transform.position + (newTransform * speed);
 	}
 
 	void Jump(){
 		if (jumping){
 			if (transform.position.y >= maxJumpHeight){
-				/*
+				
 				//If the Current Inventory contains the Rocket Boots
 				if (Inventory.Instance.CurrentInventory[Inventory.InventoryObjects.RocketBoots]){
-					//TODO: Put the animation for rocket boots trigger here
 					rocketTimer++;
 					if (rocketTimer >= rocketLimit) {
 						jumping = false;
 						rocketTimer = 0;
+						MyAnimator.SetBool ("jump", false);
 					}
 					charRigidbody.velocity = new Vector3(charRigidbody.velocity.x, 0, charRigidbody.velocity.z);
 				}
 				else {
-				*/
+
 					jumping = false;
+					MyAnimator.SetBool ("jump", false);
 					charRigidbody.velocity = new Vector3(charRigidbody.velocity.x, -3, charRigidbody.velocity.z );
-				//}
+				}
 			}
 			else {
 				//Set the y velocity to 0 to stop gravity from messing with the jumping 

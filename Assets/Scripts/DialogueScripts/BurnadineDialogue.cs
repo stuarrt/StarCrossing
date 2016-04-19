@@ -49,7 +49,7 @@ public class BurnadineDialogue : Dialogue {
 		responsefile4 = File.ReadAllText ("Assets/Dialogue/Burnadine/plantSporesQuestIntroResponses.txt"); //player responses
 		textfile7 = File.ReadAllText ("Assets/Dialogue/Burnadine/plantSporesQuestDuring.txt"); //main dialogue
 		responsefile5 = File.ReadAllText ("Assets/Dialogue/Burnadine/plantSporesQuestDuringResponses.txt"); //player responses
-		textfile8 = File.ReadAllText ("Assets/Dialogue/Burnadine/plantSporespQuestCompleted.txt"); //main dialogue
+		textfile8 = File.ReadAllText ("Assets/Dialogue/Burnadine/plantSporesQuestCompleted.txt"); //main dialogue
 		textfile9 = File.ReadAllText ("Assets/Dialogue/Burnadine/plantSporesQuestFailed.txt"); //player responses
 		lines = textfile.Split('\n'); //main parser
 		scrapintronpc = textfile2.Split('\n'); //second parser

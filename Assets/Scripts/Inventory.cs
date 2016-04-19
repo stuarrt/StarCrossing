@@ -15,6 +15,7 @@ public class Inventory : MonoBehaviour {
 		Shovel,
 		RocketBoots, //No icon exists in UI for space reasons
 
+		Bug01,
 		Coconut01,
 		Coconut02,
 		Pot01,
@@ -112,6 +113,7 @@ public class Inventory : MonoBehaviour {
 		{ InventoryObjects.ScrapSmall02, false },
 		{ InventoryObjects.ScrapSmall03, false },
 		{ InventoryObjects.ScrapSmall04, false },
+		{ InventoryObjects.Bug01, true},
 	};
 
 	// Use this for initialization
