@@ -9,6 +9,12 @@ public class Store : MonoBehaviour {
 	public Texture npcPic;
 	
 	public Texture dialUI;
+
+	public Texture shopWindow;
+
+	public GUIStyle shopItems;
+
+	public Texture emptyItem;
 	
 	//Name of the npc
 	public GUIStyle nameStyle;
@@ -30,11 +36,14 @@ public class Store : MonoBehaviour {
 	
 	protected string myname;
 
+	protected int money;
+
 	protected int page;
 
 	// Use this for initialization
 	void Start () {
 		myname = "Shop Owner";
+		money = PlayerPrefs.GetInt ("Money");
 	}
 	
 	// Update is called once per frame
@@ -62,11 +71,11 @@ public class Store : MonoBehaviour {
 		if (page == p) {
 			choose = true;
 			if (c > 0) {
-				if (GUI.Button(new Rect(x, y, 300, 50), "Shop - [1]") || Input.GetKeyDown(KeyCode.Alpha0)) {
+				if (GUI.Button(new Rect(x, y, 300, 50), "Shop - [1]") || Input.GetKeyDown(KeyCode.Alpha1)) {
 					//selection[0] = r[i];
 					page += 1;
 					choose = false;
-					goodbye = true;
+					//goodbye = true;
 				}
 			}
 			if (c > 1) {
@@ -88,6 +97,60 @@ public class Store : MonoBehaviour {
 		}
 	}
 
+	void shop() {
+		GUI.DrawTexture(new Rect(Screen.width * (400f / 1366f), Screen.height / 6 - (Screen.height * (90f / 728f)), Screen.width - (Screen.width * (450f / 1366f)), Screen.height / 3 + (Screen.height * (50f / 728f))), shopWindow);
+		//Top Row
+		if (GUI.Button (new Rect (Screen.width - (Screen.width * (940f / 1366f)), Screen.height / 6 - (Screen.height * (70f / 728f)), Screen.width * (100f / 1366f), Screen.height * (115f / 728f)), emptyItem, shopItems)) {
+
+		}
+		if (GUI.Button (new Rect (Screen.width - (Screen.width * (830f / 1366f)), Screen.height / 6 - (Screen.height * (70f / 728f)), Screen.width * (100f / 1366f), Screen.height * (115f / 728f)), emptyItem, shopItems)) {
+			
+		}
+		if (GUI.Button (new Rect (Screen.width - (Screen.width * (720f / 1366f)), Screen.height / 6 - (Screen.height * (70f / 728f)), Screen.width * (100f / 1366f), Screen.height * (115f / 728f)), emptyItem, shopItems)) {
+			
+		}
+		if (GUI.Button (new Rect (Screen.width - (Screen.width * (610f / 1366f)), Screen.height / 6 - (Screen.height * (70f / 728f)), Screen.width * (100f / 1366f), Screen.height * (115f / 728f)), emptyItem, shopItems)) {
+			
+		}
+		if (GUI.Button (new Rect (Screen.width - (Screen.width * (500f / 1366f)), Screen.height / 6 - (Screen.height * (70f / 728f)), Screen.width * (100f / 1366f), Screen.height * (115f / 728f)), emptyItem, shopItems)) {
+			
+		}
+		if (GUI.Button (new Rect (Screen.width - (Screen.width * (390f / 1366f)), Screen.height / 6 - (Screen.height * (70f / 728f)), Screen.width * (100f / 1366f), Screen.height * (115f / 728f)), emptyItem, shopItems)) {
+			
+		}
+		if (GUI.Button (new Rect (Screen.width - (Screen.width * (280f / 1366f)), Screen.height / 6 - (Screen.height * (70f / 728f)), Screen.width * (100f / 1366f), Screen.height * (115f / 728f)), emptyItem, shopItems)) {
+			
+		}
+		if (GUI.Button (new Rect (Screen.width - (Screen.width * (170f / 1366f)), Screen.height / 6 - (Screen.height * (70f / 728f)), Screen.width * (100f / 1366f), Screen.height * (115f / 728f)), emptyItem, shopItems)) {
+			
+		}
+		//Bottom Row
+		if (GUI.Button (new Rect (Screen.width - (Screen.width * (940f / 1366f)), Screen.height / 6 + (Screen.height * (55f / 728f)), Screen.width * (100f / 1366f), Screen.height * (115f / 728f)), emptyItem, shopItems)) {
+			
+		}
+		if (GUI.Button (new Rect (Screen.width - (Screen.width * (830f / 1366f)), Screen.height / 6 + (Screen.height * (55f / 728f)), Screen.width * (100f / 1366f), Screen.height * (115f / 728f)), emptyItem, shopItems)) {
+			
+		}
+		if (GUI.Button (new Rect (Screen.width - (Screen.width * (720f / 1366f)), Screen.height / 6 + (Screen.height * (55f / 728f)), Screen.width * (100f / 1366f), Screen.height * (115f / 728f)), emptyItem, shopItems)) {
+			
+		}
+		if (GUI.Button (new Rect (Screen.width - (Screen.width * (610f / 1366f)), Screen.height / 6 + (Screen.height * (55f / 728f)), Screen.width * (100f / 1366f), Screen.height * (115f / 728f)), emptyItem, shopItems)) {
+			
+		}
+		if (GUI.Button (new Rect (Screen.width - (Screen.width * (500f / 1366f)), Screen.height / 6 + (Screen.height * (55f / 728f)), Screen.width * (100f / 1366f), Screen.height * (115f / 728f)), emptyItem, shopItems)) {
+			
+		}
+		if (GUI.Button (new Rect (Screen.width - (Screen.width * (390f / 1366f)), Screen.height / 6 + (Screen.height * (55f / 728f)), Screen.width * (100f / 1366f), Screen.height * (115f / 728f)), emptyItem, shopItems)) {
+			
+		}
+		if (GUI.Button (new Rect (Screen.width - (Screen.width * (280f / 1366f)), Screen.height / 6 + (Screen.height * (55f / 728f)), Screen.width * (100f / 1366f), Screen.height * (115f / 728f)), emptyItem, shopItems)) {
+			
+		}
+		if (GUI.Button (new Rect (Screen.width - (Screen.width * (170f / 1366f)), Screen.height / 6 + (Screen.height * (55f / 728f)), Screen.width * (100f / 1366f), Screen.height * (115f / 728f)), emptyItem, shopItems)) {
+			
+		}
+	}
+
 	void OnGUI() {
 		//If the player is talking, display the conversation
 		if (cantalk) {
@@ -104,28 +167,39 @@ public class Store : MonoBehaviour {
 		//If the player is talking, display dialogue GUI
 		if (talking) {
 			Time.timeScale = 0;
-			GUI.Box(new Rect(10, Screen.height / 2 - 90, Screen.width + 50, Screen.height / 2 + 50), dialUI, diaStyle);
-			GUI.Box(new Rect(30, Screen.height / 2 - 50, Screen.width - 20, Screen.height / 2 - 10), npcPic, diaStyle);
-			GUI.Box(new Rect(10, Screen.height / 2, Screen.width / 4, Screen.height / 2 - 10), "", diaStyle);
-			GUI.Box(new Rect(10 + (Screen.width / 5), Screen.height / 2, Screen.width - (20 + (Screen.width / 4)), Screen.height / 2 - 10), "", diaStyle);
+			GUI.DrawTexture(new Rect(Screen.width * (5f / 1366f), Screen.height / 2 - (Screen.height * (90f / 728f)), Screen.width - (Screen.width * (10f / 1366f)), Screen.height / 2 + (Screen.height * (50f / 728f))), dialUI);
+			GUI.DrawTexture(new Rect(Screen.width * (30f / 1366f), Screen.height / 2 - (Screen.height * (50f / 728f)), Screen.width / 5 - (Screen.width * (20f / 1366f)), Screen.height / 2 - (Screen.height * (10f / 728f))), npcPic);
+			GUI.Box(new Rect(Screen.width * (10f / 1366f), Screen.height / 2, Screen.width / 4, Screen.height / 2 - 10), "", diaStyle);
+			GUI.Box(new Rect((Screen.width * (10f / 1366f)) + (Screen.width / 5), Screen.height / 2, Screen.width - (20 + (Screen.width / 4)), Screen.height / 2 - 10), "", diaStyle);
 			if (true) {
-				GUI.Label (new Rect(65, (Screen.height / 2) - 75, 300, 40), "Shop Owner", nameStyle);
+				GUI.Label (new Rect(Screen.width * (65f / 1366f), (Screen.height / 2) - (Screen.height * (75f / 728f)), Screen.width * (300f / 1366f), Screen.height * (40f / 728f)), "Shop Owner", nameStyle);
 				//Goes to the next page of dialogue
 				if (page < 2) {
-					GUI.Label(new Rect(15 + (Screen.width / 5), (Screen.height / 2), Screen.width - (20 + (Screen.width / 4)), Screen.height / 2 - 60), "How can I help you?", diaStyle);
+					GUI.Label(new Rect((Screen.width * (15f / 1366f)) + (Screen.width / 5), (Screen.height / 2), Screen.width - (20 + (Screen.width / 4)), Screen.height / 2 - 60), "How can I help you?", diaStyle);
 					choiceBox (0, 1, 2);
 					if (!choose && !goodbye) {
 						//Next button
-						if (GUI.Button (new Rect (Screen.width - 130, Screen.height - 90, 55, 40), "[R]") || Input.GetKeyDown(KeyCode.R)) {
+						if (GUI.Button (new Rect (Screen.width - (Screen.width * (130f / 1366f)), Screen.height - 90, 55, 40), "[R]") || Input.GetKeyDown(KeyCode.R)) {
+							page += 1;
+						}
+					}
+				}
+				if (page == 2) {
+					shop ();
+					GUI.Label(new Rect((Screen.width * (15f / 1366f)) + (Screen.width / 5), (Screen.height / 2), Screen.width - (20 + (Screen.width / 4)), Screen.height / 2 - 60), "What would you like?", diaStyle);
+					choiceBox (0, 1, 2);
+					if (!choose && !goodbye) {
+						//Next button
+						if (GUI.Button (new Rect (Screen.width / 2, Screen.height - 200, 200, 80), "Leave - [R]") || Input.GetKeyDown(KeyCode.R)) {
 							page += 1;
 						}
 					}
 				}
 				//If on the last page, close dialogue when clicking goodbye
-				if (page == 2 || goodbye) {
-					GUI.Label(new Rect(15 + (Screen.width / 5), (Screen.height / 2), Screen.width - (20 + (Screen.width / 4)), Screen.height / 2 - 60), "Bye", diaStyle);
+				if (page == 3 || goodbye) {
+					GUI.Label(new Rect((Screen.width * (15f / 1366f)) + (Screen.width / 5), (Screen.height / 2), Screen.width - (20 + (Screen.width / 4)), Screen.height / 2 - 60), "Bye", diaStyle);
 					//Goodbye button
-					if (GUI.Button (new Rect (Screen.width - 130, Screen.height - 90, 55, 40), "[R]") || Input.GetKeyDown(KeyCode.R)) {
+					if (GUI.Button (new Rect (Screen.width - (Screen.width * (130f / 1366f)), Screen.height - 90, 55, 40), "[R]") || Input.GetKeyDown(KeyCode.R)) {
 						talking = false;
 						Time.timeScale = 1;
 						cantalk = true;

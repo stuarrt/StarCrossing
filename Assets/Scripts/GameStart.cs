@@ -49,10 +49,43 @@ public class GameStart : MonoBehaviour {
 		PlayerPrefs.SetInt ("Quest11Completed", 0);
 		PlayerPrefs.SetInt ("Quest12Completed", 0);
 		PlayerPrefs.SetInt ("Quest13Completed", 0);
+		//Quest Failed
+		PlayerPrefs.SetInt ("Quest0Failed", 0);
+		PlayerPrefs.SetInt ("Quest1Failed", 0);
+		PlayerPrefs.SetInt ("Quest2Failed", 0);
+		PlayerPrefs.SetInt ("Quest3Failed", 0);
+		PlayerPrefs.SetInt ("Quest4Failed", 0);
+		PlayerPrefs.SetInt ("Quest5Failed", 0);
+		PlayerPrefs.SetInt ("Quest6Failed", 0);
+		PlayerPrefs.SetInt ("Quest7Failed", 0);
+		PlayerPrefs.SetInt ("Quest8Failed", 0);
+		PlayerPrefs.SetInt ("Quest9Failed", 0);
+		PlayerPrefs.SetInt ("Quest10Failed", 0);
+		PlayerPrefs.SetInt ("Quest11Failed", 0);
+		PlayerPrefs.SetInt ("Quest12Failed", 0);
+		PlayerPrefs.SetInt ("Quest13Failed", 0);
+		//Fire Life
+		PlayerPrefs.SetInt ("Fire0", 3);
+		PlayerPrefs.SetInt ("Fire1", 3);
+		PlayerPrefs.SetInt ("Fire2", 3);
+		PlayerPrefs.SetInt ("Fire3", 3);
+		PlayerPrefs.SetInt ("Fire4", 3);
+		PlayerPrefs.SetInt ("Fire5", 3);
+		PlayerPrefs.SetInt ("Fire6", 3);
+		PlayerPrefs.SetInt ("Fire7", 3);
+		PlayerPrefs.SetInt ("Fire8", 3);
+		PlayerPrefs.SetInt ("Fire9", 3);
+		PlayerPrefs.SetInt ("Fire10", 3);
+		PlayerPrefs.SetInt ("Fire11", 3);
+		PlayerPrefs.SetInt ("Fire12", 3);
+		PlayerPrefs.SetInt ("Fire13", 3);
 		//Inventory
 		PlayerPrefs.SetInt ("HasShovel", 0);
+		//Player Money
+		PlayerPrefs.SetInt ("Money", 0);
 		//Track Scene
 		PlayerPrefs.SetString ("LastScene", "Main");
+		PlayerPrefs.SetString ("CurrentScene", "Main");
 	}
 
 	void OnGUI() {

@@ -64,6 +64,7 @@
      <Compile Include="Assets\Scripts\DialogueScripts\SallyDialogue.cs" />
      <Compile Include="Assets\Scripts\DialogueScripts\TroxDialogue.cs" />
      <Compile Include="Assets\Scripts\DigMarker.cs" />
+     <Compile Include="Assets\Scripts\DontDestroyPlz.cs" />
      <Compile Include="Assets\Scripts\Doorway.cs" />
      <Compile Include="Assets\Scripts\FishingArea.cs" />
      <Compile Include="Assets\Scripts\GameStart.cs" />
