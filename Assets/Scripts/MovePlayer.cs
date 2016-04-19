@@ -21,10 +21,12 @@ public class MovePlayer : MonoBehaviour {
 			gameObject.transform.position = new Vector3 (16.32f, 4.22f, -15.51f);
 		}
 		if (PlayerPrefs.GetString ("LastScene") == "Cave") {
-			gameObject.transform.position = new Vector3 (-36.4f, 1.372f, -8.374f);
+			//gameObject.transform.position = new Vector3 (-36.4f, 1.372f, -8.374f);
+			gameObject.transform.position = new Vector3 (21.68f, 1.372f, -34.88f);
 		}
 		if (PlayerPrefs.GetString ("LastScene") == "Jungle") {
-			gameObject.transform.position = new Vector3 (21.68f, 1.372f, -34.88f);
+			//gameObject.transform.position = new Vector3 (21.68f, 1.372f, -34.88f);
+			gameObject.transform.position = new Vector3 (-36.4f, 1.372f, -8.374f);
 		}
 	}
 
