@@ -65,6 +65,7 @@
      <Compile Include="Assets\Scripts\DialogueScripts\TroxDialogue.cs" />
      <Compile Include="Assets\Scripts\DigMarker.cs" />
      <Compile Include="Assets\Scripts\Doorway.cs" />
+     <Compile Include="Assets\Scripts\FishingArea.cs" />
      <Compile Include="Assets\Scripts\GameStart.cs" />
      <Compile Include="Assets\Scripts\Inventory.cs" />
      <Compile Include="Assets\Scripts\InventoryBox.cs" />
@@ -78,6 +79,19 @@
      <Compile Include="Assets\Scripts\OtherDialogue.cs" />
      <Compile Include="Assets\Scripts\PlayerController.cs" />
      <Compile Include="Assets\Scripts\Projectile\FireProjectile.cs" />
+     <Compile Include="Assets\Scripts\Projectile\HT1.cs" />
+     <Compile Include="Assets\Scripts\Projectile\HT10.cs" />
+     <Compile Include="Assets\Scripts\Projectile\HT11.cs" />
+     <Compile Include="Assets\Scripts\Projectile\HT12.cs" />
+     <Compile Include="Assets\Scripts\Projectile\HT13.cs" />
+     <Compile Include="Assets\Scripts\Projectile\HT2.cs" />
+     <Compile Include="Assets\Scripts\Projectile\HT3.cs" />
+     <Compile Include="Assets\Scripts\Projectile\HT4.cs" />
+     <Compile Include="Assets\Scripts\Projectile\HT5.cs" />
+     <Compile Include="Assets\Scripts\Projectile\HT6.cs" />
+     <Compile Include="Assets\Scripts\Projectile\HT7.cs" />
+     <Compile Include="Assets\Scripts\Projectile\HT8.cs" />
+     <Compile Include="Assets\Scripts\Projectile\HT9.cs" />
      <Compile Include="Assets\Scripts\Projectile\HitTarget.cs" />
      <Compile Include="Assets\Scripts\Projectile\PlayerController2.cs" />
      <Compile Include="Assets\Scripts\Projectile\Projectile.cs" />

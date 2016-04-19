@@ -51,6 +51,7 @@ public class DigMarker : MonoBehaviour {
 			if (Input.GetKeyDown(KeyCode.R)) {
 				candig = false;
 				digging = true;
+				player.SendMessage ("UseItem", Inventory.InventoryObjects.Shovel, SendMessageOptions.RequireReceiver);
 			}
 		}
 	}

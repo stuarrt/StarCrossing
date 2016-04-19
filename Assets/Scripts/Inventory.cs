@@ -10,6 +10,7 @@ public class Inventory : MonoBehaviour {
 	//ALL INVENTORY TYPES SHOULD BE ADDED TO DICTIONARY BELOW
 	public enum InventoryObjects
 	{
+		FishingRod,
 		GrappleGun,
 		Hammer, 
 		Shovel,
@@ -67,6 +68,7 @@ public class Inventory : MonoBehaviour {
 	//SHOULD CONTAIN A KEY FOR EACH INVENTORY OBJECT ENUMERATION
 	public Dictionary<InventoryObjects, bool> CurrentInventory = new Dictionary<InventoryObjects, bool>()
 	{
+		{ InventoryObjects.FishingRod, true},
 		{ InventoryObjects.GrappleGun, false },
 		{ InventoryObjects.Hammer, false },
 		{ InventoryObjects.Shovel, false },
@@ -113,7 +115,7 @@ public class Inventory : MonoBehaviour {
 		{ InventoryObjects.ScrapSmall02, false },
 		{ InventoryObjects.ScrapSmall03, false },
 		{ InventoryObjects.ScrapSmall04, false },
-		{ InventoryObjects.Bug01, true},
+		{ InventoryObjects.Bug01, false},
 	};
 
 	// Use this for initialization

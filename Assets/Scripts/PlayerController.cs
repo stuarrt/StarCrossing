@@ -7,8 +7,12 @@ public class PlayerController : MonoBehaviour {
 	public static Animator MyAnimator { get; private set; }
 	public static PlayerController Instance { get; private set; }
 
-	public RuntimeAnimatorController PlayerAnimController, ShovelAnimController, GrappleAnimController, BootsAnimController, HammerAnimController;
-
+	public RuntimeAnimatorController 	PlayerAnimController, 
+										ShovelAnimController, 
+										GrappleAnimController, 
+										BootsAnimController, 
+										HammerAnimController, 
+										FishingAnimController;
 	protected Rigidbody charRigidbody;
 
 	public float speed;
@@ -21,8 +25,9 @@ public class PlayerController : MonoBehaviour {
 	private bool pause;
 
 	private bool digging;
+	private bool fishing;
 	
-	private float digtime;
+	private float itemtime;
 
 	private bool left, right, forward, back;
 
@@ -64,21 +69,20 @@ public class PlayerController : MonoBehaviour {
 		if (!pause) {
 			Time.timeScale = 1;
 		}
-
-		if (Inventory.Instance.CurrentInventory [Inventory.InventoryObjects.Shovel]) {
-			if (Input.GetKeyDown(KeyCode.R) && !digging) {
-				MyAnimator.runtimeAnimatorController = ShovelAnimController;
-				MyAnimator.SetBool ("Digging", true);
-				digging = true;
+			
+		if (itemtime > 2) {
+			itemtime = 0;
+			if (digging) {
+				digging = false;
+				MyAnimator.SetBool ("Digging", false);
+			} 
+			if (fishing) {
+				fishing = false;
+				MyAnimator.SetBool ("Fishing", false);
 			}
 		}
-		if (digtime > 2) {
-			digging = false;
-			digtime = 0;
-			MyAnimator.SetBool ("Digging", false);
-		}
-		if (digging) {
-			digtime += Time.deltaTime;
+		if (digging || fishing) {
+			itemtime += Time.deltaTime;
 			return;
 		}
 
@@ -252,6 +256,19 @@ public class PlayerController : MonoBehaviour {
 				charRigidbody.velocity = new Vector3(charRigidbody.velocity.x, 0, charRigidbody.velocity.z);
 				transform.position = new Vector3 (transform.position.x, transform.position.y + 0.08f, transform.position.z);
 			}
+		}
+	}
+
+	void UseItem (Inventory.InventoryObjects item){
+		if (item == Inventory.InventoryObjects.FishingRod && Inventory.Instance.CurrentInventory [Inventory.InventoryObjects.FishingRod]) {
+			MyAnimator.runtimeAnimatorController = FishingAnimController;
+			MyAnimator.SetBool ("Fishing", true);
+			fishing = true;
+		}
+		if (item == Inventory.InventoryObjects.Shovel && Inventory.Instance.CurrentInventory [Inventory.InventoryObjects.Shovel]) {
+				MyAnimator.runtimeAnimatorController = ShovelAnimController;
+				MyAnimator.SetBool ("Digging", true);
+				digging = true;
 		}
 	}
 

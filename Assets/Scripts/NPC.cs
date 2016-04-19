@@ -31,6 +31,7 @@ public class NPC : MonoBehaviour
 	SpriteRenderer spriteRenderer;
 	Collider MyCollider;
 	Dialogue dialogueScript;
+	SpriteRenderer[] allNPCSprites;
 
 	public float AnimationSpeed;
 
@@ -65,6 +66,7 @@ public class NPC : MonoBehaviour
 		NavAgent.stoppingDistance = lookAtDistance;
 
 		dialogueScript = GetComponentInChildren< Dialogue > ();
+		allNPCSprites = GetComponentsInChildren < SpriteRenderer > ();
 
 		if (MyAnimator.runtimeAnimatorController == null) {
 			MyAnimator.runtimeAnimatorController = controller;
@@ -88,7 +90,6 @@ public class NPC : MonoBehaviour
 
 		isMoving = true;
 		cycleTrack = Random.Range (cycleSpeed - 22, cycleSpeed + 31);
-		NavAgent.baseOffset = 3.0f;
 		NavAgent.autoBraking = true;
 		NavAgent.speed = speed/5;
 
@@ -111,6 +112,8 @@ public class NPC : MonoBehaviour
 			if (currentDirection != NPCDirection.Looking) {
 				LookAtPlayer ();
 				StopMoving (NPCDirection.Looking);
+				currentDirection = NPCDirection.Looking;
+				NavAgent.enabled = false;
 				return;
 			} else {
 				this.transform.LookAt (camera);
@@ -146,6 +149,7 @@ public class NPC : MonoBehaviour
 
 		//If they were looking at the player but are no longer
 		if (currentDirection == NPCDirection.Looking) {
+			NavAgent.enabled = true;
 			this.transform.rotation = Quaternion.identity;
 			isMoving = true;
 			ChooseDirection (Random.Range (0, 5));
@@ -282,7 +286,9 @@ public class NPC : MonoBehaviour
 
 	void ToggleVisible (bool t)
 	{
-		spriteRenderer.enabled = t;
+		foreach (SpriteRenderer r in allNPCSprites) {
+			r.enabled = t;
+		}
 
 		if (dialogueScript) {
 			dialogueScript.enabled = t;
