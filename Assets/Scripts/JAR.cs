@@ -14,11 +14,19 @@ public class JAR : MonoBehaviour {
 		canbug = false;
 		acceptableItems = new List<Inventory.InventoryObjects> ();
 		acceptableItems.Add (Inventory.InventoryObjects.Bug01);
+		acceptableItems.Add (Inventory.InventoryObjects.Bug02);
+		acceptableItems.Add (Inventory.InventoryObjects.Bug03);
+		acceptableItems.Add (Inventory.InventoryObjects.Bug04);
+		acceptableItems.Add (Inventory.InventoryObjects.Bug05);
+		acceptableItems.Add (Inventory.InventoryObjects.Bug06);
+
 	}
 	
 	// Update is called once per frame
 	void Update () {
-	
+		if (wallace.charDisabled == true) {
+			jarfull = false;
+		}
 	}
 
 	void OnTriggerEnter(Collider npc) {
@@ -49,6 +57,7 @@ public class JAR : MonoBehaviour {
 				canbug = false;
 				jarfull = true;
 				wallace.charDisabled = false;
+				wallace.ToggleVisible (true);
 			}
 		}
 	}

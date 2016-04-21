@@ -284,7 +284,7 @@ public class NPC : MonoBehaviour
 		}
 	}
 
-	void ToggleVisible (bool t)
+	public void ToggleVisible (bool t)
 	{
 		foreach (SpriteRenderer r in allNPCSprites) {
 			r.enabled = t;

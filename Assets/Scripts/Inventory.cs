@@ -83,12 +83,12 @@ public class Inventory : MonoBehaviour {
 	//SHOULD CONTAIN A KEY FOR EACH INVENTORY OBJECT ENUMERATION
 	public Dictionary<InventoryObjects, bool> CurrentInventory = new Dictionary<InventoryObjects, bool>()
 	{
-		{ InventoryObjects.FishingRod, false},
+		{ InventoryObjects.FishingRod, true},
 		{ InventoryObjects.GrappleGun, false },
 		{ InventoryObjects.Hammer, false },
-		{ InventoryObjects.Net, false },
-		{ InventoryObjects.Shovel, false },
-		{ InventoryObjects.RocketBoots, false },
+		{ InventoryObjects.Net, true },
+		{ InventoryObjects.Shovel, true },
+		{ InventoryObjects.RocketBoots, true },
 		{ InventoryObjects.Bug01, false},
 		{ InventoryObjects.Bug02, false},
 		{ InventoryObjects.Bug03, false},
