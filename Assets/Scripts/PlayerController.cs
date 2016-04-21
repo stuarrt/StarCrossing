@@ -12,7 +12,9 @@ public class PlayerController : MonoBehaviour {
 										GrappleAnimController, 
 										BootsAnimController, 
 										HammerAnimController, 
-										FishingAnimController;
+										FishingAnimController,
+										NetAnimController;
+
 	protected Rigidbody charRigidbody;
 
 	public float speed;
@@ -26,6 +28,7 @@ public class PlayerController : MonoBehaviour {
 
 	private bool digging;
 	private bool fishing;
+	private bool catching;
 	
 	private float itemtime;
 
@@ -80,8 +83,12 @@ public class PlayerController : MonoBehaviour {
 				fishing = false;
 				MyAnimator.SetBool ("Fishing", false);
 			}
+			if (catching) {
+				catching = false;
+				MyAnimator.SetBool ("Catching", false);
+			}
 		}
-		if (digging || fishing) {
+		if (digging || fishing || catching) {
 			itemtime += Time.deltaTime;
 			return;
 		}
@@ -101,7 +108,7 @@ public class PlayerController : MonoBehaviour {
 			}
 			//Jumping mechanic
 			//Currently player can hold down and will fly (as if having a jet pack
-			if (Input.GetKeyDown (KeyCode.Space) && !digging) {
+			if (Input.GetKeyDown (KeyCode.Space) && !(digging || catching || fishing)) {
 				if (!jumping && (charRigidbody.velocity.y > -3)) {
 					if (Inventory.Instance.CurrentInventory [Inventory.InventoryObjects.RocketBoots]) {
 						MyAnimator.runtimeAnimatorController = BootsAnimController;
@@ -110,7 +117,7 @@ public class PlayerController : MonoBehaviour {
 					maxJumpHeight = transform.position.y + jumpHeight;
 					jumping = true;
 				}
-			} else if (Input.GetKeyUp (KeyCode.Space) && !digging) {
+			} else if (Input.GetKeyUp (KeyCode.Space) && !(digging || catching || fishing)) {
 				charRigidbody.velocity = new Vector3(charRigidbody.velocity.x, -3, charRigidbody.velocity.z );
 				jumping = false;
 				MyAnimator.SetBool ("jump", false);
@@ -269,6 +276,11 @@ public class PlayerController : MonoBehaviour {
 				MyAnimator.runtimeAnimatorController = ShovelAnimController;
 				MyAnimator.SetBool ("Digging", true);
 				digging = true;
+		}
+		if (item == Inventory.InventoryObjects.Net && Inventory.Instance.CurrentInventory [Inventory.InventoryObjects.Net]) {
+			MyAnimator.runtimeAnimatorController = NetAnimController;
+			MyAnimator.SetBool ("Catching", true);
+			catching = true;
 		}
 	}
 

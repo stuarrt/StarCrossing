@@ -3,7 +3,7 @@ using System.Collections;
 
 public class DigMarker : MonoBehaviour {
 
-	PlayerController player;
+	Transform player;
 	public GameObject diggableItem;
 	public bool candig;
 	public bool digging;
@@ -11,7 +11,7 @@ public class DigMarker : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		player = PlayerController.Instance;
+		player = PlayerController.MyTransform;
 		candig = false;
 		diggableItem.SetActive(false);
 		digtime = 0f;

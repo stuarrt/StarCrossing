@@ -3,7 +3,7 @@ using System.Collections;
 
 public class BugMarker : MonoBehaviour {
 
-	PlayerController player;
+	Transform player;
 	public GameObject bugItem;
 	public bool cancatch;
 	public bool catching;
@@ -11,7 +11,7 @@ public class BugMarker : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		player = PlayerController.Instance;
+		player = PlayerController.MyTransform;
 		cancatch = false;
 		bugItem.SetActive(false);
 		catchtime = 0f;
@@ -30,7 +30,7 @@ public class BugMarker : MonoBehaviour {
 	}
 
 	void OnTriggerEnter(Collider npc) {
-		if (npc.gameObject.tag == "Player" && !catching && Inventory.Instance.CurrentInventory [Inventory.InventoryObjects.Shovel]) {
+		if (npc.gameObject.tag == "Player" && !catching && Inventory.Instance.CurrentInventory [Inventory.InventoryObjects.Net]) {
 			cancatch = true;
 		}
 	}
@@ -51,6 +51,8 @@ public class BugMarker : MonoBehaviour {
 			if (Input.GetKeyDown(KeyCode.R)) {
 				cancatch = false;
 				catching = true;
+				player.SendMessage ("UseItem", Inventory.InventoryObjects.Net, SendMessageOptions.RequireReceiver);
+
 			}
 		}
 	}
