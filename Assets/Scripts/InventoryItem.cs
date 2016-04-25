@@ -14,6 +14,7 @@ public class InventoryItem : MonoBehaviour {
 
 	public Transform MyTransform { get; private set; }
 	public Collider MyCollider { get; private set; }
+	public Bounds MyBounds { get; private set; }
 
 	public int noticeDistance;
 
@@ -28,6 +29,7 @@ public class InventoryItem : MonoBehaviour {
 
 		MyTransform = transform;
 		MyCollider = GetComponent<Collider>();
+		MyBounds = MyCollider.bounds;
 
 		canPickUp = false;
 
@@ -60,7 +62,7 @@ public class InventoryItem : MonoBehaviour {
 	}
 
 	void OnEnable(){
-		if (Vector3.Distance (PlayerController.MyTransform.position, MyTransform.position) < noticeDistance) {
+		if (MyBounds.Contains(PlayerController.MyTransform.position)) {
 			canPickUp = true;
 		} else {
 			canPickUp = false;
