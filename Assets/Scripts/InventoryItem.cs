@@ -29,6 +29,8 @@ public class InventoryItem : MonoBehaviour {
 		MyTransform = transform;
 		MyCollider = GetComponent<Collider>();
 
+		canPickUp = false;
+
 		if (noticeDistance == 0){
 			noticeDistance = 10;
 		}
@@ -36,6 +38,7 @@ public class InventoryItem : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
 		//Check if player is close
 		if (Vector3.Distance(PlayerController.MyTransform.position, MyTransform.position) < noticeDistance){
 			//TODO Something
@@ -56,6 +59,13 @@ public class InventoryItem : MonoBehaviour {
 	
 	}
 
+	void OnEnable(){
+		if (Vector3.Distance (PlayerController.MyTransform.position, MyTransform.position) < noticeDistance) {
+			canPickUp = true;
+		} else {
+			canPickUp = false;
+		}
+	}
 	//Used for determining if the player is in range for talking to the NPC
 	void OnTriggerEnter(Collider npc) {
 		if (npc.gameObject.tag == "Player") {
